@@ -18,83 +18,110 @@ const specialTypesIDS = {
 
 class ItemsService {
 
+    async getItemsTest() {
+        try {
+            const items = await models[ITEMS_TABLE].findAll({
+                where: {
+
+                    parent_id: null,
+                    type_id: 3
+                },
+                order: [['order', 'ASC']],  // Ordena los elementos raíz
+                logging: console.log,
+                include: [
+                    {
+                        model: models[ITEMS_TABLE],
+                        as: 'subitems',
+                        required: false,
+                        where: {  type_id: 2 },
+                        order: [['order', 'ASC']],  // 🔹 Ordenar subitems correctamente
+                        separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
+                        include: [
+                            {
+                                model: models[ITEMS_TABLE],
+                                as: 'subitems',
+                                required: false,
+                                where: {  type_id: 1 },
+                                order: [['order', 'ASC']],  // 🔹 Ordenar sub-subitems correctamente
+                                separate: true,
+                                include: [
+                                    {
+                                        model: models[ITEMS_TABLE],
+                                        as: 'subitems',
+                                        required: false,
+                                        where: {  type_id: 1, special_type_id: 1 },
+                                        order: [['order', 'ASC']],  // 🔹 Ordenar sub-sub-subitems correctamente
+                                        separate: true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            });
+
+
+
+          return (items);
+        } catch (error) {
+          throw (boom.internal('Internal error', error));
+        }
+}
+
     async getItems(userId) {
             try {
                 const items = await models[ITEMS_TABLE].findAll({
                     where: {
                         user_id: userId,
                         parent_id: null,
-                        type_id: itemTypesIDS.folder
+                        type_id: 3
                     },
+                    order: [['order', 'ASC']],  // Ordena los elementos raíz
+                    logging: console.log,
                     include: [
-                        {
-                            model: models[ITEM_TYPES_TABLE],
-                            attributes: ['name'],
-                            as: 'type'
-                        },
                         {
                             model: models[ITEMS_TABLE],
                             as: 'subitems',
-                            order: [['order', 'ASC']],
-                            where: {
-                                user_id: userId,
-                                type_id: itemTypesIDS.section
-                            },
                             required: false,
+                            where: { user_id: userId, type_id: 2 },
+                            order: [['order', 'ASC']],  // 🔹 Ordenar subitems correctamente
+                            separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
                             include: [
-                                {
-                                    model: models[ITEM_TYPES_TABLE],
-                                    attributes: ['name'],
-                                    as: 'type'
-                                },
                                 {
                                     model: models[ITEMS_TABLE],
                                     as: 'subitems',
-                                    order: [['order', 'ASC']],
-                                    where: {
-                                        user_id: userId,
-                                        type_id: itemTypesIDS.todo
-                                    },
                                     required: false,
+                                    where: { user_id: userId, type_id: 1 },
+                                    order: [['order', 'ASC']],  // 🔹 Ordenar sub-subitems correctamente
+                                    separate: true,
                                     include: [
-                                        {
-                                            model: models[ITEM_TYPES_TABLE],
-                                            attributes: ['name'],
-                                            as: 'type'
-                                        },
                                         {
                                             model: models[ITEMS_TABLE],
                                             as: 'subitems',
-                                            order: [['order', 'ASC']],
-                                            where: {
-                                                user_id: userId,
-                                                type_id: itemTypesIDS.todo,
-                                                special_type_id: specialTypesIDS.subTodo
-                                            },
-                                            required: false
+                                            required: false,
+                                            where: { user_id: userId, type_id: 1, special_type_id: 1 },
+                                            order: [['order', 'ASC']],  // 🔹 Ordenar sub-sub-subitems correctamente
+                                            separate: true
                                         }
                                     ]
                                 }
                             ]
                         }
-                    ],
-                    order: [['order', 'ASC']],
-                    logging: true
+                    ]
                 });
 
 
-              return items;
+
+              return (items);
             } catch (error) {
               throw (boom.internal('Internal error', error));
             }
-
-        return
     }
 
     async createTodo(body, userId) {
 
         const {parent_id} = body
-        const TodoOrSectionOfTheTodo = await models[ITEMS_TABLE].findOne({
+        const TodoOrSectionParentOfTheTodo = await models[ITEMS_TABLE].findOne({
             where:{
                 id: parent_id,
                 user_id: userId,
@@ -105,7 +132,7 @@ class ItemsService {
             }
         })
 
-        if(!TodoOrSectionOfTheTodo){
+        if(!TodoOrSectionParentOfTheTodo){
             throw new Error(boom.badData('The defined item for this to-do does not exist'));
         }
 
@@ -115,7 +142,7 @@ class ItemsService {
             ...body,
             user_id: userId,
             type_id: itemTypesIDS.todo,
-            parent_id: TodoOrSectionOfTheTodo.dataValues.id,
+            parent_id: TodoOrSectionParentOfTheTodo.dataValues.id,
             order: actLastOrder
         })
 
@@ -363,12 +390,12 @@ class ItemsService {
     async upward (source, target, parentId) {
         const data = await sequelize.query(`
             UPDATE items
-            SET order = CASE
-                WHEN order BETWEEN :source + 1 AND :target THEN order - 1
-                WHEN order = :source THEN :target
-                ELSE order
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                WHEN \`order\` = :source THEN :target
+                ELSE \`order\`
             END
-            WHERE order BETWEEN :source AND :target
+            WHERE \`order\` BETWEEN :source AND :target
                 AND parent_id = :parentId;
         `,{
         replacements:{
@@ -384,12 +411,12 @@ class ItemsService {
     async downward (source, target, parentId) {
         const data = await sequelize.query(`
                 UPDATE items
-                SET order = CASE
-                    WHEN order BETWEEN :target AND :source - 1 THEN order + 1
-                    WHEN order = :source THEN :target
-                    ELSE order
+                SET \`order\` = CASE
+                    WHEN \`order\` BETWEEN :target AND :source - 1 THEN \`order\` + 1
+                    WHEN \`order\` = :source THEN :target
+                    ELSE \`order\`
                 END
-                WHERE order BETWEEN :target AND :source
+                WHERE \`order\` BETWEEN :target AND :source
                     AND parent_id = :parentId;
             `,{
             replacements:{

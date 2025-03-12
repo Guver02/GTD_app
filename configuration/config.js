@@ -1,7 +1,7 @@
 require('dotenv').config();
 
  const config = {
-    env:process.env.NODE_ENV||'dev',
+    env:process.env.NODE_ENV||'development',
     port:process.env.PORT||3000,
 
     secretKey: process.env.SECRET_KEY,
@@ -11,6 +11,9 @@ require('dotenv').config();
     dbHost:process.env.DB_HOST,
     dbName:process.env.DB_NAME,
     dbPort:process.env.DB_PORT,
+
+    dbNameTest: process.env.DB_NAME_TEST,
+
 }
 
  module.exports= config

@@ -12,6 +12,7 @@ module.exports = {
         dialect: 'mysql',
     },
     production: {
+        //uriLink: config.uriLink,
         username: config.dbUser,
         password: config.dbPassword,
         database: config.dbName,
@@ -21,7 +22,7 @@ module.exports = {
     test: {
         username: config.dbUser,
         password: config.dbPassword,
-        database: config.dbName,
+        database: config.dbNameTest,
         host: config.dbHost,
         dialect: 'mysql',
     }

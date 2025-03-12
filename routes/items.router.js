@@ -8,6 +8,17 @@ const { authHandler } = require('../middlewares/auth.handler')
 const AuthServices = require('./../services/auth.service')
 const authServices = new AuthServices()
 
+router.get('/test',
+    async (req, res , next) => {
+        try {
+            const items = await itemsService.getItemsTest()
+        res.json(items)
+        } catch (error) {
+            next(error)
+        }
+    }
+)
+
 router.get('/',
     authHandler,
     async (req, res , next) => {

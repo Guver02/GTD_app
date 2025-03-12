@@ -1,12 +1,15 @@
 const config = require('../configuration/config.js')
+const configDB = require('./config.js')
 const {Sequelize} = require ('sequelize');
 
 const setupModels = require('./models/index.js')
 
+const nodeEnv = config.env
 //const sequelize = new Sequelize(config.uriLink,{
-const sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword,{
+//const sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword,{
+const sequelize = new Sequelize(configDB[nodeEnv].database , configDB[nodeEnv].username, configDB[nodeEnv].password,{
 
-    //host: config.dbHost,
+    //host: configDB[nodeEnv].dbHost,
 
     dialect: 'mysql',
     logging: false,

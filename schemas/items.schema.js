@@ -37,7 +37,6 @@ const createItemTodoSchema = Joi.object({
     item_name: item_name.required(),
     description: description,
     parent_id: parent_id.required(),
-    //order: order.required(),
     type_id: type_id.valid(1).required(),
     is_favorite: is_favorite.default(false),
     status: status,

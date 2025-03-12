@@ -18,6 +18,8 @@ app.use(logErrors)
 app.use(boomErrorHandler)
 app.use(errorHandler)
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Mi port: ${PORT}`)
 })
+
+module.exports = {app, server};
