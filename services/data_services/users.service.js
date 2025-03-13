@@ -1,15 +1,15 @@
-const {models} = require('./../db/connec')
-const {USERS_TABLE} = require('./../db/models/users.model')
+const { ItemsRepositorySequelize } = require('../../repositories/ItemsRepositorySequelize')
 const ItemsService = require('./items.service')
-const itemsService = new ItemsService()
+const itemsService = new ItemsService(ItemsRepositorySequelize)
 const boom = require('@hapi/boom')
 
 class UsersServices {
-    constructor(){
+    constructor(UserRepository){
+        this.userRepository = UserRepository
     }
 
     async getByUser (username) {
-        const user = await models[USERS_TABLE].findOne({
+        const user = this.userRepository.findOne({
             where: {
                 username: username
             }
@@ -23,7 +23,7 @@ class UsersServices {
     }
 
     async create (newUser) {
-        const result = await models[USERS_TABLE].create(newUser)
+        const result = this.userRepository.create(newUser)
         await itemsService.createInbox(result.dataValues.id)
 
         return (result)

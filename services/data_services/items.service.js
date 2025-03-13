@@ -1,9 +1,5 @@
 const boom = require("@hapi/boom");
-const {models} = require('./../db/connec')
-const {ITEMS_TABLE} = require('./../db/models/items.model');
-const { ITEM_TYPES_TABLE } = require("../db/models/item_types.model");
 const { Op, QueryTypes } = require("sequelize");
-const sequelize = require("./../db/connec");
 
 const itemTypesIDS = {
     todo: 1,
@@ -17,10 +13,13 @@ const specialTypesIDS = {
 }
 
 class ItemsService {
+    constructor(ItemsRepository){
+        this.itemsRepository = ItemsRepository
+    }
 
     async getItemsTest() {
         try {
-            const items = await models[ITEMS_TABLE].findAll({
+            const items = await this.itemsRepository.findAll({
                 where: {
 
                     parent_id: null,
@@ -30,7 +29,7 @@ class ItemsService {
                 logging: console.log,
                 include: [
                     {
-                        model: models[ITEMS_TABLE],
+                        model: this.itemsRepository ,
                         as: 'subitems',
                         required: false,
                         where: {  type_id: 2 },
@@ -38,7 +37,7 @@ class ItemsService {
                         separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
                         include: [
                             {
-                                model: models[ITEMS_TABLE],
+                                model: this.itemsRepository ,
                                 as: 'subitems',
                                 required: false,
                                 where: {  type_id: 1 },
@@ -46,7 +45,7 @@ class ItemsService {
                                 separate: true,
                                 include: [
                                     {
-                                        model: models[ITEMS_TABLE],
+                                        model: this.itemsRepository ,
                                         as: 'subitems',
                                         required: false,
                                         where: {  type_id: 1, special_type_id: 1 },
@@ -70,7 +69,7 @@ class ItemsService {
 
     async getItems(userId) {
             try {
-                const items = await models[ITEMS_TABLE].findAll({
+                const items = await this.itemsRepository .findAll({
                     where: {
                         user_id: userId,
                         parent_id: null,
@@ -80,7 +79,7 @@ class ItemsService {
                     logging: console.log,
                     include: [
                         {
-                            model: models[ITEMS_TABLE],
+                            model: this.itemsRepository ,
                             as: 'subitems',
                             required: false,
                             where: { user_id: userId, type_id: 2 },
@@ -88,7 +87,7 @@ class ItemsService {
                             separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
                             include: [
                                 {
-                                    model: models[ITEMS_TABLE],
+                                    model: this.itemsRepository ,
                                     as: 'subitems',
                                     required: false,
                                     where: { user_id: userId, type_id: 1 },
@@ -96,7 +95,7 @@ class ItemsService {
                                     separate: true,
                                     include: [
                                         {
-                                            model: models[ITEMS_TABLE],
+                                            model: this.itemsRepository ,
                                             as: 'subitems',
                                             required: false,
                                             where: { user_id: userId, type_id: 1, special_type_id: 1 },
@@ -121,7 +120,7 @@ class ItemsService {
     async createTodo(body, userId) {
 
         const {parent_id} = body
-        const TodoOrSectionParentOfTheTodo = await models[ITEMS_TABLE].findOne({
+        const TodoOrSectionParentOfTheTodo = await this.itemsRepository .findOne({
             where:{
                 id: parent_id,
                 user_id: userId,
@@ -138,7 +137,7 @@ class ItemsService {
 
         const actLastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, parent_id)
 
-        const newItem = await models[ITEMS_TABLE].create({
+        const newItem = await this.itemsRepository .create({
             ...body,
             user_id: userId,
             type_id: itemTypesIDS.todo,
@@ -154,7 +153,7 @@ class ItemsService {
     async createSection(body, userId) {
         const {parent_id} = body
 
-        const folderOfTheSection = await models[ITEMS_TABLE].findOne({
+        const folderOfTheSection = await this.itemsRepository .findOne({
             where:{
                 id: parent_id,
                 user_id: userId,
@@ -168,7 +167,7 @@ class ItemsService {
 
         const actLastOrder = await this.getActualLastOrder(itemTypesIDS.section, userId)
 
-        const newItem = await models[ITEMS_TABLE].create({
+        const newItem = await this.itemsRepository .create({
             ...body,
             user_id: userId,
             type_id: itemTypesIDS.section,
@@ -184,7 +183,7 @@ class ItemsService {
     async createFolder(body, userId) {
         const actLastOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
 
-        const newItem = await models[ITEMS_TABLE].create({
+        const newItem = await this.itemsRepository .create({
             ...body,
             user_id: userId,
             type_id: itemTypesIDS.folder,
@@ -200,7 +199,7 @@ class ItemsService {
     }
 
     async createInbox(userID) {
-        const inboxItem = await models[ITEMS_TABLE].create({
+        const inboxItem = await this.itemsRepository .create({
             item_name: 'INBOX',
             user_id: userID,
             type_id: itemTypesIDS.folder,
@@ -213,7 +212,7 @@ class ItemsService {
     }
 
     async createUnsectioned(folderID, userID) {
-        const unsectioned = await models[ITEMS_TABLE].create({
+        const unsectioned = await this.itemsRepository .create({
             item_name: 'UNSECTIONED',
             user_id: userID,
             type_id: itemTypesIDS.section,
@@ -226,7 +225,7 @@ class ItemsService {
     }
 
     async getActualLastOrder(typeItemId, userId){
-        const lastItemType = await models[ITEMS_TABLE].findOne({
+        const lastItemType = await this.itemsRepository .findOne({
             where:{
                 user_id: userId,
                 type_id: typeItemId,
@@ -238,7 +237,7 @@ class ItemsService {
     }
 
     async getActualLastOrderForTodos(typeItemId, userId, parentId){
-        const lastItemType = await models[ITEMS_TABLE].findOne({
+        const lastItemType = await this.itemsRepository .findOne({
             where:{
                 user_id: userId,
                 type_id: typeItemId,
@@ -251,7 +250,7 @@ class ItemsService {
     }
 
     async updateItem(id, newData, userId) {
-        const itemEdited = models[ITEMS_TABLE].findOne({
+        const itemEdited = this.itemsRepository .findOne({
             where: {
                 id: id,
                 user_id: userId,
@@ -263,7 +262,7 @@ class ItemsService {
 
         }
 
-        const newItem = models[ITEMS_TABLE].update(newData, {
+        const newItem = this.itemsRepository .update(newData, {
             where: {
                 id: id,
                 user_id: userId
@@ -275,7 +274,7 @@ class ItemsService {
     }
 
     async updateStatusTodo(id, newData, userId) {
-        const itemEdited = models[ITEMS_TABLE].findOne({
+        const itemEdited = this.itemsRepository .findOne({
             where: {
                 id: id,
                 user_id: userId,
@@ -288,7 +287,7 @@ class ItemsService {
 
         }
 
-        const newItem = models[ITEMS_TABLE].update(newData, {
+        const newItem = this.itemsRepository .update(newData, {
             where: {
                 id: id,
                 user_id: userId
@@ -300,7 +299,7 @@ class ItemsService {
     }
 
     async deleteItem(itemId, userId) {
-        const itemDeleted = models[ITEMS_TABLE].destroy({
+        const itemDeleted = this.itemsRepository .destroy({
             where: {
                 id: itemId,
                 user_id: userId
@@ -314,7 +313,7 @@ class ItemsService {
 
 
     async changeTodoToFolder (todoId, userId) {
-        const newFolder = await models[ITEMS_TABLE].findByPk(todoId);
+        const newFolder = await this.itemsRepository .findByPk(todoId);
         if(!newFolder){
             throw new Error(boom.badData('This item does not exist'));
         }
@@ -330,7 +329,7 @@ class ItemsService {
         const unsectioned = await this.createUnsectioned(newFolder.id, userId);
 
         //change subtodos to todos
-        await models[ITEMS_TABLE].update({
+        await this.itemsRepository .update({
             type_id: itemTypesIDS.todo,
             special_type_id: null,
             parent_id: unsectioned.dataValues.id
@@ -345,7 +344,7 @@ class ItemsService {
     }
 
     async changeSectionToFolder (sectionID, userId) {
-        const newFolder = await models[ITEMS_TABLE].findByPk(sectionID);
+        const newFolder = await this.itemsRepository .findByPk(sectionID);
         if(!newFolder){
             throw new Error(boom.badData('This item does not exist'));
         }
@@ -361,7 +360,7 @@ class ItemsService {
         const unsectioned = await this.createUnsectioned(newFolder.id, userId);
 
         //change subtodos to todos
-        await models[ITEMS_TABLE].update({
+        await this.itemsRepository .update({
             parent_id: unsectioned.dataValues.id
         },{
             where: {
@@ -388,7 +387,8 @@ class ItemsService {
     }
 
     async upward (source, target, parentId) {
-        const data = await sequelize.query(`
+
+        const data = await this.itemsRepository.query(`
             UPDATE items
             SET \`order\` = CASE
                 WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
@@ -409,7 +409,7 @@ class ItemsService {
     }
 
     async downward (source, target, parentId) {
-        const data = await sequelize.query(`
+        const data = await this.itemsRepository.query(`
                 UPDATE items
                 SET \`order\` = CASE
                     WHEN \`order\` BETWEEN :target AND :source - 1 THEN \`order\` + 1

@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const ItemsService = require('../services/items.service')
-const itemsService = new ItemsService()
+const { ItemsRepositorySequelize } = require('../repositories/ItemsRepositorySequelize')
+const ItemsService = require('../services/data_services/items.service')
+const itemsService = new ItemsService(new ItemsRepositorySequelize)
 const validatorHandler = require('./../middlewares/validator.handler')
 const {getItemSchema, createItemTodoSchema, createItemFolderSchema, createItemSectionSchema, updateItemContentSchema, updateStatusItemTodo, changeOrderSameGroupSchema} = require('./../schemas/items.schema')
 const { authHandler } = require('../middlewares/auth.handler')
 const AuthServices = require('./../services/auth.service')
+
 const authServices = new AuthServices()
 
 router.get('/test',

@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt')
-const UserServices = require('./users.service')
-const userServices = new UserServices()
+const UserServices = require('../data_services/users.service')
+const {UserRepositorySequelize} = require('../../repositories/UserRepositorySequelize')
+const userServices = new UserServices(new UserRepositorySequelize())
 const boom = require('@hapi/boom')
 const jwt = require('jsonwebtoken')
-const config = require('../configuration/config')
+const config = require('../../configuration/config')
 
 class AuthServices {
     constructor(){
@@ -39,17 +40,21 @@ class AuthServices {
             return;
         }
 
-        return {
-            ...user,
-            credentials: true
+        const payload = {
+            userId: user.dataValues.id,
+            username: user.dataValues.username,
+            email: user.dataValues.email
         }
+
+        const token = jwt.sign(payload, secretKey)
+
+        return (token)
     }
 
-    async getPayload(token) {
-        const payload = await jwt.verify(token, config.secretKey)
-        return payload
-    }
-
+    /*async getPayload(){
+        const token = jwt.sign(payload, secretKey)
+        return
+    }*/
 }
 
 module.exports = AuthServices;
