@@ -59,6 +59,12 @@ class Users extends Model {
             modelName: USERS_TABLE,
             timestamps: false, // Desactivar timestamps automáticos
             hooks: {
+                beforeCreate: (user) => {
+                    const now = new Date();
+                    if (!user.created_at) user.created_at = now;
+                    if (!user.updated_at) user.updated_at = now;
+                  },
+
                 beforeUpdate: (user) => {
                     user.updated_at = new Date(); // Actualizar fecha de actualización
                 },

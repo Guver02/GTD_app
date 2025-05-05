@@ -2,8 +2,13 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const { ITEM_TYPES_TABLE } = require('./item_types.model');
 const { USERS_TABLE } = require('./users.model');
 const { SPECIAL_TYPES_TABLE } = require('./special_types.model');
+const { COLORS_TABLE } = require('./colors.model');
 
 const ITEMS_TABLE = 'items';
+
+const defaultValues = {
+    colorId: 1
+}
 
 const itemsSchema = {
     id: {
@@ -75,15 +80,27 @@ const itemsSchema = {
         onUpdate: 'CASCADE',
         onDelete: 'RESTRICT',
     },
+    color_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        defaultValue: defaultValues.colorId,
+        references: {
+          model: COLORS_TABLE,
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'RESTRICT',
+      },
+
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.NOW ,
     },
     updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.NOW ,
     },
 };
 
@@ -106,7 +123,7 @@ class Items extends Model {
         });
         this.hasMany(models.items, {
             foreignKey: 'parent_id',
-            as: 'subitems'
+            as: 'subItems'
         })
 
         // Relación con la tabla users
@@ -114,6 +131,12 @@ class Items extends Model {
             foreignKey: 'user_id',
             as: 'user',
         })
+
+        this.belongsTo(models.colors, {
+            foreignKey: 'color_id',
+            as: 'myColor',
+        });
+
     }
 
     static config(sequelize) {
@@ -122,6 +145,12 @@ class Items extends Model {
             modelName: ITEMS_TABLE,
             timestamps: false,
             hooks: {
+                beforeCreate: (item) => {
+                    const now = new Date();
+                    if (!item.created_at) item.created_at = now;
+                    if (!item.updated_at) item.updated_at = now;
+                  },
+
                 beforeUpdate: (item) => {
                     item.updated_at = new Date(); // Actualiza la fecha de actualización
                 },

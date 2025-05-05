@@ -1,0 +1,33 @@
+.projectsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.projectTittle{
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 32px;
+}
+.projectTittle > span{
+    font-size: 24px;
+    font-weight: bold;
+}
+.iconsContainer{
+
+}
+.iconsContainer > svg{
+    color: gray;
+    border-radius: 4px;
+    padding: 8px 4px;
+}
+.iconsContainer > svg:hover{
+    background-color: lightgray;
+    cursor: pointer;
+    color: red;
+}

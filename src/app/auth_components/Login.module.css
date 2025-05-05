@@ -1,0 +1,102 @@
+.loginContainer {
+    display: flex;
+    width: 800px;
+    margin: 50px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .loginLeft {
+    flex: 1;
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+
+  .loginRight {
+    flex: 1;
+    background-color: #3f51b5;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .rightContent {
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  .socialButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .googleButton, .facebookButton {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .googleButton {
+    background-color: #db4437;
+    color: white;
+    margin-right: 10px;
+  }
+
+  .facebookButton {
+    background-color: #3b5998;
+    color: white;
+  }
+
+  .emailPassword input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .rememberForgot {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .loginButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .signupLink {
+    text-align: center;
+  }
+
+  .orContinue {
+    text-align: center;
+    margin-bottom: 20px;
+  }

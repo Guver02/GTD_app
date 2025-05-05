@@ -4,7 +4,7 @@ function validatorHandler (schema, property) {
 
     return (req, res, next) => {
         const data = req[property];
-        console.log('datos del validatorHandler', data)
+        console.log(`validatorHandler data ${property}`, data)
 
         const { error } = schema.validate(data, { abortEarly: false });
         if(error) {

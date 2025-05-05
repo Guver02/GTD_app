@@ -13,9 +13,12 @@ const specialTypesIDS = {
 }
 
 class ItemsService {
-    constructor(ItemsRepository){
+    constructor(ItemsRepository, ColorsRepository){
         this.itemsRepository = ItemsRepository
+        this.colorsRepository = ColorsRepository
     }
+
+
 
     async getItemsTest() {
         try {
@@ -26,10 +29,9 @@ class ItemsService {
                     type_id: 3
                 },
                 order: [['order', 'ASC']],  // Ordena los elementos raíz
-                logging: console.log,
                 include: [
                     {
-                        model: this.itemsRepository ,
+                        model: this.itemsRepository.model,
                         as: 'subitems',
                         required: false,
                         where: {  type_id: 2 },
@@ -37,7 +39,7 @@ class ItemsService {
                         separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
                         include: [
                             {
-                                model: this.itemsRepository ,
+                                model: this.itemsRepository.model,
                                 as: 'subitems',
                                 required: false,
                                 where: {  type_id: 1 },
@@ -45,7 +47,7 @@ class ItemsService {
                                 separate: true,
                                 include: [
                                     {
-                                        model: this.itemsRepository ,
+                                        model: this.itemsRepository.model,
                                         as: 'subitems',
                                         required: false,
                                         where: {  type_id: 1, special_type_id: 1 },
@@ -67,55 +69,53 @@ class ItemsService {
         }
 }
 
-    async getItems(userId) {
-            try {
-                const items = await this.itemsRepository .findAll({
-                    where: {
-                        user_id: userId,
-                        parent_id: null,
-                        type_id: 3
-                    },
-                    order: [['order', 'ASC']],  // Ordena los elementos raíz
-                    logging: console.log,
-                    include: [
-                        {
-                            model: this.itemsRepository ,
-                            as: 'subitems',
-                            required: false,
-                            where: { user_id: userId, type_id: 2 },
-                            order: [['order', 'ASC']],  // 🔹 Ordenar subitems correctamente
-                            separate: true, // 🔥 Permite que Sequelize aplique ORDER correctamente
-                            include: [
-                                {
-                                    model: this.itemsRepository ,
-                                    as: 'subitems',
-                                    required: false,
-                                    where: { user_id: userId, type_id: 1 },
-                                    order: [['order', 'ASC']],  // 🔹 Ordenar sub-subitems correctamente
-                                    separate: true,
-                                    include: [
-                                        {
-                                            model: this.itemsRepository ,
-                                            as: 'subitems',
-                                            required: false,
-                                            where: { user_id: userId, type_id: 1, special_type_id: 1 },
-                                            order: [['order', 'ASC']],  // 🔹 Ordenar sub-sub-subitems correctamente
-                                            separate: true
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                });
+async getItems(userId) {
+    try {
+        const folders = await this.itemsRepository.findAll({
+            where: { user_id: userId, parent_id: null, type_id: 3 },
+            include: ['myColor', 'subItems'],
+            order: [['order', 'ASC']],
+        });
 
+        const sections = await this.itemsRepository.findAll({
+            where: { user_id: userId, type_id: 2 },
+            order: [['order', 'ASC']],
+        });
 
+        const todos = await this.itemsRepository.findAll({
+            where: { user_id: userId, type_id: 1, special_type_id: null },
+            order: [['order', 'ASC']],
+        });
 
-              return (items);
-            } catch (error) {
-              throw (boom.internal('Internal error', error));
-            }
+        const subTodos = await this.itemsRepository.findAll({
+            where: { user_id: userId, type_id: 1, special_type_id: 1 },
+
+            order: [['order', 'ASC']],
+        });
+
+        const inbox = await this.itemsRepository.findOne({
+            where: {user_id: userId, special_type_id: specialTypesIDS.inbox}
+        })
+
+        const unsections = await this.itemsRepository.findAll({
+            where: {user_id: userId, special_type_id: specialTypesIDS.unsectioned}
+        })
+
+        const colors = await this.colorsRepository.findAll()
+
+        return {
+            folders: folders,
+            sections: sections,
+            todos: todos,
+            subTodos: subTodos,
+            inbox: inbox,
+            unsections: unsections,
+            colors: colors
+        };
+    } catch (error) {
+        throw boom.internal('Internal error', error);
     }
+}
 
     async createTodo(body, userId) {
 
@@ -132,7 +132,8 @@ class ItemsService {
         })
 
         if(!TodoOrSectionParentOfTheTodo){
-            throw new Error(boom.badData('The defined item for this to-do does not exist'));
+//            throw new Error(boom.badData('The defined item for this to-do does not exist'));
+            throw boom.badData('The defined item for this to-do does not exist');
         }
 
         const actLastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, parent_id)
@@ -182,6 +183,8 @@ class ItemsService {
 
     async createFolder(body, userId) {
         const actLastOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
+
+        console.log(body)
 
         const newItem = await this.itemsRepository .create({
             ...body,
@@ -299,17 +302,112 @@ class ItemsService {
     }
 
     async deleteItem(itemId, userId) {
-        const itemDeleted = this.itemsRepository .destroy({
-            where: {
-                id: itemId,
-                user_id: userId
-            }
+        const itemDeleted = await this.itemsRepository.findByPk(itemId)
+
+
+
+        const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, itemDeleted.dataValues.parent_id)
+
+        await this.itemsRepository.query(`
+            UPDATE items
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                ELSE \`order\`
+            END
+            WHERE \`order\` BETWEEN :source AND :target
+                AND parent_id = :parentId;
+        `,{
+        replacements:{
+            source: itemDeleted.dataValues.order,
+            target: lastOrder,
+            parentId: itemDeleted.dataValues.parent_id
+        },
+        type: QueryTypes.UPDATE
         })
+
+        await this.itemsRepository.destroy({
+            where: {
+              user_id: userId,
+              [Op.or]: [
+                { id: itemId },
+                { parent_id: itemId }
+              ]
+            }
+          });
 
         return (itemDeleted)
     }
 
+    async deleteProject (projectId, userID) {
 
+        try {
+            // Verifica que el proyecto existe y es de tipo 3
+            const project = await this.itemsRepository.findByPk(projectId);
+            if (!project) {
+              throw new Error('Proyecto no encontrado o no es del tipo correcto');
+            }
+
+            const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.folder, userID, project.dataValues.parent_id)
+
+            await this.itemsRepository.query(`
+                UPDATE items
+                SET \`order\` = CASE
+                    WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                    ELSE \`order\`
+                END
+                WHERE \`order\` BETWEEN :source AND :target
+                    AND user_id = :parentId;
+            `,{
+            replacements:{
+                source: project.dataValues.order,
+                target: lastOrder,
+                parentId: userID
+            },
+            type: QueryTypes.UPDATE
+            })
+
+
+            // Obtiene las secciones del proyecto
+            const sections = await this.itemsRepository.findAll({
+              where: {
+                parent_id: projectId,
+                type_id: 2
+              }
+            });
+
+            const sectionIds = sections.map(section => section.id);
+
+            if (sectionIds.length > 0) {
+              // Elimina las tareas de esas secciones
+              await this.itemsRepository.destroy({
+                where: {
+                  parent_id: sectionIds,
+                  type_id: 1
+                }
+              });
+
+              // Elimina las secciones
+              await this.itemsRepository.destroy({
+                where: {
+                  id: sectionIds
+                }
+              });
+            }
+
+            // Finalmente, elimina el proyecto
+            const deleteProject = await this.itemsRepository.destroy({
+              where: {
+                id: projectId
+              }
+            });
+
+            console.log('Proyecto, secciones y tareas eliminados correctamente.');
+
+            return(deleteProject)
+          } catch (error) {
+            console.error('Error al eliminar:', error);
+          }
+    }
 
 
     async changeTodoToFolder (todoId, userId) {
@@ -320,6 +418,26 @@ class ItemsService {
         if(newFolder.dataValues.type_id != itemTypesIDS.todo){
             throw new Error(boom.badData('This item is not a to-do'));
         }
+
+        const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, newFolder.dataValues.parent_id)
+        //EDITAR todos los orders de los todos debido a que uno de ellos se ha "eliminado"
+          await this.itemsRepository.query(`
+            UPDATE items
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                ELSE \`order\`
+            END
+            WHERE \`order\` BETWEEN :source AND :target
+                AND parent_id = :parentId;
+        `,{
+        replacements:{
+            source: newFolder.dataValues.order,
+            target: lastOrder,
+            parentId: newFolder.dataValues.parent_id
+        },
+        type: QueryTypes.UPDATE
+        })
+
         const newOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
         newFolder.type_id = itemTypesIDS.folder
         newFolder.order = newOrder
@@ -340,8 +458,27 @@ class ItemsService {
             }
         })
 
+await this.itemsRepository.query(`
+            UPDATE items
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                ELSE \`order\`
+            END
+            WHERE \`order\` BETWEEN :source AND :target
+                AND parent_id = :parentId;
+        `,{
+        replacements:{
+            source: newFolder.dataValues.order,
+            target: lastOrder,
+            parentId: newFolder.dataValues.parent_id
+        },
+        type: QueryTypes.UPDATE
+        })
+
         return(newFolder)
     }
+
+
 
     async changeSectionToFolder (sectionID, userId) {
         const newFolder = await this.itemsRepository .findByPk(sectionID);
@@ -351,10 +488,30 @@ class ItemsService {
         if(newFolder.dataValues.type_id != itemTypesIDS.todo){
             throw new Error(boom.badData('This item is not a section'));
         }
+
+        const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.section, userId, newFolder.dataValues.parent_id)
+        //EDITAR todos los orders de los todos debido a que uno de ellos se ha "eliminado"
+          await this.itemsRepository.query(`
+            UPDATE items
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                ELSE \`order\`
+            END
+            WHERE \`order\` BETWEEN :source AND :target
+                AND parent_id = :parentId;
+        `,{
+        replacements:{
+            source: newFolder.dataValues.order,
+            target: lastOrder,
+            parentId: newFolder.dataValues.parent_id
+        },
+        type: QueryTypes.UPDATE
+        })
+
         const newOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
         newFolder.type_id = itemTypesIDS.folder
         newFolder.order = newOrder
-        newFolder.save()
+        await newFolder.save()
 
         //create unsection para el nuevo folder
         const unsectioned = await this.createUnsectioned(newFolder.id, userId);
@@ -372,16 +529,53 @@ class ItemsService {
         return(newFolder)
     }
 
+    async moveTodotoSection (taskId, newSectionParentId, userId) {
+
+        const newOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, newSectionParentId)
+
+        const editedItem = await this.itemsRepository.findByPk(taskId)
+
+        const lastOrderPreviosSection = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, editedItem.parent_id)
+
+
+        await this.itemsRepository.query(`
+            UPDATE items
+            SET \`order\` = CASE
+                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                ELSE \`order\`
+            END
+            WHERE \`order\` BETWEEN :source AND :target
+                AND parent_id = :parentId;
+        `,{
+        replacements:{
+            source: editedItem.dataValues.order,
+            target: lastOrderPreviosSection - 1,//max order actually
+            parentId: editedItem.dataValues.parent_id
+        },
+        type: QueryTypes.UPDATE
+        })
+
+        editedItem.parent_id = newSectionParentId;
+        editedItem.order = newOrder
+        await editedItem.save()
+        console.log('se termino de ejecutar moveTodotoSection')
+        return (editedItem)
+    }
+
     async changeOrderSameGroup (sourceOrder, targetOrder, parentId){
         if(sourceOrder == targetOrder){
             throw new Error(boom.badData('The order should not be equal'));
         }
         if(sourceOrder < targetOrder){
             const data = await this.upward(sourceOrder, targetOrder, parentId)
+            console.log('se termino de ejecutar changeOrderSameGroup')
+
             return (data)
         }
         if(sourceOrder > targetOrder){
             const data = await this.downward(sourceOrder, targetOrder, parentId)
+            console.log('se termino de ejecutar changeOrderSameGroup')
+
             return (data)
         }
     }
@@ -428,6 +622,8 @@ class ItemsService {
             })
         return(data)
     }
+
+
 }
 
 

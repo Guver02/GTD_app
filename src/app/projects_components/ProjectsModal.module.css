@@ -1,0 +1,107 @@
+.positionContainer{
+    width: fit-content;
+    position: relative;
+}
+.button{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    align-items: center;
+    font-size: 14px;
+    position: relative;
+    /*background-color: rgba(0, 0, 0, 0.09);*/
+    
+}
+
+.button > span:first-child{
+    font-size: 18px;
+    font-weight: bold;
+    
+}
+.button> span:nth-child(2){
+    color: rgba(0, 0, 0, 0.7);
+}
+.button> span:nth-child(3){
+    color: rgba(0, 0, 0, 0.7);
+}
+.button> span:nth-child(4){
+    color: rgba(0, 0, 0, 0.7);
+}
+.button:hover{
+    cursor: pointer;
+    background-color: rgba(211, 211, 211, 0.5);
+}
+.subModalContainer{
+    position: absolute;
+    top: 112%;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    background-color: #fff;
+    z-index: 100;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    max-height: 200px;
+    height: fit-content;
+    overflow-y: auto;
+    
+}
+.subModalContainer::-webkit-scrollbar{
+    
+
+}
+
+.folderDataItem{
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 8px;
+    align-items: center;
+}
+.folderDataItem > span:first-child{
+    font-size: 20px;
+    font-weight: bold;
+}
+.folderDataItem:hover{
+    cursor: pointer;
+    background-color: #eee;
+}
+.itemInbox{
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 8px;
+    align-items: center;
+}
+.itemInbox > span:first-child{
+    font-size: 22px;
+}
+.itemInbox:hover{
+    cursor: pointer;
+    background-color: #eee;
+}
+.sectionItem{
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 8px;
+    align-items: center;
+}
+.sectionItem > span:first-child{
+    font-size: 20px;
+}
+.sectionItem:hover{
+    cursor: pointer;
+    background-color: #eee;
+}

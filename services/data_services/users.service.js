@@ -1,6 +1,3 @@
-const { ItemsRepositorySequelize } = require('../../repositories/ItemsRepositorySequelize')
-const ItemsService = require('./items.service')
-const itemsService = new ItemsService(ItemsRepositorySequelize)
 const boom = require('@hapi/boom')
 
 class UsersServices {
@@ -9,14 +6,14 @@ class UsersServices {
     }
 
     async getByUser (username) {
-        const user = this.userRepository.findOne({
+        const user = await this.userRepository.findOne({
             where: {
                 username: username
             }
         })
 
         if(!user){
-            throw new Error(boom.badRequest('Incorrect User'));
+            throw boom.badRequest('Incorrect User');
         }
 
         return (user)
@@ -24,8 +21,6 @@ class UsersServices {
 
     async create (newUser) {
         const result = this.userRepository.create(newUser)
-        await itemsService.createInbox(result.dataValues.id)
-
         return (result)
     }
 }

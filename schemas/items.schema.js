@@ -1,15 +1,15 @@
 const Joi = require('joi');
 
-// Definición de los esquemas básicos
 const id = Joi.string().uuid();
 const item_name = Joi.string().max(255);
-const description = Joi.string().allow(null);
+const description = Joi.string().allow('').allow(null);
 const parent_id = Joi.string().uuid();
 const order = Joi.number().integer().min(0);
 const user_id = Joi.string().uuid();
 const type_id = Joi.number().integer().min(1); // type_id es un entero sin signo
 const is_favorite = Joi.boolean();
 const status = Joi.string().valid('completed', 'pending', 'in_progress').default('pending');
+const color_id = Joi.number().integer().min(1)
 
 const createItemFolderSchema = Joi.object({
     id: id.required(),
@@ -19,6 +19,7 @@ const createItemFolderSchema = Joi.object({
     //order: order.required(),
     type_id: type_id.valid(3).required(),
     is_favorite: is_favorite.default(false),
+    color_id: color_id.default(1)
 }).unknown(false);
 
 const createItemSectionSchema = Joi.object({
@@ -63,6 +64,10 @@ const changeOrderSameGroupSchema = Joi.object({
     targetOrder: order.required()
 }).unknown(false);
 
+const changeTodoSectionToLastSchema = Joi.object({
+    parent_id: id.allow(null).required(),
+}).unknown(false);
+
 module.exports = {
     createItemFolderSchema,
     createItemSectionSchema,
@@ -70,5 +75,6 @@ module.exports = {
     getItemSchema,
     updateItemContentSchema,
     updateStatusItemTodo,
-    changeOrderSameGroupSchema
+    changeOrderSameGroupSchema,
+    changeTodoSectionToLastSchema
 };

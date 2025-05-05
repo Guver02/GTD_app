@@ -1,13 +1,12 @@
 const bcrypt = require('bcrypt')
-const UserServices = require('../data_services/users.service')
-const {UserRepositorySequelize} = require('../../repositories/UserRepositorySequelize')
-const userServices = new UserServices(new UserRepositorySequelize())
 const boom = require('@hapi/boom')
 const jwt = require('jsonwebtoken')
 const config = require('../../configuration/config')
 
 class AuthServices {
-    constructor(){
+    constructor(ItemsService, UserServices){
+        this.itemsService = ItemsService;
+        this.userServices = UserServices
     }
 
     async signIn(body) {
@@ -18,16 +17,18 @@ class AuthServices {
             ...body,
             password: passForTheDB
         }
-        const result = await userServices.create(newUser)
+        const result = await this.userServices.create(newUser)
+        await this.itemsService.createInbox(result.dataValues.id)
 
         delete result.dataValues.password
+        delete result.dataValues.id
 
-        return (result)
+        return (result.dataValues)
     }
 
     async logIn(body){
         const {username, password} = body
-        const user = await userServices.getByUser(username)
+        const user = await this.userServices.getByUser(username)
 
         if(!user){
             boom.unauthorized('Incorrect credentials')
@@ -46,15 +47,15 @@ class AuthServices {
             email: user.dataValues.email
         }
 
-        const token = jwt.sign(payload, secretKey)
+        const token = jwt.sign(payload, config.secretKey)
 
         return (token)
     }
 
-    /*async getPayload(){
-        const token = jwt.sign(payload, secretKey)
-        return
-    }*/
+    async getPayload(token) {
+        const payload = jwt.verify(token, config.secretKey)
+        return payload
+    }
 }
 
 module.exports = AuthServices;

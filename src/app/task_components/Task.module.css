@@ -1,0 +1,60 @@
+.container{
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: max-content;
+    padding: 0;
+}
+.taskContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 0 8px;
+    box-sizing: border-box;
+
+    height: 52px;
+    cursor: pointer;
+}
+.dragging{
+    background-color: red;
+    opacity: 0.5;
+    transform: scale(0.05);
+}
+.taskContainer:hover{
+    background-color: lightgray;
+}
+.moveIcon{
+    opacity: 0;
+    border-radius: 4px;
+}
+.moveIcon:hover{
+    background-color: lightgray;
+}
+.container:hover .moveIcon{
+    opacity: 1;
+    cursor: move;
+
+}
+.taskContent{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    cursor: pointer;
+}
+.content{
+    font-size: 16px;
+}
+.description{
+    font-size: 12px;
+    color: gray;
+}
+.iconsContainer{
+    display: flex;
+    flex-direction: row;
+}

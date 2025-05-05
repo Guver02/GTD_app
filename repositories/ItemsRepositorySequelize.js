@@ -1,13 +1,17 @@
-const {models, query: sequelizeQuery } = require('../db/connec');
+const sequelize = require('../db/connec');
+const {models} = sequelize
 const { ITEMS_TABLE } = require('../db/models/items.model');
 
 class ItemsRepositorySequelize {
+    constructor() {
+        this.model = models[ITEMS_TABLE];
+    }
 
     async findAll(options) {
         return await models[ITEMS_TABLE].findAll(options);
     }
 
-    async findById(id) {
+    async findByPk(id) {
         return await models[ITEMS_TABLE].findByPk(id);
     }
 
@@ -19,7 +23,7 @@ class ItemsRepositorySequelize {
         return await models[ITEMS_TABLE].update(item, options);
     }
 
-    async delete(options) {
+    async destroy(options) {
         return await models[ITEMS_TABLE].destroy(options);
     }
 
@@ -28,8 +32,12 @@ class ItemsRepositorySequelize {
     }
 
     async query(query, options) {
-        return await sequelizeQuery(query, options); // Usa sequelize
+        console.log('OPT', options)
+
+        return await sequelize.query(query, options); // Usa sequelize
     }
+
+
 }
 
 module.exports = {ItemsRepositorySequelize};

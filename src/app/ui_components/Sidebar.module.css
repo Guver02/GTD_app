@@ -1,0 +1,92 @@
+.sidebar {
+    width: 60px; /* Ancho inicial */
+    background-color: #f0f0f0;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.sidebarExpanded {
+    width: 250px; /* Ancho expandido */
+}
+
+.iconButton {
+    cursor: pointer;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5em;
+}
+
+.logoText {
+    font-weight: bold;
+}
+
+.searchBar {
+    width: 100%;
+    padding: 5px;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.menuText {
+    margin-left: 10px;
+}
+
+.currentPlan {
+    background-color: #e0e0e0;
+    padding: 5px;
+}
+
+.upgradeButton {
+    background-color: #3f51b5;
+    color: white;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.preferencesContainer {
+    margin-left: 30px;
+}
+
+.preferenceItem {
+    padding: 5px;
+    background-color: #e0e0e0;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+}
+
+.userInfoText {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.userInfoChevron {
+    cursor: pointer;
+}

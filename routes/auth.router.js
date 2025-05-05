@@ -2,12 +2,19 @@ const express = require('express')
 const router = express.Router()
 const {createUserSchema, loginUserSchema} = require('./../schemas/users.schema')
 const validatorHandler = require('./../middlewares/validator.handler')
-const AuthService = require('./../services/business_services/auth.service')
-const boom= require('@hapi/boom')
-const jwt = require('jsonwebtoken')
-const {secretKey} = require('./../configuration/config')
 
-const authService = new AuthService()
+const { ItemsRepositorySequelize } = require('../repositories/ItemsRepositorySequelize')
+const ItemsService = require('../services/data_services/items.service')
+const itemsService = new ItemsService(new ItemsRepositorySequelize())
+
+const {UserRepositorySequelize} = require('../repositories/UserRepositorySequelize')
+const UserServices = require('../services/data_services/users.service')
+const userServices = new UserServices(new UserRepositorySequelize())
+
+const AuthService = require('./../services/business_services/auth.service')
+
+
+const authService = new AuthService(itemsService, userServices)
 
 router.post('/sing-in',
     validatorHandler(createUserSchema, 'body'),

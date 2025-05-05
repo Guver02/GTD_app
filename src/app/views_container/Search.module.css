@@ -1,0 +1,90 @@
+.sidebarContainer {
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Dark text */
+    width: 680px; /* Adjust as needed */
+    height: 500px; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #eee; /* Light border */
+    border-radius: 8px;
+  }
+
+.searchBar {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee; /* Light border */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+.searchBar input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+  }
+
+.searchBar span {
+    color: #777;
+    font-size: 12px;
+  }
+
+.scrollableContainer {
+    overflow-y: auto; /* Enable vertical scrolling */
+    flex-grow: 1; /* Take up remaining vertical space */
+  }
+  .scrollableContainer::-webkit-scrollbar{
+    width: 8px;
+    background-color: lightgray;
+    border-radius: 8px;
+  }
+  .scrollableContainer::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background-color: gray;
+  }
+
+.recentlyViewedSection,
+.navigationSection,
+.tasksSection {
+    padding: 15px;
+  }
+
+.sectionTitle {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .menuItem:hover {
+    background-color: #eee; /* Light hover effect */
+  }
+
+  .icon {
+    margin-right: 10px;
+    color: #777;
+    width: 16px;
+    height: 16px;
+  }
+
+  .itemText {
+    flex-grow: 1;
+    font-size: 14px;
+  }
+
+  .shortcut {
+    color: #999;
+    font-size: 12px;
+  }

@@ -1,12 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { ItemsRepositorySequelize } = require('../repositories/ItemsRepositorySequelize')
+const { ColorsRepositorySequelize } = require('../repositories/ColorsRepositorySequelize')
+
 const ItemsService = require('../services/data_services/items.service')
-const itemsService = new ItemsService(new ItemsRepositorySequelize)
+
+
+const itemsService = new ItemsService(new ItemsRepositorySequelize(), new ColorsRepositorySequelize())
 const validatorHandler = require('./../middlewares/validator.handler')
-const {getItemSchema, createItemTodoSchema, createItemFolderSchema, createItemSectionSchema, updateItemContentSchema, updateStatusItemTodo, changeOrderSameGroupSchema} = require('./../schemas/items.schema')
+const {getItemSchema, createItemTodoSchema, createItemFolderSchema, createItemSectionSchema, updateItemContentSchema, updateStatusItemTodo, changeOrderSameGroupSchema, changeTodoSectionToLastSchema} = require('./../schemas/items.schema')
 const { authHandler } = require('../middlewares/auth.handler')
-const AuthServices = require('./../services/auth.service')
+const AuthServices = require('./../services/business_services/auth.service')
+
 
 const authServices = new AuthServices()
 
@@ -25,9 +30,13 @@ router.get('/',
     authHandler,
     async (req, res , next) => {
         try {
+
+            console.log('EN LA RUTA /')
             const {token} = req
             const payload = await authServices.getPayload(token)
             const {userId} = payload
+
+
 
             const items = await itemsService.getItems(userId)
 
@@ -164,6 +173,51 @@ router.put('/change-order-same-group',
         }
      }
 )
+router.put('/change-section/:id',
+    authHandler,
+    validatorHandler(getItemSchema, 'params'),
+    validatorHandler(changeOrderSameGroupSchema, 'body'),
+    async (req, res, next) => {
+        try {
+            const {token} = req
+            const payload = await authServices.getPayload(token)
+            const {userId} = payload
+
+
+            const {id} = req.params
+            const {sourceOrder, targetOrder, parent_id} = req.body
+
+            await itemsService.moveTodotoSection(id, parent_id, userId);
+            if(sourceOrder != targetOrder){
+            const newValue = await itemsService.changeOrderSameGroup(sourceOrder, targetOrder, parent_id);
+            res.json(newValue)
+            }
+        } catch (error) {
+         next(error)
+        }
+     })
+
+     router.put('/change-section-to-last/:id',
+        authHandler,
+        validatorHandler(getItemSchema, 'params'),
+        validatorHandler(changeTodoSectionToLastSchema, 'body'),
+        async (req, res, next) => {
+            try {
+                const {token} = req
+                const payload = await authServices.getPayload(token)
+                const {userId} = payload
+
+
+                const {id} = req.params
+                const {parent_id} = req.body
+
+                const value = await itemsService.moveTodotoSection(id, parent_id, userId);
+
+                res.json(value)
+            } catch (error) {
+             next(error)
+            }
+         })
 
 router.put('/update-status-todo/:id',
     authHandler,
@@ -198,6 +252,24 @@ router.delete('/delete/:id',
 
             const newValue = await itemsService.deleteItem(id, userId)
             res.json(newValue)
+        } catch (error) {
+         next(error)
+        }
+     }
+)
+
+router.delete('/delete-project/:id',
+    authHandler,
+    validatorHandler(getItemSchema, 'params'),
+    async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const {token} = req
+            const payload = await authServices.getPayload(token)
+            const {userId} = payload
+
+            const deleteProject = await itemsService.deleteProject(id, userId)
+            res.json(deleteProject)
         } catch (error) {
          next(error)
         }
