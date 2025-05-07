@@ -115,6 +115,32 @@ function ClarifyModal ({taskID, onComplete, counter}) {
         onComplete()
     }
 
+    const handleOther = () => {
+        updateTask({
+            id: task.id,
+            parent_id: unsectionsByProject[specialProjectsBySpecialId[specialTypesIDS.waiting].id].id,
+            item_name: state.item_name,
+            description: state.description,
+            order: state.order,
+            status: 'pending'
+            }, prevState)
+        //Se necesita un delegador a x usuario o algo editable
+        onComplete()
+    }
+
+    const handleLater = () => {
+        updateTask({
+            id: task.id,
+            parent_id: unsectionsByProject[specialProjectsBySpecialId[specialTypesIDS.trackingFile].id].id,
+            item_name: state.item_name,
+            description: state.description,
+            order: state.order,
+            status: 'pending'
+        }, prevState)
+        //Se necesita un activador
+        onComplete()
+    }
+
     const changeFolderSection =  (projectId, sectionId) => {
         setState((prev) => ({
             ...prev,
@@ -173,7 +199,10 @@ function ClarifyModal ({taskID, onComplete, counter}) {
                         <span>Lo haré yo</span>
                         <Aperture/>
                     </div>
-                    <div className={optionButton}>
+                    <div
+                    className={optionButton}
+                    onClick={handleOther}
+                    >
                         <span>Lo hara otra persona</span>
                         <UserMinus/>
                     </div>
@@ -195,7 +224,10 @@ function ClarifyModal ({taskID, onComplete, counter}) {
                         <span>Lo aclaro despues</span>
                         <Clock/>
                     </div>
-                    <div className={optionButton}>
+                    <div
+                    className={optionButton}
+                    onClick={handleLater}
+                    >
                         <span>Lo necesito luego</span>
                         <Calendar/>
                     </div>
@@ -206,7 +238,10 @@ function ClarifyModal ({taskID, onComplete, counter}) {
                         <span>Es informacion util</span>
                         <Save/>
                     </div>
-                    <div className={optionButton}>
+                    <div
+                    className={optionButton}
+                    onClick={handleDelete}
+                    >
                         <span>No es nada</span>
                         <Trash/>
                     </div>
