@@ -10,6 +10,7 @@ module.exports = {
         database: config.dbName,
         host: config.dbHost,
         dialect: 'mysql',
+        port: config.dbPort
     },
     production: {
         //uriLink: config.uriLink,
@@ -18,6 +19,7 @@ module.exports = {
         database: config.dbName,
         host: config.dbHost,
         dialect: 'mysql',
+        port: config.dbPort
     },
     test: {
         username: config.dbUser,
@@ -25,5 +27,6 @@ module.exports = {
         database: config.dbNameTest,
         host: config.dbHost,
         dialect: 'mysql',
+        port: config.dbPort
     }
 }

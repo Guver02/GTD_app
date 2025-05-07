@@ -10,7 +10,7 @@ const nodeEnv = config.env
 const sequelize = new Sequelize(configDB[nodeEnv].database , configDB[nodeEnv].username, configDB[nodeEnv].password,{
 
     host: configDB[nodeEnv].dbHost,
-
+    port: configDB[nodeEnv].dbPort,
     dialect: 'mysql',
     logging: false,
     define: {
