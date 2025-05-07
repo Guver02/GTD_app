@@ -28,10 +28,10 @@ function SignIn() {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if((password == confirm)&&
-            (password.length > 0)
+        if((password == confirm)/*&&
+            /*(password.length > 0)
             (email.length > 0)&&
-            (userName.length < 0)
+            (userName.length < 0)*/
         ){
             await apiService.post(
                 '/api/v1/auth/sing-in/',
