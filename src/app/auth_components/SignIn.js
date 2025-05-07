@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,10 @@ const {
   } = styles;
 
 function SignIn() {
+    const [email, setEmail] = useState('')
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirm, setConfirm] = useState('')
 
     const navigate = useNavigate();
 
@@ -21,6 +25,26 @@ function SignIn() {
         event.preventDefault();
         navigate('/auth/login');
     };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        if((password == confirm)&&
+            (password.length > 0)
+            (email.length > 0)&&
+            (userName.length < 0)
+        ){
+            await apiService.post(
+                '/api/v1/auth/sing-in/',
+                {
+                username: userName,
+                password: password,
+                email: email
+                })
+            navigate('/auth/login')
+        }else{
+            alert('Las credenciales son incorrectas')
+        }
+    }
 
   return (
     <div className={signinContainer}>
@@ -35,11 +59,35 @@ function SignIn() {
         <h1>Create your Account</h1>
         <p>Welcome! Sign up to get started.</p>
         <div className={emailPassword}>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <input type="password" placeholder="Confirm Password" />
+          <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          />
+          <input
+          type="text"
+          placeholder="Username"
+          value={userName}
+          onChange={e => setUserName(e.target.value)}
+          />
+          <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          />
+          <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirm}
+          onChange={e => setConfirm(e.target.value)}
+          />
         </div>
-        <button className={signinButton}>Sign Up</button>
+        <button
+        className={signinButton}
+        onClick={handleSubmit}
+        >Sign Up</button>
         <p className={loginLink}>
           Already have an account?
           <a
