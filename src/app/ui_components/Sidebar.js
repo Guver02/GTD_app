@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
 import * as styles from './Sidebar.module.css';
-import {Search, Inbox, Bell, Grid, Briefcase, Users, Trello, Calendar, Archive, Trash2, AlignJustify, Codepen, Codesandbox, Hexagon} from 'react-feather'
+import {Search, Inbox, Bell, Grid, Briefcase, Users, Trello, Calendar, Archive, Trash2, AlignJustify, Codepen, Codesandbox, Hexagon, ArrowDownCircle, Coffee, UserCheck, FileText} from 'react-feather'
 import { HoverModal } from './HoverModal';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
 import { useNavigate } from 'react-router-dom';
 import { ModalContext } from '../providers/ModalContext';
 import { SearchModal } from '../views_container/Search';
+import { Clarify } from '../views_container/Clarify';
+import { useDataStore } from '../../store/data_store';
 
 const {
     sidebar,
@@ -25,11 +27,23 @@ const {
     userInfoText,
     userInfoChevron,
 } = styles;
+const specialTypesIDS = {
+    subTodo: 1,
+    unsectioned: 2,
+    inbox: 3,
+    someday: 4,
+    trackingFile: 5,
+    waiting: 6,
+    referenceFile: 7,
+  };
 
 const Sidebar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const {openModal} = useContext(ModalContext)
+    const project = useDataStore((state) =>
+        state.specialProjectsBySpecialId[specialTypesIDS.inbox])
+    const unsectionedInbox = useDataStore(state => state.unsectionsByProject[project.id])
 
     const redirectToProject = (projectID) => {
         navigate(`/app/project/${projectID}`)
@@ -37,19 +51,29 @@ const Sidebar = () => {
     const redirectToInbox = () => {
         navigate(`/app`)
     }
-
+    const handleDashboard = () => {
+        navigate(`/app/dashboard`)
+    }
+    const handleSomeday = () => {
+        navigate(`/app/someday`)
+    }
+    const handleTrakingFile = () => {
+        navigate(`/app/traking-file`)
+    }
+    const handleWaiting = () => {
+        navigate(`/app/waiting`)
+    }
+    const handleReferenceFile = () => {
+        navigate(`/app/reference-file`)
+    }
     const toggleSidebar = () => {
         setIsExpanded(!isExpanded);
     };
-
-    const showProjects = () => {
-        console.log('Mostrando projjectos')
-    }
-    const hiddenProjects = () => {
-        console.log('Ocultando projectos')
-    }
     const handleSearch = () => {
-        openModal(<SearchModal/>)
+        openModal(<SearchModal/>);
+    }
+    const handleClarify = () => {
+        openModal(<Clarify sectionToClarifyID={unsectionedInbox.id}/>);
     }
 
     return (
@@ -88,8 +112,7 @@ const Sidebar = () => {
             ParentComponent={
             <div
             className={menuItem}
-            onMouseEnter={showProjects}
-            onMouseLeave={hiddenProjects}>
+            >
                 <Briefcase/>
                 {isExpanded && <div className={menuText}>Projects</div>}
             </div>
@@ -101,13 +124,53 @@ const Sidebar = () => {
             gap={12}/>
 
 
+            <div
+            className={menuItem}
+            onClick={handleDashboard}
+            >
+                <Grid/>
+                {isExpanded && <div className={menuText}>Dashboard</div>}
+            </div>
 
+            <div
+            className={menuItem}
+            onClick={handleClarify}
+            >
+                <ArrowDownCircle/>
+                {isExpanded && <div className={menuText}>Clarify</div>}
+            </div>
 
+            <div
+            className={menuItem}
+            onClick={handleSomeday}
+            >
+                <Coffee/>
+                {isExpanded && <div className={menuText}>Someday</div>}
+            </div>
 
+            <div
+            className={menuItem}
+            onClick={handleTrakingFile}
+            >
+                <Archive/>
+                {isExpanded && <div className={menuText}>Tracking File</div>}
+            </div>
 
+            <div
+            className={menuItem}
+            onClick={handleWaiting}
+            >
+                <UserCheck/>
+                {isExpanded && <div className={menuText}>Waiting</div>}
+            </div>
 
-
-
+            <div
+            className={menuItem}
+            onClick={handleReferenceFile}
+            >
+                <FileText/>
+                {isExpanded && <div className={menuText}>Reference File</div>}
+            </div>
         </aside>
     );
 };

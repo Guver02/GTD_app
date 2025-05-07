@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import { useDataStore } from "../../store/data_store";
 import * as style from './Task.module.css'
-import { CheckCircle, Circle } from "react-feather";
+import { CheckCircle, Circle, Crosshair } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
 import { useSortable } from "@dnd-kit/sortable";
@@ -89,9 +89,13 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                 </div>
             </div>
 
-            {(task.status == 'completed') ?
+            {(task.status == 'completed') &&
             <CheckCircle onClick={handleCheckIsPending}/>
-            :
+            }
+            {(task.status == 'in_progress') &&
+            <Crosshair onClick={handleCheckIsCompleted}/>
+            }
+            {(task.status == 'pending') &&
             <Circle onClick={handleCheckIsCompleted}/>
             }
         </div>

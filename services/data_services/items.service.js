@@ -9,8 +9,13 @@ const itemTypesIDS = {
 const specialTypesIDS = {
     subTodo: 1,
     unsectioned: 2,
-    inbox: 3
-}
+    inbox: 3,
+    someday: 4,
+    trackingFile: 5,
+    waiting: 6,
+    referenceFile: 7,
+  };
+
 
 class ItemsService {
     constructor(ItemsRepository, ColorsRepository){
@@ -97,6 +102,21 @@ async getItems(userId) {
             where: {user_id: userId, special_type_id: specialTypesIDS.inbox}
         })
 
+        const specialProjects = await this.itemsRepository.findAll({
+            where: {
+                user_id: userId,
+                type_id: itemTypesIDS.folder,
+                special_type_id: {
+                    [Op.or]: [
+                        specialTypesIDS.inbox,
+                        specialTypesIDS.referenceFile,
+                        specialTypesIDS.someday,
+                        specialTypesIDS.trackingFile,
+                        specialTypesIDS.waiting
+                    ]
+                }}
+        })
+
         const unsections = await this.itemsRepository.findAll({
             where: {user_id: userId, special_type_id: specialTypesIDS.unsectioned}
         })
@@ -105,6 +125,8 @@ async getItems(userId) {
 
         return {
             folders: folders,
+            specialProjects: specialProjects,
+
             sections: sections,
             todos: todos,
             subTodos: subTodos,
@@ -201,17 +223,59 @@ async getItems(userId) {
         return (newItem)
     }
 
-    async createInbox(userID) {
-        const inboxItem = await this.itemsRepository .create({
-            item_name: 'INBOX',
-            user_id: userID,
-            type_id: itemTypesIDS.folder,
-            parent_id: null,
-            order: 0,
-            special_type_id: specialTypesIDS.inbox
-        })
+    async createDefaultProjects(userID) {
 
-        await this.createUnsectioned(inboxItem.dataValues.id, userID)
+        const defaultProjects = [
+            {
+                item_name: 'INBOX',
+                user_id: userID,
+                type_id: itemTypesIDS.folder,
+                parent_id: null,
+                order: 0,
+                special_type_id: specialTypesIDS.inbox
+            },
+            {
+                item_name: 'SOMEDAY',
+                user_id: userID,
+                type_id: itemTypesIDS.folder,
+                parent_id: null,
+                order: 1,
+                special_type_id: specialTypesIDS.someday
+            },
+            {
+                item_name: 'TRACKING FILE',
+                user_id: userID,
+                type_id: itemTypesIDS.folder,
+                parent_id: null,
+                order: 2,
+                special_type_id: specialTypesIDS.trackingFile
+            },
+            {
+                item_name: 'WAITING',
+                user_id: userID,
+                type_id: itemTypesIDS.folder,
+                parent_id: null,
+                order: 3,
+                special_type_id: specialTypesIDS.waiting
+            },
+            {
+                item_name: 'REFERENCE FILE',
+                user_id: userID,
+                type_id: itemTypesIDS.folder,
+                parent_id: null,
+                order: 4,
+                special_type_id: specialTypesIDS.referenceFile
+            }
+        ];
+
+
+
+        const defaultInstances = await this.itemsRepository.bulkCreate(defaultProjects)
+
+        await Promise.all(
+            defaultInstances.map(item => this.createUnsectioned(item.id, userID))
+        );
+
     }
 
     async createUnsectioned(folderID, userID) {

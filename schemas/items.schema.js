@@ -48,6 +48,7 @@ const updateItemContentSchema = Joi.object({
     item_name: item_name,
     description: description,
     is_favorite: is_favorite,
+    status: status,
 }).unknown(false);
 
 const updateStatusItemTodo = Joi.object({

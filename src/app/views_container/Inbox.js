@@ -3,14 +3,19 @@ import { TaskList } from "../task_components/TaskList";
 import { Task } from "../task_components/Task";
 import { useDataStore } from "../../store/data_store";
 
-function Inbox () {
+function Inbox ({specialId}) {
     const {inbox, unsectionsByProject} = useDataStore((state) => state);
     //const unsectionsByProject = useDataStore((state) => state.unsectionsByProject);
     const tasks = useDataStore((state) => state.tasks);
 
+    const project = useDataStore((state) => state.specialProjectsBySpecialId[specialId])
+
+    //console.log(specialProjectsBySpecialId)
+
     const getTaskFromInbox = (obj) => {
         return Object.values(obj)
-        .filter((task) => task.parent_id === unsectionsByProject[inbox.id].id)
+        //.filter((task) => task.parent_id === unsectionsByProject[inbox.id].id)
+        .filter((task) => task.parent_id === unsectionsByProject[project.id].id)
         .sort((a, b) => a.order - b.order)
         .map((task) => task.id)
     }
@@ -19,7 +24,7 @@ function Inbox () {
 
     return (
         <div>
-            <span>Inbox</span>
+            <span>{project.item_name}</span>
             {/*<pre>
                 {
                     JSON.stringify(tasks, null, 2)

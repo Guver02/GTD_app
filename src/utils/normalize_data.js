@@ -6,6 +6,9 @@ function normalizeData (data){
             tasks: data.todos.reduce((acc, item) => ({ ...acc, [item.id]: item }), {}),
             subTasks: data.subTodos.reduce((acc, item) => ({ ...acc, [item.id]: item }), {}),
             inbox: data.inbox,
+
+            specialProjectsBySpecialId: data.specialProjects.reduce((acc, item) => ({ ...acc, [item.special_type_id]: item }), {}),
+
             unsectionsByProject: data.unsections.reduce((acc, item) => ({ ...acc, [item.parent_id]: item }), {}),
             colors: data.colors,
         })

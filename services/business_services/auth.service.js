@@ -18,7 +18,7 @@ class AuthServices {
             password: passForTheDB
         }
         const result = await this.userServices.create(newUser)
-        await this.itemsService.createInbox(result.dataValues.id)
+        await this.itemsService.createDefaultProjects(result.dataValues.id)
 
         delete result.dataValues.password
         delete result.dataValues.id

@@ -30,7 +30,8 @@ class Task extends Item {
             description: this.description,
             parent_id: this.parent_id,
             type_id: this.type_id,
-            is_favorite: this.is_favorite
+            is_favorite: this.is_favorite,
+            status: this.status
         })
     }
 
@@ -38,7 +39,8 @@ class Task extends Item {
         return ({
             item_name: this.item_name,
             description: this.description,
-            is_favorite: this.is_favorite
+            is_favorite: this.is_favorite,
+            status: this.status
         })
     }
 }

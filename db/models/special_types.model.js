@@ -9,7 +9,14 @@ const specialTypesSchema = {
         primaryKey: true,
     },
     name: {
-        type: DataTypes.ENUM('sub-todo', 'unsectioned', 'inbox'), // ENUM para los tipos predefinidos
+        type: DataTypes.ENUM(
+            'sub-todo',
+            'unsectioned',
+            'inbox',
+            'someday',
+            'tracking-file',
+            'waiting',
+            'reference-file'),
         allowNull: false,
         unique: true,
     },

@@ -1,0 +1,499 @@
+/* Dashboard.module.css */
+
+.dashboardContainer {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f6f8; /* Fondo general */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+}
+
+.userWelcome h1 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    color: #2c3e50; /* Título principal */
+}
+
+.userWelcome p {
+    font-size: 0.9em;
+    color: #7f8c8d; /* Texto secundario */
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.searchBar svg {
+    margin-right: 8px;
+    color: #95a5a6;
+}
+
+.searchBar input[type="text"] {
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    color: #34495e;
+}
+
+.actionButtons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.actionButtons svg {
+    color: #7f8c8d;
+    cursor: pointer;
+}
+
+.scheduleButton,
+.createRequestButton {
+    background-color: white;
+    color: #3498db; /* Botón primario */
+    border: 1px solid #3498db;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.scheduleButton:hover,
+.createRequestButton:hover {
+    background-color: #e7f5ff;
+}
+
+.widgetsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.widget {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.widgetHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1em;
+    color: #34495e;
+}
+
+.widgetHeader h3 {
+    margin: 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.widgetHeader a {
+    color: #3498db;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+.widgetHeader a:hover {
+    text-decoration: underline;
+}
+
+.widgetBody {
+    padding: 20px;
+}
+
+.progressBar {
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    height: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progressBarTrack {
+    background-color: #bdc3c7;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.progressBarIndicator {
+    background-color: #2ecc71; /* Color de la barra de progreso */
+    height: 100%;
+    border-radius: 10px;
+}
+
+.progressBarText {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.listItem:last-child {
+    border-bottom: none;
+}
+
+.listItemIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.listItemContent p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #34495e;
+}
+
+.listItemContent span {
+    color: #7f8c8d;
+    font-size: 0.8em;
+}
+
+.listItemStatus {
+    font-size: 0.8em;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+.currentProjectDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.projectInfoRow {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    color: #34495e;
+}
+
+.projectInfoRow label {
+    color: #7f8c8d;
+    font-weight: bold;
+}
+
+.statusBadge {
+    font-size: 0.7em;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+
+.teamMembers {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #95a5a6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 0.7em;
+}
+
+.timelineBar {
+    background-color: #ecf0f1;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.timelineBar > div {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.scheduleCalendar {
+    margin-bottom: 15px;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #34495e;
+}
+
+.calendarHeader button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: #7f8c8d;
+}
+
+.calendarDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #7f8c8d;
+}
+
+.day {
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.day.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.scheduleTabs {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.scheduleTabs button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    cursor: pointer;
+}
+
+.scheduleTabs button.activeTab {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+}
+
+.meetingList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.meetingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.meetingItem:last-child {
+    border-bottom: none;
+}
+
+.meetingInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.meetingTime {
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.meetingTitle {
+    font-size: 1em;
+    color: #34495e;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.meetingParticipants {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8em;
+    color: #7f8c8d;
+}
+
+.meetingParticipants svg {
+    color: #7f8c8d;
+}
+
+.meetingLocation {
+    font-size: 0.8em;
+    color: #7f8c8d;
+}
+
+.meetingTag {
+    font-size: 0.7em;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+.notesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.noteItem {
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.noteItem:last-child {
+    border-bottom: none;
+}
+
+.noteItem strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.noteItem p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+}
+
+.noteMeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7em;
+    color: #7f8c8d;
+}
+
+.noteTag {
+    padding: 3px 6px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.noteMeta svg {
+    margin-right: 3px;
+}
+
+.statusTrackerList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.statusItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.statusItem:last-child {
+    border-bottom: none;
+}
+
+.userAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #95a5a6;
+    color: white;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.statusText {
+    flex-grow: 1;
+}
+
+.statusText strong {
+    display: block;
+    color: #34495e;
+    font-size: 0.9em;
+}
+
+.secondaryText {
+    color: #7f8c8d;
+    font-size: 0.8em;
+}
+
+.statusTime {
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-left: 10px;
+}
+
+.statusIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 10px;
+}

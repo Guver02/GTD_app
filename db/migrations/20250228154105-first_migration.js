@@ -18,13 +18,19 @@ module.exports = {
     const types = [
         {name: 'todo'},
         {name: 'section'},
-        {name: 'folder'}
+        {name: 'folder'},
+        /*{name: 'thing'},
+        {name: 'note'},*/
     ]
 
     const specialTypes = [
         {name: 'sub-todo'},
         {name: 'unsectioned'},
-        {name: 'inbox'}
+        {name: 'inbox'},
+        {name: 'someday' },
+        {name: 'tracking-file' },
+        {name: 'waiting' },
+        {name: 'reference-file' }
     ]
     const colors = [
         { color: '0,0,0' },

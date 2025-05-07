@@ -50,7 +50,9 @@
     padding: 8px 0;
     cursor: pointer;
 }
-
+.menuItem:hover{
+    background-color: lightgray;
+}
 .menuText {
     margin-left: 10px;
 }

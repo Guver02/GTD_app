@@ -12,7 +12,7 @@ import { SignIn } from "../auth_components/SignIn";
 import { Inbox } from "../views_container/Inbox";
 import { Projects } from "../views_container/Projects";
 import { ModalProvider } from "../providers/ModalContext";
-import App from "../task_components/Prueba";
+import { Dashboard } from "../views_container/Dashboard";
 
 const {
     applicationContainer,
@@ -20,10 +20,22 @@ const {
     applicationContent
 } = styles
 
+const specialTypesIDS = {
+    subTodo: 1,
+    unsectioned: 2,
+    inbox: 3,
+    someday: 4,
+    trackingFile: 5,
+    waiting: 6,
+    referenceFile: 7,
+  };
+
 function Application ({children}) {
     const [isLoading, setIsLoading] = useState(true)
     const tasks = useDataStore((state) => state.tasks, shallow)
     const setItems = useDataStore((state) => state.setItems)
+
+
 
     useEffect(() => {
         async function getItems() {
@@ -49,8 +61,13 @@ function Application ({children}) {
 
                 <div className={applicationContent}>
                 <Routes>
-                    <Route path="/" element={<Inbox></Inbox>} />
-                    <Route path="/dashboard" element={<SignIn/>} />
+                    <Route path="/" element={<Inbox specialId={specialTypesIDS.inbox}/>} />
+                    <Route path="/someday" element={<Inbox specialId={specialTypesIDS.someday}/>} />
+                    <Route path="/traking-file" element={<Inbox specialId={specialTypesIDS.trackingFile}/>} />
+                    <Route path="/waiting" element={<Inbox specialId={specialTypesIDS.waiting}/>} />
+                    <Route path="/reference-file" element={<Inbox specialId={specialTypesIDS.referenceFile}/>} />
+
+                    <Route path="/dashboard" element={<Dashboard/>} />
                     <Route path="/project/:id" element={<Projects/>} />
                 </Routes>
                 </div>

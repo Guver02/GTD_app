@@ -50,7 +50,7 @@ function ViewTask({
         //Cambiar seccion y/o contenido
 
         updateTask({
-            id, id,
+            id: id,
             parent_id: state.sectionId,
             item_name: state.item_name,
             description: state.description,

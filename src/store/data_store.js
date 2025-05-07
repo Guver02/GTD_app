@@ -10,6 +10,7 @@ const useDataStore = create ((set, get) => {
         subTasks: {},
         inbox: {},
         unsectionsByProject: {},
+        specialProjectsBySpecialId: {},
         colors: [],
 
         getColorData: (id) => {

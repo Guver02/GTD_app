@@ -91,7 +91,11 @@ const itemsSchema = {
         onUpdate: 'CASCADE',
         onDelete: 'RESTRICT',
       },
-
+    activation_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
+    },
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,

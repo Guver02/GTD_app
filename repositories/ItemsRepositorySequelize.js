@@ -19,6 +19,10 @@ class ItemsRepositorySequelize {
         return await models[ITEMS_TABLE].create(item);
     }
 
+    async bulkCreate(items) {
+        return await models[ITEMS_TABLE].bulkCreate(items)
+    }
+
     async update(item, options) {
         return await models[ITEMS_TABLE].update(item, options);
     }

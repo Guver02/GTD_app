@@ -11,13 +11,13 @@ const {
 } = style
 
 function ProjectListModal({onClickProject}) {
-    const projects = useDataStore((state) => state.projects, shallow)
+    const projects = useDataStore((state) => state.projects)
     const arrFolders = Object.values(projects)
+    .filter(project => project.special_type_id == null)
     console.log(projects)
   return (
     <div
     className={projectsListContainer}>
-      <span>Lista de Carpetas</span>
       <ul className={projectsList}>
         {arrFolders.map((project) => (
           <Project
