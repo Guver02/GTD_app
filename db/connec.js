@@ -9,7 +9,7 @@ const nodeEnv = config.env
 //const sequelize = new Sequelize(config.dbName, config.dbUser, config.dbPassword,{
 const sequelize = new Sequelize(configDB[nodeEnv].database , configDB[nodeEnv].username, configDB[nodeEnv].password,{
 
-    //host: configDB[nodeEnv].dbHost,
+    host: configDB[nodeEnv].dbHost,
 
     dialect: 'mysql',
     logging: false,
