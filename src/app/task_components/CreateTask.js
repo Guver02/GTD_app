@@ -38,9 +38,9 @@ function CreateTask ({projectId, sectionId}) {
             parent_id: state.sectionId
         })
         setState({
+            ...state,
             itemName: '',
             description: '',
-            ...state
         })
     }
 

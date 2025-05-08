@@ -4,23 +4,47 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: max-content;
     padding: 0;
 }
+
+.moveIcon{
+    opacity: 0;
+    border-radius: 4px;
+    width: 24px;
+}
+
 .taskContainer{
     width: 100%;
     display: flex;
+    flex-grow: 1;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
     border: 1px solid lightgray;
     border-radius: 4px;
-    padding: 0 8px;
+    padding: 8px ;
     box-sizing: border-box;
 
-    height: 52px;
     cursor: pointer;
 }
+.taskContent{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    cursor: pointer;
+    padding: 0 8px 0 0;
+}
+
+
+.content{
+    font-size: 14px;
+}
+.description{
+    font-size: 12px;
+    color: gray;
+}
+
+
 .dragging{
     background-color: red;
     opacity: 0.5;
@@ -29,10 +53,8 @@
 .taskContainer:hover{
     background-color: lightgray;
 }
-.moveIcon{
-    opacity: 0;
-    border-radius: 4px;
-}
+
+
 .moveIcon:hover{
     background-color: lightgray;
 }
@@ -41,19 +63,8 @@
     cursor: move;
 
 }
-.taskContent{
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    cursor: pointer;
-}
-.content{
-    font-size: 16px;
-}
-.description{
-    font-size: 12px;
-    color: gray;
-}
+
+
 .iconsContainer{
     display: flex;
     flex-direction: row;

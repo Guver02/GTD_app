@@ -206,7 +206,6 @@ async getItems(userId) {
     async createFolder(body, userId) {
         const actLastOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
 
-        console.log(body)
 
         const newItem = await this.itemsRepository .create({
             ...body,
@@ -465,7 +464,6 @@ async getItems(userId) {
               }
             });
 
-            console.log('Proyecto, secciones y tareas eliminados correctamente.');
 
             return(deleteProject)
           } catch (error) {
@@ -622,7 +620,7 @@ await this.itemsRepository.query(`
         editedItem.parent_id = newSectionParentId;
         editedItem.order = newOrder
         await editedItem.save()
-        console.log('se termino de ejecutar moveTodotoSection')
+
         return (editedItem)
     }
 
@@ -632,14 +630,12 @@ await this.itemsRepository.query(`
         }
         if(sourceOrder < targetOrder){
             const data = await this.upward(sourceOrder, targetOrder, parentId)
-            console.log('se termino de ejecutar changeOrderSameGroup')
+
 
             return (data)
         }
         if(sourceOrder > targetOrder){
             const data = await this.downward(sourceOrder, targetOrder, parentId)
-            console.log('se termino de ejecutar changeOrderSameGroup')
-
             return (data)
         }
     }

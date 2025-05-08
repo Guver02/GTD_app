@@ -14,7 +14,6 @@ const useProjectService = () => {
     const createProjectStateAndApi = useCallback(async (data) => {
 
         const projectData = Project.getProject(data);
-        console.log(projectData)
         createProject(projectData)
         const unsectionBaseData = {
             parent_id: projectData.id

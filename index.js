@@ -22,7 +22,6 @@ app.use(boomErrorHandler)
 app.use(errorHandler)
 
 app.get('*', (req, res) => {
-    //console.log('Se ejecuto el *')
     res.sendFile(path.join(__dirname, 'src', 'public', 'index.html'));
   })
 

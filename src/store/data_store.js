@@ -109,8 +109,6 @@ const useDataStore = create ((set, get) => {
                     }
                   })
 
-                  console.log('Longitud NewContainer', copyTaskNew.length)
-
                 updateTasks = {
                     ...updateTasks,
                     [taskId]: {
@@ -142,13 +140,10 @@ const useDataStore = create ((set, get) => {
 
               const withoutDragged = copyTask.filter((item) => item.id !== id1)
               const overIndex = copyTask.findIndex((item) => item.id == id2)
-              //console.log(overIndex)
-              //console.log('without', withoutDragged)
+
               withoutDragged.splice(overIndex, 0, task1)
 
               const updateTasks = {...state.tasks}
-              //console.log('withoutOrder', withoutDragged)
-
 
               withoutDragged.forEach((item, index) => {
                 updateTasks[item.id] = {

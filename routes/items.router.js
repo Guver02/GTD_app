@@ -30,8 +30,6 @@ router.get('/',
     authHandler,
     async (req, res , next) => {
         try {
-
-            console.log('EN LA RUTA /')
             const {token} = req
             const payload = await authServices.getPayload(token)
             const {userId} = payload

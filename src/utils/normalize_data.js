@@ -13,7 +13,7 @@ function normalizeData (data){
             colors: data.colors,
         })
     } catch (error) {
-        console.log(error)
+        console.error(error)
 
     }
 

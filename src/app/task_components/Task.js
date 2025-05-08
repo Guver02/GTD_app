@@ -38,7 +38,6 @@ const Task = React.memo(({ taskId, isMove = true }) => {
         opacity: isDragging ? 0.5 : 1
     };
 
-    console.log(task)
 
     const handleClick = () => {
         openModal(<ViewTask
@@ -74,6 +73,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
         }
 
         <div className={taskContainer}>
+
             <div
             className={taskContent}
             onClick={handleClick}
@@ -82,13 +82,14 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                     {task.item_name}
                 </span>
                 <span className={description}>
-                    {task.order}
+                    {task.description}
                 </span>
                 <div className={iconsContainer}>
 
                 </div>
             </div>
 
+            <div>
             {(task.status == 'completed') &&
             <CheckCircle onClick={handleCheckIsPending}/>
             }
@@ -98,6 +99,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             {(task.status == 'pending') &&
             <Circle onClick={handleCheckIsCompleted}/>
             }
+            </div>
         </div>
 
       </div>

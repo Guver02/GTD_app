@@ -31,13 +31,6 @@ function CreateProject() {
 
   const handleCreate = () => {
 
-    console.log({
-        item_name: projectName,
-        description: description,
-        color_id: selectedColor.id,
-        myColor: selectedColor,
-      })
-
     createProject({
       item_name: projectName,
       description: description,

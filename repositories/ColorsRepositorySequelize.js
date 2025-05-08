@@ -32,7 +32,6 @@ class ColorsRepositorySequelize {
     }
 
     async query(query, options) {
-        console.log('OPT', options)
 
         return await sequelize.query(query, options); // Usa sequelize
     }

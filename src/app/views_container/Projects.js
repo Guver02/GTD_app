@@ -38,7 +38,6 @@ function Projects () {
         if(!project) navigate('/app')
     }, [])
 
-    console.log(allSections)
 
     const {swapTaskOrder, swapParentAndOrder} = useTaskService()
 
@@ -58,7 +57,6 @@ function Projects () {
         setActiveItemId(active.id)
         //setIschange(false)
         setFirstContainerId(active.data.current.sortable.containerId)
-        console.log("se ejecuta ondragstart de dnd kit")
     }
 
 
@@ -78,16 +76,13 @@ function Projects () {
 
     const onDragEnd = (event) => {
         const {active, over} = event
-        console.log(firstActiveContainerId)
 
         if(
             (active.data.current.sortable.containerId == over.data.current.sortable.containerId)
             && (firstActiveContainerId == over.data.current.sortable.containerId)){
-                console.log("reordenar")
             swapTaskOrder(active.id, over.id, active.data.current.sortable.containerId);
         }else if((active.data.current.sortable.containerId == over.data.current.sortable.containerId)
             && (firstActiveContainerId != over.data.current.sortable.containerId)){
-                console.log("cambiar")
             swapParentAndOrder(active.id, over.id, active.data.current.sortable.containerId);
         }
     }

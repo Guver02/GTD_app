@@ -10,7 +10,6 @@ function Inbox ({specialId}) {
 
     const project = useDataStore((state) => state.specialProjectsBySpecialId[specialId])
 
-    //console.log(specialProjectsBySpecialId)
 
     const getTaskFromInbox = (obj) => {
         return Object.values(obj)

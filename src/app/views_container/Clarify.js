@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as styles from './Clarify.module.css'
 import { Aperture, Battery, Calendar, Check, Clock, Save, Tag, Trash, UserMinus } from "react-feather";
 import { useDataStore } from "../../store/data_store";
@@ -6,6 +6,8 @@ import { HoverModal } from '../ui_components/HoverModal'
 import { ProjectListModal } from "../projects_components/ProjectListModal";
 import { useTaskService } from "../../services/taskService";
 import { ProjectsModal } from "../projects_components/ProjectsModal";
+import { useRenderLogger } from "../utils_component/useRenderLogger";
+import { CircularStepProgress } from "../utils_component/CircularStepProgress";
 
 const {
     clarifyContainer,
@@ -39,23 +41,32 @@ const specialTypesIDS = {
     referenceFile: 7,
   };
 
-function ClarifyModal ({taskID, onComplete, counter}) {
+function ClarifyModal ({taskID, onComplete, stepNumber, totalSteps}) {
+    useRenderLogger()
     const task = useDataStore(state => state.tasks[taskID])
     const sections = useDataStore(state => state.sections)
     const specialProjectsBySpecialId = useDataStore(state => state.specialProjectsBySpecialId)
     const unsectionsByProject = useDataStore(state => state.unsectionsByProject)
+    const project = useDataStore(state => state.projects[sections[task.parent_id].parent_id])
 
     const {updateTask, deleteTask} = useTaskService()
 
-    const prevState = {
-        projectId: sections[task.parent_id].parent_id,
-        sectionId: task.parent_id,
-        item_name: task.item_name,
-        description: task.description,
-        order: task.order
-    }
+    const prevState = useMemo(() => {
+        return ({
+            projectId: sections[task.parent_id].parent_id,
+            sectionId: task.parent_id,
+            item_name: task.item_name,
+            description: task.description,
+            order: task.order
+        })
+    }, [taskID])
 
     const [state, setState] = useState(prevState)
+
+    useEffect(() => {
+        setState(prevState)
+    }, [prevState])
+
 
     const handleMe = () => {
         updateTask({
@@ -73,7 +84,7 @@ function ClarifyModal ({taskID, onComplete, counter}) {
     const handleDone = () => {
         updateTask({
             id: task.id,
-            parent_id: state.sectionId,
+            parent_id: prevState.sectionId,
             item_name: state.item_name,
             description: state.description,
             order: state.order,
@@ -153,11 +164,16 @@ function ClarifyModal ({taskID, onComplete, counter}) {
         <div className={clarifyContainer}>
 
             <div className={progressContainer}>
-                <div className={circleProgress}></div>
+
+                <CircularStepProgress stepNumber={stepNumber} totalSteps={totalSteps}/>
+
                 <div className={actData}>
-                    <span>{`Step ${counter + 1}`}</span>
-                    <span>{task.item_name}</span>
+                {stepNumber != null && totalSteps != null && (
+                    <span>{`Paso ${stepNumber} de ${totalSteps}`}</span>
+                )}
+                    <span>{project.item_name}</span>
                 </div>
+
             </div>
 
             {/*linea divisora bordertop*/}
@@ -254,26 +270,34 @@ function ClarifyModal ({taskID, onComplete, counter}) {
     )
 }
 
-function Clarify ({sectionToClarifyID}) {
-    const tasks = useDataStore(state => state.tasks)
+function Clarify({ sectionToClarifyID }) {
+    useRenderLogger()
+    const tasksRef = useRef(useDataStore.getState().tasks)
+    const tasksList = Object.values(tasksRef.current).filter(
+        task => task.parent_id === sectionToClarifyID && task.status === "pending"
+      );
 
-    const arrayTasks = Object.values(tasks)
-        .filter(task => (task.parent_id == sectionToClarifyID) &&
-        (task.status == 'pending'))
+    const [currentIndex, setCurrentIndex] = useState(0);
 
 
-    const [counter, setCounter] = useState(0)
+    const currentTask = tasksList[currentIndex];
 
-    console.log(arrayTasks)
-
-    const increment = () => {
-        setCounter((prevState) => prevState++)
+    const handleComplete = () => {
+        setCurrentIndex(prev => prev + 1)
     }
 
-    if(arrayTasks.length == counter) return <div>Parece que todo aqui esta aclarado</div>
+    if(!currentTask) return <div>No hay tareas pendientes.</div>;
+    if (currentIndex >= tasksList.length) return <div>¡Todo aclarado!</div>;
 
-    return (<ClarifyModal taskID={arrayTasks[counter].id} onComplete={increment} counter={0}/>)
-}
+    return (
+      <ClarifyModal
+        taskID={currentTask.id}
+        onComplete={handleComplete}
+        stepNumber={currentIndex + 1}
+        totalSteps={tasksList.length}
+      />
+    );
+  }
 
 export {Clarify, ClarifyModal}
 

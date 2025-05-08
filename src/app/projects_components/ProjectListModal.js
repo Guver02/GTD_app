@@ -14,7 +14,6 @@ function ProjectListModal({onClickProject}) {
     const projects = useDataStore((state) => state.projects)
     const arrFolders = Object.values(projects)
     .filter(project => project.special_type_id == null)
-    console.log(projects)
   return (
     <div
     className={projectsListContainer}>

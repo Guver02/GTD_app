@@ -16,8 +16,6 @@ const useTaskService = () => {
 
     const createTaskStateAndApi = useCallback(async (data) => {
 
-        console.log('data', data)
-
         const taskData = Task.getTask(data)
         createTask(Task.getTask(data))
 
@@ -54,7 +52,6 @@ const useTaskService = () => {
     const swapParentAndOrderStateAndApi = async (id1, id2, parentId) => {
         const {order: order1} = tasks[id1]
         const {order: order2} = tasks[id2]
-        console.log('source,orderTWO', order1, tasks[id1], order2, tasks[id2])
         swapTaskOrder(id1, id2, parentId)
         const data = {
             sourceOrder: order1,
