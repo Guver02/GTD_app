@@ -1,5 +1,6 @@
 const whitelist = [
     'http://localhost:4000',
+    'http://localhost:4100',
     'http://localhost:3000',
     'https://prueba-del-repositorio-remoto.onrender.com']
 

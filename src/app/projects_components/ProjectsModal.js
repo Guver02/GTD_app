@@ -125,7 +125,7 @@ function ProjectsModal ({functions, values}) {
 
                     <div
                     className={folderDataItem}
-                    onClick={() => handleCreate}
+                    onClick={handleCreate}
                     >
                         <Plus/>
                         <span>Crear Proyecto</span>
