@@ -3,9 +3,10 @@ import React, { useContext, useState } from "react";
 import * as style from './ProjectsModal.module.css'
 import { useDataStore } from "../../store/data_store";
 import { shallow } from "zustand/shallow";
-import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, Inbox } from "react-feather";
+import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, Inbox, Plus } from "react-feather";
+import { ModalContext } from "../providers/ModalContext";
 //import { DataContext } from "../../providers/DataContext";
-
+import {CreateProject} from '../projects_components/CreateProject'
 
 const {sectionItem, itemInbox, folderDataItem, subModalContainer, button, positionContainer} = style
 
@@ -19,6 +20,12 @@ function ProjectsModal ({functions, values}) {
     const inbox = useDataStore((state) => state.inbox);
     const unsectionsByProject = useDataStore((state) => state.unsectionsByProject)
     const [isClosed, setIsClosed] = useState(true)
+
+    const {openModal} = useContext(ModalContext)
+
+    const handleCreate = () => {
+        openModal(<CreateProject/>)
+    }
 
     const styleFolders = {
         color: `rgba(${projects[projectId].myColor?.color},1)`}
@@ -108,12 +115,21 @@ function ProjectsModal ({functions, values}) {
                                         })
                                     }
 
-</div>
+                                    </div>
                                 )
                             }
+
+
                         })
                     }
 
+                    <div
+                    className={folderDataItem}
+                    onClick={() => handleCreate}
+                    >
+                        <Plus/>
+                        <span>Crear Proyecto</span>
+                    </div>
 
                 </div>
             </>}
