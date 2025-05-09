@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDataStore } from '../../store/data_store';
 import { shallow } from 'zustand/shallow';
 import * as style from './ProjectListModal.module.css';
-import { Folder } from 'react-feather';
+import { Folder, Plus } from 'react-feather';
 import { Project } from './Project';
+import { ModalContext } from '../providers/ModalContext';
 
 const {
     projectsListContainer,
-    projectsList
+    projectsList,
+    createButton
 } = style
 
 function ProjectListModal({onClickProject}) {
     const projects = useDataStore((state) => state.projects)
     const arrFolders = Object.values(projects)
     .filter(project => project.special_type_id == null)
+    const {openModal} = useContext(ModalContext)
+
+    const handleCreate = () => {
+        openModal(<CreateProject/>)
+    }
+
   return (
     <div
     className={projectsListContainer}>
@@ -25,6 +33,14 @@ function ProjectListModal({onClickProject}) {
           onClickProject={onClickProject}
           />
         ))}
+
+        <li
+        className={createButton}
+        onClick={() => handleCreate}
+        >
+            <Plus></Plus>
+            <span>Crear Proyecto</span>
+        </li>
       </ul>
     </div>
   );
