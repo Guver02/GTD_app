@@ -4,34 +4,35 @@
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 20px;
-    padding: 20px;
     background-color: #f4f6f8; /* Fondo general */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
     height: 100%;
     width: 100%;
-    overflow: scroll;
+    padding: 20px;
     box-sizing: border-box;
+    overflow: auto;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    padding: 15px 0;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .headerLeft {
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
-
 .userWelcome h1 {
     font-size: 1.5em;
     margin-bottom: 5px;
     color: #2c3e50; /* Título principal */
 }
-
 .userWelcome p {
     font-size: 0.9em;
     color: #7f8c8d; /* Texto secundario */
@@ -39,10 +40,10 @@
 
 .headerRight {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 15px;
 }
-
 .searchBar {
     display: flex;
     align-items: center;
@@ -50,13 +51,12 @@
     border-radius: 20px;
     padding: 8px 15px;
     border: 1px solid #e0e0e0;
+    box-sizing: border-box;
 }
-
 .searchBar svg {
     margin-right: 8px;
     color: #95a5a6;
 }
-
 .searchBar input[type="text"] {
     border: none;
     outline: none;
@@ -69,12 +69,10 @@
     align-items: center;
     gap: 10px;
 }
-
 .actionButtons svg {
     color: #7f8c8d;
     cursor: pointer;
 }
-
 .scheduleButton,
 .createRequestButton {
     background-color: white;
@@ -89,25 +87,31 @@
     gap: 5px;
     transition: background-color 0.3s ease;
 }
-
 .scheduleButton:hover,
 .createRequestButton:hover {
     background-color: #e7f5ff;
 }
 
+
 .widgetsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
 }
+
 
 .widget {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    box-sizing: border-box;
+    max-height: 680px;
 }
 
 .widgetHeader {
@@ -118,6 +122,8 @@
     border-bottom: 1px solid #e0e0e0;
     font-size: 1em;
     color: #34495e;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .widgetHeader h3 {
@@ -140,6 +146,8 @@
 
 .widgetBody {
     padding: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .progressBar {
@@ -398,11 +406,21 @@
     margin: 0;
 }
 
-.noteItem {
-    padding: 15px 0;
+.noteContainer{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #e0e0e0;
 }
+.noteItem {
+    padding: 15px 0;
 
+}
+.circleIcon{
+    cursor: pointer;
+}
 .noteItem:last-child {
     border-bottom: none;
 }
@@ -496,4 +514,9 @@
     height: 8px;
     border-radius: 50%;
     margin-left: 10px;
+}
+@media (max-width: 768px) {
+    .headerRight{
+        flex-direction: column;
+    }
 }

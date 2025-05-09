@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import * as styles from './Dashboard.module.css';
-import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle } from 'react-feather'; // Importa más iconos según sea necesario
+import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward } from 'react-feather'; // Importa más iconos según sea necesario
+import { useDataStore } from "../../store/data_store";
+import { useTaskService } from "../../services/taskService";
 
 const {
     dashboardContainer,
@@ -45,19 +47,30 @@ const {
     meetingTitle,
     meetingParticipants,
     meetingLocation,
-    meetingTag
+    meetingTag,
+    noteContainer,
+    circleIcon
 } = styles;
 
 function Dashboard() {
+    const tasks = useDataStore(state => state.tasks)
+    const nextTasks = Object.values(tasks)
+    .filter(task => task.status === 'in_progress')
+
+
+
     return (
         <div className={dashboardContainer}>
+
             <header className={header}>
+
                 <div className={headerLeft}>
                     <div className={userWelcome}>
                         <h1>Sophia Williams</h1>
                         <p>Welcome back to Synergy</p>
                     </div>
                 </div>
+
                 <div className={headerRight}>
                     <div className={searchBar}>
                         <Search size={16} />
@@ -72,10 +85,31 @@ function Dashboard() {
                             <Plus size={16} /> Create a Request
                         </button>
                     </div>
+
                 </div>
             </header>
 
             <div className={widgetsContainer}>
+
+            <div className={widget}>
+
+                    <div className={widgetHeader}>
+                        <h3><FastForward size={16} className="inline-icon" />Next Actions</h3>
+                        <a href="#">See All</a>
+                    </div>
+
+                    <div className={widgetBody}>
+                        <ul className={notesList}>
+                            {
+                                nextTasks.map((task) => (
+                                    <NextTaskItem taskId={task.id}/>
+                                ))
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+
                 <div className={widget}>
                     <div className={widgetHeader}>
                         <h3><Clock size={16} className="inline-icon" /> Time Off</h3>
@@ -318,8 +352,50 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
+
         </div>
     );
+}
+
+function NextTaskItem ({taskId}) {
+    const task = useDataStore(state => state.tasks[taskId])
+    const sections = useDataStore(state => state.sections)
+    const projects = useDataStore(state => state.projects)
+    const [check, setCheck] = useState(task.status)
+    const {changeStatus} = useTaskService()
+
+    const handleCheck = () => {
+        setCheck('completed')
+        changeStatus(taskId, true)
+    }
+
+    return(
+        <li className={noteContainer}>
+            <div className={noteItem}>
+                <strong>{task.item_name}</strong>
+                <p>{task.description}</p>
+                <div className={styles.noteMeta}>
+                    <span
+                    className={styles.noteTag}
+                    style={{ backgroundColor: `rgba(${projects[sections[task.parent_id].parent_id].myColor.color},0.5)`, color: 'black' }}>
+                    {projects[sections[task.parent_id].parent_id].item_name}
+                    </span>
+                </div>
+            </div>
+
+            <div>
+                {check == 'in_progress' ?
+                    <Circle
+                    className={circleIcon}
+                    onClick={handleCheck}
+                    />
+                :
+                    <AlertCircle
+                    />
+                }
+            </div>
+        </li>
+    )
 }
 
 export { Dashboard };
