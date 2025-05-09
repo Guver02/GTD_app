@@ -25,3 +25,10 @@
     /*overflow-x: auto;
     overflow-y: auto;*/
 }
+
+@media (max-width: 768px) {
+    .applicationContainer{
+        display: flex;
+        flex-direction:column-reverse;
+    }
+}

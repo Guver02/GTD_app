@@ -27,6 +27,7 @@ const {sectionContainer,
 const Section = React.memo(({sectionID}) => {
     const {openModal} = useContext(ModalContext)
     const section = useDataStore((state) => state.sections[sectionID]);
+    const unsectionsByProject = useDataStore(state => state.unsectionsByProject)
 
     const tasks = useDataStore((state) => state.tasks);
 
@@ -63,7 +64,7 @@ const Section = React.memo(({sectionID}) => {
 
 
 
-            {(section.order !== 0)?
+            {(sectionID !== unsectionsByProject[section.parent_id].id)?
                 <>
                 {  (showEditMode == true) ?
                     <div className={sectionEditMode}>
@@ -130,6 +131,7 @@ const Section = React.memo(({sectionID}) => {
 
 export {Section}
 
+//section.order !== 0
 
 /**
  *         <HoverModal

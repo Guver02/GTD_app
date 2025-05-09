@@ -7,7 +7,7 @@ function HoverModal ({
   position = "bottom",
   gap = 10
 }){
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(true);
 
   const { optionContainer, optionsBubble, ...positions } = styles;
 
@@ -26,7 +26,7 @@ function HoverModal ({
     <div
       className={optionContainer}
       onMouseEnter={() => setShowOptions(true)}
-      onMouseLeave={() => setShowOptions(false)}
+      onMouseLeave={() => setShowOptions(true)}
     >
       {ParentComponent}
 

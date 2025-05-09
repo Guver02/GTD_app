@@ -203,7 +203,7 @@ async getItems(userId) {
         return (newItem)
     }
 
-    async createFolder(body, userId) {
+    async createFolder(body, userId, unsectionId) {
         const actLastOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId)
 
 
@@ -214,8 +214,7 @@ async getItems(userId) {
             parent_id: null,
             order: actLastOrder
         })
-
-        await this.createUnsectioned(newItem.dataValues.id, userId)
+        await this.createUnsectioned(newItem.dataValues.id, userId, unsectionId)
 
         delete newItem.dataValues.user_id
 
@@ -277,15 +276,30 @@ async getItems(userId) {
 
     }
 
-    async createUnsectioned(folderID, userID) {
-        const unsectioned = await this.itemsRepository .create({
-            item_name: 'UNSECTIONED',
-            user_id: userID,
-            type_id: itemTypesIDS.section,
-            parent_id: folderID,
-            order: 0,
-            special_type_id: specialTypesIDS.unsectioned
-        })
+    async createUnsectioned(folderID, userID, unsectionId) {
+        let data = {}
+        if(unsectionId){
+            data = {
+                id: unsectionId,
+                item_name: 'UNSECTIONED',
+                user_id: userID,
+                type_id: itemTypesIDS.section,
+                parent_id: folderID,
+                order: 0,
+                special_type_id: specialTypesIDS.unsectioned
+            }
+        }else{
+            data = {
+                item_name: 'UNSECTIONED',
+                user_id: userID,
+                type_id: itemTypesIDS.section,
+                parent_id: folderID,
+                order: 0,
+                special_type_id: specialTypesIDS.unsectioned
+            }
+        }
+
+        const unsectioned = await this.itemsRepository .create(data)
 
         return (unsectioned)
     }

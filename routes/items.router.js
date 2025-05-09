@@ -44,8 +44,9 @@ router.get('/',
         }
     }
 )
-router.post('/create-folder',
+router.post('/create-folder/:id',
     authHandler,
+    validatorHandler(getItemSchema, 'params'),
     validatorHandler(createItemFolderSchema, 'body'),
     async (req, res, next) => {
         try {
@@ -53,8 +54,10 @@ router.post('/create-folder',
             const payload = await authServices.getPayload(token)
             const {userId} = payload
 
+            const {id} = req.params
+
             const {body} = req
-            const newItem =  await itemsService.createFolder(body, userId)
+            const newItem =  await itemsService.createFolder(body, userId, id)
             res.json(newItem)
         } catch (error) {
             next(error)

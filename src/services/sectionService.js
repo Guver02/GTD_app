@@ -1,40 +1,36 @@
 import { useDataStore } from "../store/data_store";
-import { apiService } from "./apiService";
-import { useCallback } from 'react'; // Importa useCallback para optimizar
-import { Project } from '../constructors/Items/Projects'
+import { useCallback } from 'react';
 import { Section } from "../constructors/Items/Sections";
 
+import { sectionRestApiRepository } from "../repositories/sectionRestApiRepository";
+const sectionRepo = sectionRestApiRepository;
 
 const useSectionService = () => {
-    const createSection = useDataStore((state) => state.createSection);
-    const deleteSection = useDataStore((state) => state.deleteSection)
-    const updateSection = useDataStore((state) => state.updateSection)
+  const createSection = useDataStore(state => state.createSection);
+  const updateSection = useDataStore(state => state.updateSection);
+  const deleteSection = useDataStore(state => state.deleteSection);
 
-    const createSectionStateAndApi = useCallback(async (data) => {
+  const createSectionStateAndApi = useCallback(async (data) => {
+    const section = Section.getSection(data);
+    createSection(section);
+    await sectionRepo.create(section);
+  }, [createSection]);
 
-        const sectionData = Section.getSection(data);
-        createSection(sectionData)
+  const updateSectionStateAndApi = useCallback(async (data) => {
+    const section = Section.getSection(data);
+    updateSection(section);
+    await sectionRepo.update(section);
+  }, [updateSection]);
 
-        await apiService.post(`/api/v1/items/create-section`, sectionData.getSectionFormatAPI());
-    }, [createSection]);
-
-    const updateSectionStateAndApi = useCallback(async (body) => {
-        const updateSectionData = Section.getSection(body);
-        updateSection(updateSectionData);
-
-        await apiService.put(`/api/v1/items/update-content/${body.id}`, updateSectionData.getUpdateContentFormatAPI())
-    }, [updateSection])
-
-    const deleteSectionStateAndApi = useCallback(async (id) => {
-        deleteSection(id)
-
-        await apiService.delete(`/api/v1/items/delete/${id}`);
-    }, [deleteSection])
+  const deleteSectionStateAndApi = useCallback(async (id) => {
+    deleteSection(id);
+    await sectionRepo.delete(id);
+  }, [deleteSection]);
 
   return {
     createSection: createSectionStateAndApi,
+    updateSection: updateSectionStateAndApi,
     deleteSection: deleteSectionStateAndApi,
-    updateSection: updateSectionStateAndApi
   };
 };
 

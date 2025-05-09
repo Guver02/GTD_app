@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as styles from './Sidebar.module.css';
 import {Search, Inbox, Bell, Grid, Briefcase, Users, Trello, Calendar, Archive, Trash2, AlignJustify, Codepen, Codesandbox, Hexagon, ArrowDownCircle, Coffee, UserCheck, FileText} from 'react-feather'
 import { HoverModal } from './HoverModal';
@@ -44,6 +44,15 @@ const Sidebar = () => {
     const project = useDataStore((state) =>
         state.specialProjectsBySpecialId[specialTypesIDS.inbox])
     const unsectionedInbox = useDataStore(state => state.unsectionsByProject[project.id])
+    const [width, setWidth] = useState(window.innerWidth);
+    console.log(width)
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
 
     const redirectToProject = (projectID) => {
         navigate(`/app/project/${projectID}`)
@@ -120,7 +129,7 @@ const Sidebar = () => {
             bubbleComponent={() => (
             <ProjectListModal
             onClickProject={redirectToProject}/>)}
-            position='right'
+            position={(width <= 768)? 'top' : 'right'}
             gap={12}/>
 
 

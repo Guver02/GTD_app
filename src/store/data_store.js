@@ -1,6 +1,5 @@
 import {create} from 'zustand'
 import { normalizeData } from '../utils/normalize_data'
-import { getStatus } from '../utils/stateUtils'
 
 const useDataStore = create ((set, get) => {
     return({
@@ -17,6 +16,20 @@ const useDataStore = create ((set, get) => {
             set((state) => {
                 const colorData = state.colors.filter((elem) => elem.id == id)
                 return (colorData);
+            })
+        },
+
+        addUnsection: (unsectionBody) => {
+            set((state) => {
+
+                return({
+                    unsectionsByProject:{
+                        ...state.unsectionsByProject,
+                        [unsectionBody.parent_id]: {
+                            ...unsectionBody
+                        }
+                    }
+                })
             })
         },
 

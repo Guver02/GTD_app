@@ -9,7 +9,11 @@
     background-color: #fff;
     border-radius: 8px;
     width: 700px;
-    max-width: 100vw;
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
+
+    overflow: auto;
+    box-sizing: border-box;
   }
 
   .progressContainer {

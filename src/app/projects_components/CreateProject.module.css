@@ -1,17 +1,3 @@
-/* CreateProject.module.css (Modo Claro) */
-.formCreateContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2); /* Fondo ligeramente oscuro semitransparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
   .formContainer {
     background-color: #f8f9fa; /* Fondo claro */
     color: #212529; /* Texto oscuro */
@@ -20,6 +6,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
     border: 1px solid #dee2e6; /* Borde sutil */
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .formContainer h2 {

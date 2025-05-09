@@ -5,7 +5,6 @@ import { ModalContext } from '../providers/ModalContext';
 import { useProjectService } from '../../services/projectService';
 
 const {
-  formCreateContainer,
   formContainer,
   inputTittle,
   inputDescription,
