@@ -10,9 +10,7 @@ const Navbar = () => {
     const {
         navbar,
         navbarCenter,
-        searchBox,
-        searchInput,
-        searchIcon,
+
         navbarRight,
         createButton,
     } = styles;
@@ -28,17 +26,19 @@ const Navbar = () => {
 
     return (
         <nav className={navbar}>
+
             <div className={navbarCenter}>
             </div>
+
             <div className={navbarRight}>
-            <button
+                <button
                 className={createButton}
                 onClick={handleCProject}
-                >New Project</button>
+                >Create Project</button>
                 <button
                 className={createButton}
                 onClick={handleCTask}
-                >New Task</button>
+                >Create Task</button>
             </div>
         </nav>
     );

@@ -10,16 +10,40 @@
     border-radius: 8px;
     width: 700px;
     max-width: 100%;
-    max-height: calc(100vh - 100px);
-
+    max-height: calc(100dvh - 20%);
     overflow: auto;
     box-sizing: border-box;
   }
 
-  .progressContainer {
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.cancelButton {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    background-color: #e0e0e0;
+    color: #757575;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.cancelButton:hover {
+    background-color: #bdbdbd;
+}
+
+  .progressContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 20px;
   }
 

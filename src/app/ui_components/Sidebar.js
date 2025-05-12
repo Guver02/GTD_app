@@ -26,6 +26,8 @@ const {
     userInfo,
     userInfoText,
     userInfoChevron,
+    itemProjects,
+    menuItemExpanded
 } = styles;
 const specialTypesIDS = {
     subTodo: 1,
@@ -97,14 +99,14 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleSearch}
             >
                 <Search/>
                 {isExpanded && <div className={menuText}>Quick Search</div>}
             </div>
 
-            <div className={menuItem}
+            <div className={isExpanded ? menuItemExpanded : menuItem}
                 onClick={redirectToInbox}
             >
                 <Inbox/>
@@ -120,7 +122,7 @@ const Sidebar = () => {
             <HoverModal
             ParentComponent={
             <div
-            className={menuItem}
+            className={isExpanded ? `${menuItemExpanded} ${itemProjects}` : menuItem}
             >
                 <Briefcase/>
                 {isExpanded && <div className={menuText}>Projects</div>}
@@ -134,7 +136,7 @@ const Sidebar = () => {
 
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleDashboard}
             >
                 <Grid/>
@@ -142,7 +144,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleClarify}
             >
                 <ArrowDownCircle/>
@@ -150,7 +152,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleSomeday}
             >
                 <Coffee/>
@@ -158,7 +160,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleTrakingFile}
             >
                 <Archive/>
@@ -166,7 +168,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleWaiting}
             >
                 <UserCheck/>
@@ -174,7 +176,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={menuItem}
+            className={isExpanded ? menuItemExpanded : menuItem}
             onClick={handleReferenceFile}
             >
                 <FileText/>

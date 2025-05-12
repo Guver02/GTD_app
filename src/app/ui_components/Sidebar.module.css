@@ -92,6 +92,21 @@
 .userInfoChevron {
     cursor: pointer;
 }
+.menuItemExpanded{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    padding: 8px 0 8px 20px;
+    cursor: pointer;
+}
+.itemProjects{
+    padding-left: 10px;
+}
+.menuItemExpanded:hover{
+    background-color: lightgray;
+}
+
 
 @media (max-width: 768px) {
     .sidebar{

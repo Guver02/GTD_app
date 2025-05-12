@@ -14,27 +14,10 @@
     align-items: center;
 }
 
-.searchBox {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 5px 10px;
-}
-
-.searchInput {
-    border: none;
-    outline: none;
-    padding: 5px;
-}
-
-.searchIcon {
-    margin-left: 5px;
-}
-
 .navbarRight {
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .createButton {
@@ -42,6 +25,8 @@
     color: white;
     border: none;
     padding: 8px 15px;
-    border-radius: 20px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
 }

@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import * as styles from './Clarify.module.css'
 import { Aperture, Battery, Calendar, Check, Clock, Save, Tag, Trash, UserMinus } from "react-feather";
 import { useDataStore } from "../../store/data_store";
-import { HoverModal } from '../ui_components/HoverModal'
-import { ProjectListModal } from "../projects_components/ProjectListModal";
 import { useTaskService } from "../../services/taskService";
 import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useRenderLogger } from "../utils_component/useRenderLogger";
 import { CircularStepProgress } from "../utils_component/CircularStepProgress";
+import { ModalContext } from "../providers/ModalContext";
 
 const {
     clarifyContainer,
@@ -27,6 +26,8 @@ const {
     electionContainer,
     electionItem,
 
+    cancelButton,
+    headerContainer,
     horizontal,
     optionButton
 } = styles
@@ -41,13 +42,14 @@ const specialTypesIDS = {
     referenceFile: 7,
   };
 
-function ClarifyModal ({taskID, onComplete, stepNumber, totalSteps}) {
+function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
     useRenderLogger()
     const task = useDataStore(state => state.tasks[taskID])
     const sections = useDataStore(state => state.sections)
     const specialProjectsBySpecialId = useDataStore(state => state.specialProjectsBySpecialId)
     const unsectionsByProject = useDataStore(state => state.unsectionsByProject)
     const project = useDataStore(state => state.projects[sections[task.parent_id].parent_id])
+    const {closeModal} = useContext(ModalContext)
 
     const {updateTask, deleteTask} = useTaskService()
 
@@ -160,18 +162,33 @@ function ClarifyModal ({taskID, onComplete, stepNumber, totalSteps}) {
         }))
     }
 
+    const handleCancel = () => {
+        closeModal()
+    }
+
     return(
         <div className={clarifyContainer}>
 
-            <div className={progressContainer}>
+            <div className={headerContainer}>
 
-                <CircularStepProgress stepNumber={stepNumber} totalSteps={totalSteps}/>
+                <div className={progressContainer}>
+                    <CircularStepProgress stepNumber={stepNumber} totalSteps={totalSteps}/>
 
-                <div className={actData}>
-                {stepNumber != null && totalSteps != null && (
-                    <span>{`Paso ${stepNumber} de ${totalSteps}`}</span>
-                )}
-                    <span>{project.item_name}</span>
+                    <div className={actData}>
+                    {stepNumber != null && totalSteps != null && (
+                        <span>{`Paso ${stepNumber} de ${totalSteps}`}</span>
+                    )}
+                        <span>{project.item_name}</span>
+                    </div>
+                </div>
+
+                <div>
+                    <button
+                    className={cancelButton}
+                    onClick={handleCancel}
+                    >
+                    Cancelar
+                    </button>
                 </div>
 
             </div>

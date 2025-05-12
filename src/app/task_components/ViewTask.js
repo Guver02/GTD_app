@@ -5,6 +5,7 @@ import * as styles from "./ViewTask.module.css"
 import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useDataStore } from "../../store/data_store";
 import { Trash, Trash2 } from "react-feather";
+import { ClarifyModal } from "../views_container/Clarify";
 
 const typesForm = {
     create: 'create',
@@ -21,7 +22,8 @@ const {
     buttonText,
     deleteButton,
     lefthHeader,
-    rightHeader
+    rightHeader,
+    rowFlex
 } = styles
 
 function ViewTask({
@@ -32,9 +34,9 @@ function ViewTask({
     order
 }){
     const {updateTask} = useTaskService()
-    const { closeModal } = useContext(ModalContext)
     const section = useDataStore((state) => state.sections[parent_id])
     const {deleteTask} = useTaskService()
+    const {openModal, closeModal} = useContext(ModalContext)
 
     const prevState = {
         projectId: section.parent_id,
@@ -73,6 +75,14 @@ function ViewTask({
         closeModal()
     }
 
+    const handleClarify = () => {
+        openModal(
+        <ClarifyModal
+        taskID={id}
+        onComplete={closeModal}
+        />)
+    }
+
     return(<div className={container}>
 
         <div className={formHeader}>
@@ -99,12 +109,25 @@ function ViewTask({
 
         <div className={formEdit}>
 
+            <div
+            className={rowFlex}
+            >
             <ProjectsModal
             values={{
             projectId: state.projectId,
             sectionId: state.sectionId}}
             functions={{changeFolderSection}}
             />
+
+                <button
+                className={confirmButton}
+                onClick={handleClarify}
+                >
+                    <span className={buttonText}>
+                        Aclarar
+                    </span>
+                </button>
+            </div>
 
             <input
             className={tittle}

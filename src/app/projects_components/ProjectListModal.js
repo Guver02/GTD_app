@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { useDataStore } from '../../store/data_store';
-import { shallow } from 'zustand/shallow';
 import * as style from './ProjectListModal.module.css';
-import { Folder, Plus } from 'react-feather';
 import { Project } from './Project';
 import { ModalContext } from '../providers/ModalContext';
 import { CreateProject } from './CreateProject';
+import { Plus } from 'react-feather';
 
 const {
     projectsListContainer,
@@ -20,7 +19,6 @@ function ProjectListModal({onClickProject}) {
     const {openModal} = useContext(ModalContext)
 
     const handleCreate = () => {
-        console.log('se clicko')
         openModal(<CreateProject/>)
     }
 
@@ -40,7 +38,7 @@ function ProjectListModal({onClickProject}) {
         className={createButton}
         onClick={handleCreate}
         >
-            <Plus></Plus>
+            <Plus/>
             <span>Crear Proyecto en Lista</span>
         </li>
       </ul>

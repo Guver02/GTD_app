@@ -7,6 +7,8 @@
     flex-direction: column;
     border-right: 1px solid #eee; /* Light border */
     border-radius: 8px;
+    max-width: 100%;
+    max-height: calc(100dvh - 20%);
   }
 
 .searchBar {
@@ -88,3 +90,13 @@
     color: #999;
     font-size: 12px;
   }
+
+@media (min-width: 768px) {
+    .scrollableContainer {
+    overflow-y: auto;
+    flex-grow: 1;
+    }
+    .scrollableContainer::-webkit-scrollbar{
+    display: none;
+    }
+}

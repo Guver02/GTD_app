@@ -365,7 +365,6 @@ function NextTaskItem ({taskId}) {
     const {changeStatus} = useTaskService()
 
     const handleCheck = () => {
-        setCheck('completed')
         changeStatus(taskId, true)
     }
 
