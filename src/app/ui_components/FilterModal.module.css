@@ -1,0 +1,65 @@
+.filterModalContainer{
+    position: relative;
+}
+.filterModalContainer > div:first-child{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+.filtersCount{
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.iconFilter{
+    cursor: pointer;
+}
+.filterList{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    top: 92%;
+    right: 0;
+    height: 400px;
+    overflow-y: auto;
+}
+.filterList::-webkit-scrollbar{
+    width: 4px;
+}
+.filterList::-webkit-scrollbar-thumb{
+    border-radius: 40px;
+    background-color: lightgray;
+}
+.filterListItem{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    box-sizing: border-box;
+}
+.filterListItem:hover{
+    background-color: lightgray;
+}
+.filterListItem > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    justify-content: start;
+}
+.filterListItem > input {
+    cursor: pointer;
+}

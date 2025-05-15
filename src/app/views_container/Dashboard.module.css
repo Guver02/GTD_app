@@ -112,6 +112,7 @@
     max-width: 100%;
     box-sizing: border-box;
     max-height: 680px;
+    min-height: 480px;
 }
 
 .widgetHeader {

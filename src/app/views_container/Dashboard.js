@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
 import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward } from 'react-feather'; // Importa más iconos según sea necesario
 import { useDataStore } from "../../store/data_store";
 import { useTaskService } from "../../services/taskService";
+import { FilterModal } from "../ui_components/FilterModal";
 
 const {
     dashboardContainer,
@@ -54,10 +55,40 @@ const {
 
 function Dashboard() {
     const tasks = useDataStore(state => state.tasks)
-    const nextTasks = Object.values(tasks)
-    .filter(task => task.status === 'in_progress')
+    const [nextTasks, setNextTasks] = useState([])
 
+    const [filters, setFilters] = useState([])
 
+    const addFilter = (unsectionedId, projectId) => {
+        setFilters((prev) => [
+            ...prev,
+            {
+                unsectionedId,
+                projectId
+            }
+        ])
+    }
+
+    const removeFilter = (projectId) => {
+        setFilters((prev) => prev.filter(elem => elem.projectId !== projectId))
+    }
+
+    console.log('filters',filters)
+    console.log('tasks', nextTasks)
+    useEffect(() => {
+        if(filters.length > 0){
+            const unsectionedFiltered = filters.map(elem => elem.unsectionedId)
+            setNextTasks(
+                Object.values(tasks)
+                .filter(task => task.status === 'in_progress')
+                .filter(elem => unsectionedFiltered.includes(elem.parent_id))
+            )
+        }else if(filters.length == 0){
+            setNextTasks(
+                Object.values(tasks)
+                .filter(task => task.status === 'in_progress'))
+        }
+    }, [filters])
 
     return (
         <div className={dashboardContainer}>
@@ -95,14 +126,18 @@ function Dashboard() {
 
                     <div className={widgetHeader}>
                         <h3><FastForward size={16} className="inline-icon" />Next Actions</h3>
-                        <a href="#">See All</a>
+                        <FilterModal
+                        addFilter={addFilter}
+                        removeFilter={removeFilter}
+                        filters = {filters}
+                        />
                     </div>
 
                     <div className={widgetBody}>
                         <ul className={notesList}>
                             {
                                 nextTasks.map((task) => (
-                                    <NextTaskItem taskId={task.id}/>
+                                    <NextTaskItem key={task.id} taskId={task.id}/>
                                 ))
                             }
                         </ul>
@@ -154,7 +189,7 @@ function Dashboard() {
                 <div className={widget}>
                     <div className={widgetHeader}>
                         <h3><Flag size={16} className="inline-icon" /> Current Project</h3>
-                        <a href="#">See All</a>
+
                     </div>
                     <div className={widgetBody}>
                         <div className={currentProjectDetails}>
