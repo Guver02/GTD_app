@@ -1,0 +1,23 @@
+:root {
+  --color-primary: rgba(0, 122, 255, 1);            /* Azul brillante de botones e íconos activos */
+  --color-primary-medium: rgba(56, 132, 255, 1);     /* Azul intermedio (hover o ítems activos) */
+  --color-primary-light: rgba(221, 235, 255, 1);     /* Azul claro de fondo seleccionado */
+
+
+  --color-background: rgba(255, 255, 255, 1);  /* Fondo principal */
+  --color-background-cool:#f7fafd;
+  --color-background-grayish:#eeeeee;
+
+  --color-secondary: rgba(102, 108, 255, 1);         /* Morado azulado (botón Add Customer) */
+  --color-secondary-medium: rgba(142, 147, 255, 1);  /* Hover / estados intermedios */
+  --color-secondary-light: rgba(142, 147, 255, 0.3); /* Estados suaves */
+
+  --color-text-primary: #0f172a;                     /* Azul oscuro grisáceo: texto principal */
+  --color-text-secondary: #64748b;                   /* Gris medio: etiquetas, columnas */
+  --color-text-muted: #cbd5e1;                       /* Gris muy claro: bordes o desactivados */
+  --color-text-inverted: #ffffff;                    /* Blanco: íconos sobre fondo oscuro */
+
+  --color-success: rgba(34, 197, 94, 1);              /* Verde éxito */
+  --color-error: #ef4444;                            /* Rojo de error o eliminado */
+  --color-warning: #f59e0b;                          /* Amarillo de advertencia */
+}

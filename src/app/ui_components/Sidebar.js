@@ -3,7 +3,7 @@ import * as styles from './Sidebar.module.css';
 import {Search, Inbox, Bell, Grid, Briefcase, Users, Trello, Calendar, Archive, Trash2, AlignJustify, Codepen, Codesandbox, Hexagon, ArrowDownCircle, Coffee, UserCheck, FileText} from 'react-feather'
 import { HoverModal } from './HoverModal';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ModalContext } from '../providers/ModalContext';
 import { SearchModal } from '../views_container/Search';
 import { Clarify } from '../views_container/Clarify';
@@ -16,6 +16,8 @@ const {
     logoContainer,
     logo,
     logoText,
+    sidebarContainer,
+    sidebarContainerExpanded,
     searchBar,
     menuItem,
     menuText,
@@ -26,6 +28,7 @@ const {
     userInfo,
     userInfoText,
     userInfoChevron,
+    itemActive,
     itemProjects,
     menuItemExpanded
 } = styles;
@@ -41,18 +44,26 @@ const specialTypesIDS = {
 
 const Sidebar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [width, setWidth] = useState(window.innerWidth);
+    const [activeItem, setActiveItem] = useState(null);
+
+    const location = useLocation()
     const navigate = useNavigate();
     const {openModal} = useContext(ModalContext)
-    const project = useDataStore((state) =>
-        state.specialProjectsBySpecialId[specialTypesIDS.inbox])
+
+    const project = useDataStore((state) => state.specialProjectsBySpecialId[specialTypesIDS.inbox])
     const unsectionedInbox = useDataStore(state => state.unsectionsByProject[project.id])
-    const [width, setWidth] = useState(window.innerWidth);
-    console.log(width)
+
+    console.log(activeItem)
+
+    useEffect(() => {
+        const thisLocation = location.pathname.split("/")
+        setActiveItem(thisLocation[2])
+    }, [location])
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
-
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
@@ -88,7 +99,8 @@ const Sidebar = () => {
     }
 
     return (
-        <aside className={`${sidebar} ${isExpanded ? sidebarExpanded : ''}`}>
+
+            <aside className={`${sidebar} ${isExpanded ? sidebarExpanded : ''}`}>
             <div className={iconButton} onClick={toggleSidebar}>
                 <AlignJustify/>
             </div>
@@ -106,11 +118,11 @@ const Sidebar = () => {
                 {isExpanded && <div className={menuText}>Quick Search</div>}
             </div>
 
-            <div className={isExpanded ? menuItemExpanded : menuItem}
+            <div className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == undefined ? itemActive : ''}`}
                 onClick={redirectToInbox}
             >
                 <Inbox/>
-                {isExpanded && <div className={menuText}>Inbox 12</div>}
+                {isExpanded && <div className={menuText}>Inbox</div>}
             </div>
 
 
@@ -122,7 +134,7 @@ const Sidebar = () => {
             <HoverModal
             ParentComponent={
             <div
-            className={isExpanded ? `${menuItemExpanded} ${itemProjects}` : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'project' ? itemActive : ''}`}
             >
                 <Briefcase/>
                 {isExpanded && <div className={menuText}>Projects</div>}
@@ -136,7 +148,7 @@ const Sidebar = () => {
 
 
             <div
-            className={isExpanded ? menuItemExpanded : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'dashboard' ? itemActive : ''}`}
             onClick={handleDashboard}
             >
                 <Grid/>
@@ -152,7 +164,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={isExpanded ? menuItemExpanded : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'someday' ? itemActive : ''}`}
             onClick={handleSomeday}
             >
                 <Coffee/>
@@ -160,7 +172,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={isExpanded ? menuItemExpanded : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'traking-file' ? itemActive : ''}`}
             onClick={handleTrakingFile}
             >
                 <Archive/>
@@ -168,7 +180,7 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={isExpanded ? menuItemExpanded : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'waiting' ? itemActive : ''}`}
             onClick={handleWaiting}
             >
                 <UserCheck/>
@@ -176,72 +188,14 @@ const Sidebar = () => {
             </div>
 
             <div
-            className={isExpanded ? menuItemExpanded : menuItem}
+            className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'reference-file' ? itemActive : ''}`}
             onClick={handleReferenceFile}
             >
                 <FileText/>
                 {isExpanded && <div className={menuText}>Reference File</div>}
             </div>
-        </aside>
+            </aside>
     );
 };
 
 export {Sidebar};
-
-/**
- * <div className={menuItem}>
-                <Bell/>
-                {isExpanded && <div className={menuText}>Notifications 15+</div>}
-            </div>
-
-     <div className={menuItem}>
-                <Grid/>
-                {isExpanded && <div className={menuText}>Dashboard</div>}
-            </div>
-
-               <div className={menuItem}>
-                <Users/>
-                {isExpanded && <div className={menuText}>Colaborators</div>}
-            </div>
-
-            <div className={menuItem}>
-                <Trello/>
-                {isExpanded && <div className={menuText}>Gant</div>}
-            </div>
-
-            <div className={menuItem}>
-                <Calendar/>
-                {isExpanded && <div className={menuText}>Calendar</div>}
-            </div>
-
-              <div className={menuItem}>
-                <Archive/>
-                {isExpanded && <div className={menuText}>Tracking File</div>}
-            </div>
-
-            <div className={menuItem}>
-                <Trash2/>
-                {isExpanded && <div className={menuText}>Trash</div>}
-            </div>
-
-
-            {isExpanded && (
-                <div className={currentPlan}>
-                    Current plan: <br />
-                    Pro trial
-                </div>
-            )}
-
-            {isExpanded && (
-                <div className={currentPlan}>
-                    Upgrade to Pro to get the latest and exclusive features
-                </div>
-            )}
-
-            {isExpanded && <button className={upgradeButton}>+ Upgrade to Pro</button>}
-
-            <div className={menuItem}>
-                <div className={iconButton}>O</div>
-                {isExpanded && <div className={menuText}>Preferences</div>}
-            </div>
- */

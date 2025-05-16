@@ -4,7 +4,7 @@
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 20px;
-    background-color: #f4f6f8; /* Fondo general */
+    background-color: transparent; /* Fondo general */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
     height: 100%;

@@ -13,6 +13,11 @@ import { Inbox } from "../views_container/Inbox";
 import { Projects } from "../views_container/Projects";
 import { ModalProvider } from "../providers/ModalContext";
 import { Dashboard } from "../views_container/Dashboard";
+import { InboxView } from "../views_container/InboxView";
+import { Someday } from "../views_container/Someday";
+import { ReferenceFile } from "../views_container/ReferenceFile";
+import { TrakingFile } from "../views_container/TrakingFile";
+import { Waiting } from "../views_container/Waiting";
 
 const {
     applicationContainer,
@@ -61,11 +66,11 @@ function Application ({children}) {
 
                 <div className={applicationContent}>
                 <Routes>
-                    <Route path="/" element={<Inbox specialId={specialTypesIDS.inbox}/>} />
-                    <Route path="/someday" element={<Inbox specialId={specialTypesIDS.someday}/>} />
-                    <Route path="/traking-file" element={<Inbox specialId={specialTypesIDS.trackingFile}/>} />
-                    <Route path="/waiting" element={<Inbox specialId={specialTypesIDS.waiting}/>} />
-                    <Route path="/reference-file" element={<Inbox specialId={specialTypesIDS.referenceFile}/>} />
+                    <Route path="/" element={<InboxView/>} />
+                    <Route path="/someday" element={<Someday specialSomedayID={specialTypesIDS.someday}/>} />
+                    <Route path="/traking-file" element={/**<Inbox specialId={specialTypesIDS.trackingFile}/> */ <TrakingFile/>} />
+                    <Route path="/waiting" element={<Waiting specialWaitingID={specialTypesIDS.waiting}/>} />
+                    <Route path="/reference-file" element={<ReferenceFile specialReferenceFileID={specialTypesIDS.referenceFile}/>} />
 
                     <Route path="/dashboard" element={<Dashboard/>} />
                     <Route path="/project/:id" element={<Projects/>} />

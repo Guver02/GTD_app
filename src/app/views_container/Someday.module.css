@@ -1,0 +1,37 @@
+.somedayContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+.tittle{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 8px 0;
+}
+.scrollableContainer{
+    height: 100%;
+    overflow-x: scroll;
+    width: 100%;
+}
+.scrollableContainer::-webkit-scrollbar{
+    background-color: transparent;
+    height: 4px;
+}
+.scrollableContainer::-webkit-scrollbar-thumb{
+    background-color: var(--color-text-muted);
+    border-radius: 20px;
+}
+.listContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 8px;
+    height: 100%;
+}
+@media (max-width: 768px) {
+    .inboxContainer{
+        padding: 4px;
+    }
+}

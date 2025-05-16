@@ -89,6 +89,7 @@ async getItems(userId) {
 
         const todos = await this.itemsRepository.findAll({
             where: { user_id: userId, type_id: 1, special_type_id: null },
+            include: ['myColor'],
             order: [['order', 'ASC']],
         });
 

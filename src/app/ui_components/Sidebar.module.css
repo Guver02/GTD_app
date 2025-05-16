@@ -1,26 +1,41 @@
+.sidebarContainer{
+    width: 76px;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+.sidebarContainerExpanded{
+    width: 266px;
+}
 .sidebar {
-    width: 60px; /* Ancho inicial */
-    background-color: #f0f0f0;
+    width: 60px;
+    background-color: var(--color-background);
     transition: width 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    height: 100vh;
+    border-radius: 4px;
+    height: 100%;
+    padding: 8px;
+}
+.sidebarExpanded {
+    width: 250px;
 }
 
-.sidebarExpanded {
-    width: 250px; /* Ancho expandido */
-}
+
 
 .iconButton {
     cursor: pointer;
-    padding: 16px 0;
+    padding: 8px;
     display: flex;
     justify-content: center;
-    width: 100%;
+    color: var(--color-text-primary);
 }
-
+.iconButton:hover{
+    background-color: var(--color-primary-light);
+    border-radius: 8px;
+}
 .logoContainer {
     display: flex;
     align-items: center;
@@ -35,6 +50,7 @@
 
 .logoText {
     font-weight: bold;
+    color: var(--color-text-primary);
 }
 
 .searchBar {
@@ -51,10 +67,16 @@
     cursor: pointer;
 }
 .menuItem:hover{
-    background-color: lightgray;
+    background-color: var(--color-primary-light);
+    border-radius: 8px;
+}
+.menuItem svg{
+    color: var(--color-backgound-primary);
 }
 .menuText {
     margin-left: 10px;
+    color: var(--color-text-primary);
+    font-weight: 500;
 }
 
 .currentPlan {
@@ -97,16 +119,32 @@
     align-items: center;
     justify-content: start;
     width: 100%;
-    padding: 8px 0 8px 20px;
+    padding: 8px;
     cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+.menuItemExpanded svg{
+    color: var(--color-backgound-primary);
 }
 .itemProjects{
     padding-left: 10px;
 }
 .menuItemExpanded:hover{
-    background-color: lightgray;
+    background-color: var(--color-primary-light);
 }
 
+.itemActive{
+    border: 1px solid var(--color-text-inverted);
+    background-color: var(--color-primary);
+    border-radius: 8px;
+}
+
+.itemActive svg,
+.itemActive .menuText{
+    font-weight: bold;
+    color: var(--color-text-inverted);
+}
 
 @media (max-width: 768px) {
     .sidebar{
@@ -122,5 +160,14 @@
     .menuItem{
         height: 100%;
         box-sizing: border-box;
+    }
+    .menuItem:hover,
+    .menuItemExpanded:hover{
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    }
+    .menuItem:hover svg,
+    .menuItemExpanded:hover svg{
+    color: var(--color-text-inverted);
     }
 }

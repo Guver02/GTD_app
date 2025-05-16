@@ -106,17 +106,6 @@ const Task = React.memo(({ taskId, isMove = true }) => {
     );
 })
 
-/**<div
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-            >
-                {!isHover?
-                <Circle/>
-                :
-                <CheckCircle/>
-                }
-
-            </div> */
 
 function TaskPlaceholder({sectionId}){
     const {
@@ -130,9 +119,6 @@ function TaskPlaceholder({sectionId}){
     return (
         <div
         ref={setNodeRef}
-        //{...attributes}
-        //{...listeners}
-        //className={taskContainer}
         ><div style={{ opacity: 0.5, fontStyle: "italic" }}>Arrastra aquí</div></div>
     )
 }

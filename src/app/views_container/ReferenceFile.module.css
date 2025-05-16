@@ -1,0 +1,58 @@
+.masonryContainer {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.masonryTitle {
+  font-size: 24px;
+  font-weight: bold;
+  height: 24px;
+}
+.scrollContainer{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.scrollContainer::-webkit-scrollbar{
+    width: 4px;
+}
+.scrollContainer::-webkit-scrollbar-thumb{
+    background-color: var(--color-background-cool);
+    border-radius: 20px;
+}
+.masonryGrid {
+    width: 100%;
+    height: max-content;
+    column-count: 4;
+    gap: 8px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .masonryGrid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonryGrid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonryGrid {
+    column-count: 2;
+  }
+}
+
+.masonryGrid > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  width: 100%;
+}

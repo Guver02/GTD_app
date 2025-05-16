@@ -42,7 +42,7 @@ module.exports = {
   mode: 'development',
 
   devServer: {
-    port: 4100,
+    port: 4000,
 
     open: true,
     client: {

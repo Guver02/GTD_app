@@ -4,6 +4,7 @@ import {AuthContainer} from "./auth_components/AuthContainer"
 import { ProtectedRoute } from "./auth_components/ProtectedRoute"
 import { Sidebar } from "./ui_components/Sidebar"
 import { Application } from "./structure_components/Application"
+import '../public/variables.css'
 
 
 function App() {

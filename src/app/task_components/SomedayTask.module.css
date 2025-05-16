@@ -1,0 +1,42 @@
+.taskContainer{
+    width: 700px;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-background);
+    padding: 8px;
+}
+.taskItem{
+    width: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-background);
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+.taskContent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+}
+.optionsContainer{
+    gap: 8px;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.content{
+    font-size: 18px;
+    font-weight: bold;
+}
+.description{
+    font-size: 16px;
+}
+.iconsContainer{
+
+}
