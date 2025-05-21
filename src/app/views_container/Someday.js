@@ -5,6 +5,7 @@ import * as styles from './Someday.module.css'
 import { SomedayTask } from "../task_components/SomedayTask";
 
 const {
+    somedayView,
     somedayContainer,
     tittle,
     scrollableContainer,
@@ -26,7 +27,8 @@ function Someday ({specialSomedayID}) {
     const tasksSomeday = somedayTasks()
 
     return (
-        <div className={somedayContainer}>
+        <div className={somedayView}>
+            <div className={somedayContainer}>
             <span className={tittle}>Someday / Maybe</span>
             <div className={scrollableContainer}>
                 <div className={listContainer}>
@@ -35,6 +37,7 @@ function Someday ({specialSomedayID}) {
                     )
                     }
                 </div>
+            </div>
             </div>
         </div>
     )

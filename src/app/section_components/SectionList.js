@@ -9,7 +9,9 @@ const {
     sectionListContainer,
     createButton,
     projectTittle,
+    scrollContainer,
     text,
+    createContainer,
     listContainer
 } = style
 
@@ -23,36 +25,35 @@ function SectionList({ sectionIds, SectionComponent, projectId }) {
             parent_id: projectId,
             item_name: input
         })
+        setInput('')
     }
 
   return (
+    <div className={scrollContainer}>
     <div
     className={sectionListContainer}
     >
-
-
-
             {sectionIds.map((id) => (
             <SectionComponent key={id} sectionID={id} />
             ))}
 
-            <div
-            className={createButton}
-            >
-                <input
-                className={text}
-                placeholder='Añadir Secccion'
-                value={input}
-                onChange={(e)=>setInput(e.target.value)}></input>
+            <div className={createContainer}>
+                <div className={createButton}>
 
-                <Plus
-                onClick={handleCreateSection}
-                />
+                    <Plus
+                    onClick={handleCreateSection}
+                    />
+
+                    <input
+                    className={text}
+                    placeholder='Añadir Secccion'
+                    value={input}
+                    onChange={(e)=>setInput(e.target.value)}/>
+
+                </div>
             </div>
-
-
-
     </div>
+     </div>
   );
 }
 

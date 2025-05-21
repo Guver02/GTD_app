@@ -1,32 +1,54 @@
-.sectionListContainer{
-display: flex;
-flex-direction: row;
-height: 100%;
-box-sizing: border-box;
-
-padding-bottom: 8px;
-overflow-x: auto;
+.scrollContainer{
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
 }
-
-
+.scrollContainer::-webkit-scrollbar{
+    height: 4px;
+}
+.scrollContainer::-webkit-scrollbar-thumb{
+    background-color: var(--color-text-secondary);
+    border-radius: 20px;
+}
+.sectionListContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    height: 100%;
+    box-sizing: border-box;
+    width: max-content;
+    padding-bottom: 8px;
+}
+.createContainer{
+    background-color: var(--color-background-cool);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+}
 .createButton{
     display: flex;
     flex-direction: row;
+    gap: 8px;
     max-width: 100%;
-    width: 320px;
-    justify-content: space-between;
+    width: 340px;
+    justify-content: start;
     box-sizing: border-box;
-    padding: 0 8px;
+    height: 52px;
+    padding: 16px;
     align-items: center;
-    height: 36px;
+    height: auto;
     border-radius: 4px;
-    border: 1px solid gray;
     cursor: pointer;
+    background-color: var(--color-background);
 }
-
-.createButton > text{
-    font-size: 16px;
-    font-weight: bold;
+.createButton:hover{
+    background-color: var(--color-text-muted);
+}
+.createButton > input{
+    all: unset;
+}
+.createButton > svg{
+    color: red;
 }
 
 

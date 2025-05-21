@@ -5,7 +5,7 @@
 
 
   --color-background: rgba(255, 255, 255, 1);  /* Fondo principal */
-  --color-background-cool:#f7fafd;
+  --color-background-cool:#f0f4f8; /*f5f7fa*/
   --color-background-grayish:#eeeeee;
 
   --color-secondary: rgba(102, 108, 255, 1);         /* Morado azulado (botón Add Customer) */

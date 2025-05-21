@@ -3,6 +3,7 @@
     padding: 8px;
     box-sizing: border-box;
     background-color: transparent;
+
 }
 .sidebarContainerExpanded{
     width: 266px;
@@ -18,6 +19,7 @@
     border-radius: 4px;
     height: 100%;
     padding: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* sombra sutil */
 }
 .sidebarExpanded {
     width: 250px;

@@ -1,18 +1,21 @@
 .container{
-    margin-top: 8px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 0;
 }
-
+.optionsContainer{
+    width: 24px;
+}
 .moveIcon{
     opacity: 0;
     border-radius: 4px;
     width: 24px;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
-
 .taskContainer{
     width: 100%;
     display: flex;
@@ -20,12 +23,16 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    border: 1px solid lightgray;
     border-radius: 4px;
-    padding: 8px ;
+    padding: 12px ;
     box-sizing: border-box;
-
     cursor: pointer;
+    background-color: var(--color-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+}
+.taskContainer:hover{
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .taskContent{
     display: flex;
@@ -34,8 +41,6 @@
     cursor: pointer;
     padding: 0 8px 0 0;
 }
-
-
 .content{
     font-size: 14px;
 }
@@ -43,29 +48,25 @@
     font-size: 12px;
     color: gray;
 }
-
-
-.dragging{
-    background-color: red;
-    opacity: 0.5;
-    transform: scale(0.05);
-}
-.taskContainer:hover{
-    background-color: lightgray;
-}
-
-
-.moveIcon:hover{
-    background-color: lightgray;
+.moveIcon:hover .taskContainer{
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 .container:hover .moveIcon{
     opacity: 1;
     cursor: move;
-
 }
-
-
 .iconsContainer{
     display: flex;
     flex-direction: row;
+}
+.placeholderContainer{
+    opacity: 0.5;
+    font-style: italic;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 4px dashed var(--color-text-muted);
+    padding: 8px 16px;
+    align-items: center;
+    text-align: center;
 }

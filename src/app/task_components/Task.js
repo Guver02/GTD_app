@@ -16,7 +16,9 @@ const {
     description,
     iconsContainer,
     container,
-    moveIcon
+    moveIcon,
+    optionsContainer,
+    placeholderContainer
 } = style
 
 const Task = React.memo(({ taskId, isMove = true }) => {
@@ -64,12 +66,14 @@ const Task = React.memo(({ taskId, isMove = true }) => {
       className={container}
       style={style}
       >
-        {isMove &&
+        {isMove ?
             <div
             className={moveIcon}
             {...listeners}>
                 <Move2/>
             </div>
+            :
+            <div className={moveIcon}></div>
         }
 
         <div className={taskContainer}>
@@ -102,24 +106,25 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             </div>
         </div>
 
+        <div className={optionsContainer}>
+
+        </div>
+
       </div>
     );
 })
 
 
 function TaskPlaceholder({sectionId}){
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-        isDragging} = useSortable({id: `placeholder-${sectionId}`})
+    const {setNodeRef} = useSortable({id: `placeholder-${sectionId}`})
 
     return (
         <div
         ref={setNodeRef}
-        ><div style={{ opacity: 0.5, fontStyle: "italic" }}>Arrastra aquí</div></div>
+        className={placeholderContainer}
+        >
+            <span>Sección vacía</span>
+        </div>
     )
 }
 

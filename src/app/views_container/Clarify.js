@@ -7,6 +7,7 @@ import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useRenderLogger } from "../utils_component/useRenderLogger";
 import { CircularStepProgress } from "../utils_component/CircularStepProgress";
 import { ModalContext } from "../providers/ModalContext";
+import { AllClarifyed } from "../utils_component/AllClarifyed";
 
 const {
     clarifyContainer,
@@ -193,7 +194,7 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
 
             </div>
 
-            {/*linea divisora bordertop*/}
+
             <div className={formStyles}>
                 <span className={sectionStyle}>¿Qué es esto exactamente?</span>
                 <input
@@ -303,8 +304,8 @@ function Clarify({ sectionToClarifyID }) {
         setCurrentIndex(prev => prev + 1)
     }
 
-    if(!currentTask) return <div>No hay tareas pendientes.</div>;
-    if (currentIndex >= tasksList.length) return <div>¡Todo aclarado!</div>;
+    if(!currentTask) return <AllClarifyed/>
+    if (currentIndex >= tasksList.length) return <AllClarifyed/>
 
     return (
       <ClarifyModal

@@ -8,7 +8,7 @@ const {
     taskListContainer
 } = style
 
-function TaskList({ taskIds, TaskComponent, parentId }) {
+function TaskList({ taskIds, TaskComponent, parentId, isMove = true}) {
 
   return (
         <div
@@ -16,7 +16,7 @@ function TaskList({ taskIds, TaskComponent, parentId }) {
             <SortableContext items={taskIds} strategy={verticalListSortingStrategy} id={parentId}>
             {taskIds.length > 0 ?
             taskIds.map((taskId) => (
-                <TaskComponent key={taskId} taskId={taskId} />
+                <TaskComponent key={taskId} taskId={taskId} isMove={isMove}/>
                 ))
             :
                 <TaskPlaceholder sectionId={parentId}/>

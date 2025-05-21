@@ -1,23 +1,31 @@
+.somedayView{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .somedayContainer{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 0 8px;
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 8px;
     box-sizing: border-box;
+    background-color: var(--color-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .tittle{
     font-size: 24px;
     font-weight: bold;
-    padding: 8px 0;
+    padding: 8px;
 }
 .scrollableContainer{
     height: 100%;
-    overflow-x: scroll;
+    overflow: scroll;
     width: 100%;
 }
 .scrollableContainer::-webkit-scrollbar{
     background-color: transparent;
-    height: 4px;
+    width: 4px;
 }
 .scrollableContainer::-webkit-scrollbar-thumb{
     background-color: var(--color-text-muted);
@@ -31,7 +39,10 @@
     height: 100%;
 }
 @media (max-width: 768px) {
-    .inboxContainer{
-        padding: 4px;
+    .somedayView{
+        padding: 0;
+    }
+    .somedayContainer{
+        border-radius: 8px 8px 0 0;
     }
 }

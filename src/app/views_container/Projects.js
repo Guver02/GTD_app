@@ -16,7 +16,8 @@ import { useProjectService } from "../../services/projectService";
 const {
     projectsContainer,
     projectTittle,
-    iconsContainer
+    iconsContainer,
+    projectsView
 } = styles
 
 function Projects () {
@@ -116,9 +117,8 @@ function Projects () {
     if(!project) return null
 
     return (
-    <div
-    className={projectsContainer}>
-
+    <div className={projectsView}>
+        <div className={projectsContainer}>
         <div className={projectTittle}>
             {!editMode ?
                 <span
@@ -163,6 +163,7 @@ function Projects () {
                 }
             </DragOverlay>
         </DndContext>
+        </div>
     </div>)
 }
 

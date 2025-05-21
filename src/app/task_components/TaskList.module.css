@@ -1,18 +1,16 @@
 .taskListContainer{
     display: flex;
     flex-direction: column;
+    gap: 8px;
     position: relative;
     border-radius: 8px;
-    padding: 0 8px;
     box-sizing: border-box;
-    background-color: var(--color-text-inverted);
-    width: calc(320px - 16px);
+    width: 100%;
     align-items: center;
-    max-height: 100%;
     overflow-y: scroll;
+    padding-bottom: 4px;
 
 }
-
 .taskListContainer::-webkit-scrollbar{
     display: none;
 }
