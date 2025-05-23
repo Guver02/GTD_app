@@ -81,12 +81,14 @@ function CreateTask ({projectId, sectionId}) {
             className={tittle}
             id="inputFocus"
             placeholder="Contenido"
+            autoComplete="off"
             value={state.itemName}
             onChange={(e) => setState((state) => ({...state, itemName: e.target.value}))}
             />
             <input
             className={formDescription}
             placeholder="Detalles"
+            autoComplete="off"
             value={state.description}
             onChange={(e) => setState((state) => ({...state, description: e.target.value}))}
             />

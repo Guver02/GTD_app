@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import * as styles from './Navbar.module.css';
 import { ModalContext } from '../providers/ModalContext';
-import { CreateTask } from '../task_components/CreateTask';
-import { CreateProject } from '../projects_components/CreateProject';
+import { MainPanel } from './MainPanel';
+import { Plus } from 'react-feather';
 
 const Navbar = () => {
     const {openModal} = useContext(ModalContext)
@@ -10,18 +10,12 @@ const Navbar = () => {
     const {
         navbar,
         navbarCenter,
-
         navbarRight,
         createButton,
     } = styles;
 
-    const handleCProject = () => {
-        openModal(<CreateProject/>)
-    }
-
-
     const handleCTask = () => {
-        openModal(<CreateTask/>)
+        openModal(<MainPanel/>)
     }
 
     return (
@@ -33,12 +27,10 @@ const Navbar = () => {
             <div className={navbarRight}>
                 <button
                 className={createButton}
-                onClick={handleCProject}
-                >Create Project</button>
-                <button
-                className={createButton}
-                onClick={handleCTask}
-                >Create Task</button>
+                onClick={handleCTask}>
+                    <span>Create</span>
+                    <Plus/>
+                </button>
             </div>
         </nav>
     );

@@ -28,4 +28,31 @@
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 6px;
+}
+.createButton > svg{
+    height: 18px;
+    width: fit-content;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+
+    .createButton{
+        position: fixed;
+        bottom: 10%;
+        right: 4%;
+    }
+    .createButton > span{
+        display: none;
+    }
+    .navbar{
+        height: 0;
+        width: 0;
+        padding: 0;
+    }
 }

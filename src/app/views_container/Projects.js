@@ -17,7 +17,8 @@ const {
     projectsContainer,
     projectTittle,
     iconsContainer,
-    projectsView
+    projectsView,
+    tittle
 } = styles
 
 function Projects () {
@@ -120,10 +121,16 @@ function Projects () {
     <div className={projectsView}>
         <div className={projectsContainer}>
         <div className={projectTittle}>
+
             {!editMode ?
-                <span
+                <div
+                className={tittle}
                 onClick={() =>setEditMode(true)}
-                >{project.item_name}</span>
+                >
+                    <span>
+                        {project.item_name}
+                    </span>
+                </div>
                 :
                 <div>
                     <input
