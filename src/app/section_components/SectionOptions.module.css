@@ -1,9 +1,9 @@
 .sectionOptionsContainer{
     display: flex;
     flex-direction: column;
-    width: 160px;
+    width: 200px;
     box-sizing: border-box;
-    padding: 4px;
+    padding: 0;
     border-radius: 2px;
     min-height: 200px;
     position: relative;
@@ -18,14 +18,15 @@
 }
 .sectionOptionsList li{
     list-style-type: none;
-    border-radius: 4px;
-    padding: 8px 12px;
+    padding: 8px 16px;
     height: 40px;
     box-sizing: border-box;
-    border: 1px solid lightgray;
     position: relative;
     align-items: center;
-
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 12px;
 }
 .sectionOptionsList li:hover{
     cursor: pointer;

@@ -23,7 +23,7 @@
 .createButton {
     background-color: var(--color-primary);
     color: white;
-    border: none;
+    border: 1px solid var(--color-text-inverted);
     padding: 12px 20px;
     border-radius: 8px;
     cursor: pointer;

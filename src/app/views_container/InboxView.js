@@ -37,8 +37,18 @@ function InboxView () {
         .map((task) => task.id)
     }
 
+    const tasksCompleted = () => {
+        return Object.values(tasks)
+        .filter((task) =>
+            (task.parent_id === unsectionsByProject[inbox.id].id) &&
+            (task.status === 'completed'))
+        .sort((a, b) => a.order - b.order)
+        .map((task) => task.id)
+    }
+
     const tasksPendingIDs = tasksPending()
     const tasksInProgressIDs = tasksInProgress()
+    const tasksCompletedIDs = tasksCompleted()
 
     return (
         <div className={inboxView}>
@@ -53,6 +63,10 @@ function InboxView () {
                     <div className={sectionInbox}>
                         <span className={sectionTittle}>Tareas Aclaradas</span>
                         <TaskList taskIds={tasksInProgressIDs} TaskComponent={Task} isMove={false}></TaskList>
+                    </div>
+                    <div className={sectionInbox}>
+                        <span className={sectionTittle}>Tareas Completadas</span>
+                        <TaskList taskIds={tasksCompletedIDs} TaskComponent={Task} isMove={false}></TaskList>
                     </div>
                 </div>
             </div>

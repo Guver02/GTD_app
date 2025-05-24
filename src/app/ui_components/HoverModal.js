@@ -16,9 +16,9 @@ function HoverModal ({
   }
 
   const bubbleStyles = {
-    bottom: { top: `calc(80% + ${gap}px)`, left: "20%", transform: "translateX(-50%)" },
+    bottom: { top: `calc(80% + ${gap}px)`, left: "-200%", transform: "translateX(-50%)" },
     top: { bottom: `calc(80% + ${gap}px)`, left: "20%", transform: "translateX(-50%)" },
-    left: { right: `calc(80% + ${gap}px)`, top: "20%", transform: "translateY(-50%)" },
+    left: { right: `calc(80% + ${gap}px)`, top: "360%", transform: "translateY(-50%)" },
     right: { left: `calc(80% + ${gap}px)`, top: "20%", transform: "translateY(-50%)" }
   };
 

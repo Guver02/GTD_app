@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDataStore } from "../../store/data_store";
 import { shallow } from "zustand/shallow";
@@ -8,37 +8,45 @@ import { DndContext, closestCorners, PointerSensor, useSensor, useSensors, close
 import { Task } from "../task_components/Task";
 import { useTaskService } from "../../services/taskService";
 import * as styles from './Projects.module.css'
-import { Edit, Trash2 } from "react-feather";
+import { Edit, Folder, MoreHorizontal, Trash2 } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 import { DeleteConfirmation } from "../ui_components/DeleteConfirmation";
 import { useProjectService } from "../../services/projectService";
+import { HoverModal } from "../ui_components/HoverModal";
+import { ProjectOptions } from "../projects_components/ProjectOptions";
 
 const {
     projectsContainer,
     projectTittle,
     iconsContainer,
     projectsView,
-    tittle
+    tittle,
+    inputStyle,
+    folderIcon
 } = styles
 
 function Projects () {
     const {id} = useParams()
     const [activeItemId, setActiveItemId] = useState(null)
     const [firstActiveContainerId, setFirstContainerId] = useState('')
-    const [isChange, setIschange] = useState(false)
     const allSections = useDataStore(state => state.sections, shallow)
     const project = useDataStore(state => state.projects[id])
-    const tasks = useDataStore(state => state.tasks, shallow)
     const changeSection = useDataStore((state) => state.changeSection);
     const {openModal, closeModal} = useContext(ModalContext)
     const {deleteProject, updateProject} = useProjectService()
-    const [editMode, setEditMode] = useState(false)
-    const [input, setInput] = useState(project.item_name)
+    const [input, setInput] = useState('')
     const navigate = useNavigate();
+    const inputRef = useRef(null);
 
     useEffect(() => {
         if(!project) navigate('/app')
     }, [])
+
+    useEffect(() => {
+        if (project) {
+            setInput(project.item_name);
+        }
+    }, [project?.item_name]);
 
 
     const {swapTaskOrder, swapParentAndOrder} = useTaskService()
@@ -105,6 +113,12 @@ function Projects () {
         closeModal()
     }
 
+    const checkEnter = (e) => {
+        if (e.key === 'Enter' && input !== '') {
+            handleUpdateProject()
+        }
+    }
+
     const handleUpdateProject = () => {
         updateProject({
             id: id,
@@ -112,42 +126,56 @@ function Projects () {
             parent_id: project.parent_id,
             order: project.order
         })
-        setEditMode(false)
+        inputRef.current.blur()
     }
+
+
 
     if(!project) return null
 
     return (
     <div className={projectsView}>
         <div className={projectsContainer}>
+
         <div className={projectTittle}>
 
-            {!editMode ?
+                <div
+                className={folderIcon}
+                style={{backgroundColor: `rgba(${project.myColor.color},0.7)`}}
+                >
+                    <Folder/>
+                </div>
+
                 <div
                 className={tittle}
-                onClick={() =>setEditMode(true)}
                 >
-                    <span>
-                        {project.item_name}
-                    </span>
-                </div>
-                :
-                <div>
                     <input
+                    ref={inputRef}
+                    className={inputStyle}
+                    placeholder="El nombre de tu proyecto"
                     value={input}
+                    onKeyDown={checkEnter}
                     onChange={(e) => setInput(e.target.value)}
                     />
-                    <Edit
-                    onClick={handleUpdateProject}
-                    />
                 </div>
-            }
 
 
-            <div
-            className={iconsContainer}>
-                <Trash2
-                onClick={openConfirmModal}/>
+
+            <div>
+            <HoverModal
+            ParentComponent={
+                <div className={iconsContainer}>
+                    <MoreHorizontal/>
+                </div>}
+            bubbleComponent={(closeModal) => (
+                <ProjectOptions
+                id={id}
+                closeOptions={closeModal}
+                deleteFunction={openConfirmModal}
+                editFunction={() => {}}
+                />)}
+            position='bottom'
+            gap={4}/>
             </div>
         </div>
 

@@ -23,7 +23,10 @@ const {
     deleteButton,
     lefthHeader,
     rightHeader,
-    rowFlex
+    rowFlex,
+     colorSelectorContainer,
+  colorCircle,
+  selectedColorCircle,
 } = styles
 
 function ViewTask({
@@ -37,7 +40,12 @@ function ViewTask({
     const section = useDataStore((state) => state.sections[parent_id])
     const {deleteTask} = useTaskService()
     const {openModal, closeModal} = useContext(ModalContext)
+    const [selectedColor, setSelectedColor] = useState({});
+    const availableColors = useDataStore((state) => state.colors);
 
+    const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
     const prevState = {
         projectId: section.parent_id,
         sectionId: parent_id,
@@ -56,7 +64,9 @@ function ViewTask({
             parent_id: state.sectionId,
             item_name: state.item_name,
             description: state.description,
-            order: state.order
+            order: state.order,
+            color_id: selectedColor.id,
+            myColor: selectedColor,
         }, prevState);
 
         closeModal()
@@ -142,7 +152,29 @@ function ViewTask({
             value={state.description}
             onChange={(e) => setState((state) => ({...state, description: e.target.value}))}
             />
+
+
+        <div className={colorSelectorContainer}>
+          <label>Color:</label>
+          <div>
+            {availableColors &&
+              availableColors.map((elem) => (
+                <button
+                  key={elem.color}
+                  type="button"
+                  className={`${colorCircle} ${
+                    selectedColor.id === elem.id ? selectedColorCircle : ''
+                  }`}
+                  style={{ backgroundColor:  `rgba(${elem.color},0.5)`}}
+                  onClick={() => handleColorSelect(elem)}
+                ></button>
+              ))}
+          </div>
         </div>
+
+        </div>
+
+
 
     </div>)
 }

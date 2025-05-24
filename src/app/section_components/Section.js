@@ -36,7 +36,7 @@ const Section = React.memo(({sectionID}) => {
 
     const {updateSection} = useSectionService()
 
-    const tasksIDS = useMemo(() => {
+    const taskIDS = useMemo(() => {
         return Object.values(tasks)
         .filter((task) => task.parent_id == sectionID)
         .sort((a, b) => a.order - b.order)
@@ -116,7 +116,7 @@ const Section = React.memo(({sectionID}) => {
             }
 
 
-            <TaskList taskIds={tasksIDS} TaskComponent={Task} parentId={sectionID}/>
+            <TaskList taskIds={taskIDS} TaskComponent={Task} parentId={sectionID}/>
 
             <div
             className={createInSection}

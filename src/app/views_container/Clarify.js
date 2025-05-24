@@ -60,7 +60,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             sectionId: task.parent_id,
             item_name: task.item_name,
             description: task.description,
-            order: task.order
+            order: task.order,
+            color_id: task.color_id,
+            myColor: {
+                id: task.myColor.id,
+                color: task.myColor.color,
+            }
         })
     }, [taskID])
 
@@ -78,7 +83,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'in_progress'
+            status: 'in_progress',
+            color_id: state.color_id,
+            myColor: {
+                id: state.myColor.id,
+                color: state.myColor.color,
+            }
         }, prevState)
 
         onComplete()
@@ -91,7 +101,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'completed'
+            status: 'completed',
+            color_id: state.color_id,
+            myColor: {
+                id: state.myColor.id,
+                color: state.myColor.color,
+            }
         }, prevState)
 
         onComplete()
@@ -104,7 +119,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'pending'
+            status: 'pending',
+            color_id: state.color_id,
+            myColor: {
+                id: state.myColor.id,
+                color: state.myColor.color,
+            }
         }, prevState)
 
         onComplete()
@@ -117,7 +137,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'pending'
+            status: 'pending',
+            color_id: state.color_id,
+            myColor: {
+                id: state.myColor.id,
+                color: state.myColor.color,
+            }
         }, prevState)
 
         onComplete()
@@ -136,7 +161,12 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'pending'
+            status: 'pending',
+            color_id: state.color_id,
+            myColor: {
+                id: state.myColor.id,
+                color: state.myColor.color,
+            }
             }, prevState)
         //Se necesita un delegador a x usuario o algo editable
         onComplete()

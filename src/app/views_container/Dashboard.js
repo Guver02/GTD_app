@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
 import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward } from 'react-feather'; // Importa más iconos según sea necesario
 import { useDataStore } from "../../store/data_store";
 import { useTaskService } from "../../services/taskService";
 import { FilterModal } from "../ui_components/FilterModal";
+import { AuthService } from "../../services/authService";
+import {jwtDecode} from "jwt-decode";
+import { ModalContext } from "../providers/ModalContext";
+import { CreateTask } from '../task_components/CreateTask';
+import { CreateProject } from '../projects_components/CreateProject';
+
+const authService = new AuthService(localStorage)
 
 const {
     dashboardContainer,
@@ -58,6 +65,7 @@ function Dashboard() {
     const [nextTasks, setNextTasks] = useState([])
 
     const [filters, setFilters] = useState([])
+    const {openModal} = useContext(ModalContext)
 
     const addFilter = (unsectionedId, projectId) => {
         setFilters((prev) => [
@@ -65,16 +73,17 @@ function Dashboard() {
             {
                 unsectionedId,
                 projectId
-            }
-        ])
+            }])
     }
 
     const removeFilter = (projectId) => {
         setFilters((prev) => prev.filter(elem => elem.projectId !== projectId))
     }
 
-    console.log('filters',filters)
-    console.log('tasks', nextTasks)
+    const token = authService.getToken()
+    const decoded = jwtDecode(token);
+
+
     useEffect(() => {
         if(filters.length > 0){
             const unsectionedFiltered = filters.map(elem => elem.unsectionedId)
@@ -88,7 +97,15 @@ function Dashboard() {
                 Object.values(tasks)
                 .filter(task => task.status === 'in_progress'))
         }
-    }, [filters])
+    }, [filters, tasks])
+
+    const handleCreateTask = () => {
+        openModal(<CreateTask/>)
+    }
+
+    const handleCreateProject = () => {
+        openModal(<CreateProject/>)
+    }
 
     return (
         <div className={dashboardContainer}>
@@ -97,23 +114,23 @@ function Dashboard() {
 
                 <div className={headerLeft}>
                     <div className={userWelcome}>
-                        <h1>Sophia Williams</h1>
+                        <h1>{decoded.username}</h1>
                         <p>Welcome back to Synergy</p>
                     </div>
                 </div>
 
                 <div className={headerRight}>
-                    <div className={searchBar}>
-                        <Search size={16} />
-                        <input type="text" placeholder="Search..." />
-                    </div>
+
                     <div className={actionButtons}>
-                        <Bell size={20} />
-                        <button className={scheduleButton}>
-                            <Calendar size={16} /> Schedule
+                        <button
+                        className={scheduleButton}
+                        onClick={handleCreateProject}>
+                            <Plus size={16} /> Create a Project
                         </button>
-                        <button className={createRequestButton}>
-                            <Plus size={16} /> Create a Request
+                        <button
+                        className={createRequestButton}
+                        onClick={handleCreateTask}>
+                            <Plus size={16} /> Create a Task
                         </button>
                     </div>
 
@@ -145,7 +162,56 @@ function Dashboard() {
 
                 </div>
 
-                <div className={widget}>
+
+            </div>
+
+        </div>
+    );
+}
+
+function NextTaskItem ({taskId}) {
+    const task = useDataStore(state => state.tasks[taskId])
+    const sections = useDataStore(state => state.sections)
+    const projects = useDataStore(state => state.projects)
+    const [check, setCheck] = useState(task.status)
+    const {changeStatus} = useTaskService()
+
+    const handleCheck = () => {
+        changeStatus(taskId, true)
+    }
+
+    return(
+        <li className={noteContainer}>
+            <div className={noteItem}>
+                <strong>{task.item_name}</strong>
+                <p>{task.description}</p>
+                <div className={styles.noteMeta}>
+                    <span
+                    className={styles.noteTag}
+                    style={{ backgroundColor: `rgba(${projects[sections[task.parent_id].parent_id].myColor.color},0.5)`, color: 'black' }}>
+                    {projects[sections[task.parent_id].parent_id].item_name}
+                    </span>
+                </div>
+            </div>
+
+            <div>
+                {check == 'in_progress' ?
+                    <Circle
+                    className={circleIcon}
+                    onClick={handleCheck}
+                    />
+                :
+                    <AlertCircle
+                    />
+                }
+            </div>
+        </li>
+    )
+}
+
+export { Dashboard };
+
+/*<div className={widget}>
                     <div className={widgetHeader}>
                         <h3><Clock size={16} className="inline-icon" /> Time Off</h3>
                         <a href="#">See All</a>
@@ -257,7 +323,7 @@ function Dashboard() {
                                 <span className={`${day}`}>3</span>
                                 <span className={`${day}`}>4</span>
                                 <span className={`${day}`}>5</span>
-                                {/* ... more days ... */}
+
                             </div>
                         </div>
                         <div className={styles.scheduleTabs}>
@@ -386,50 +452,5 @@ function Dashboard() {
                         </ul>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    );
-}
-
-function NextTaskItem ({taskId}) {
-    const task = useDataStore(state => state.tasks[taskId])
-    const sections = useDataStore(state => state.sections)
-    const projects = useDataStore(state => state.projects)
-    const [check, setCheck] = useState(task.status)
-    const {changeStatus} = useTaskService()
-
-    const handleCheck = () => {
-        changeStatus(taskId, true)
-    }
-
-    return(
-        <li className={noteContainer}>
-            <div className={noteItem}>
-                <strong>{task.item_name}</strong>
-                <p>{task.description}</p>
-                <div className={styles.noteMeta}>
-                    <span
-                    className={styles.noteTag}
-                    style={{ backgroundColor: `rgba(${projects[sections[task.parent_id].parent_id].myColor.color},0.5)`, color: 'black' }}>
-                    {projects[sections[task.parent_id].parent_id].item_name}
-                    </span>
-                </div>
-            </div>
-
-            <div>
-                {check == 'in_progress' ?
-                    <Circle
-                    className={circleIcon}
-                    onClick={handleCheck}
-                    />
-                :
-                    <AlertCircle
-                    />
-                }
-            </div>
-        </li>
-    )
-}
-
-export { Dashboard };
+ */

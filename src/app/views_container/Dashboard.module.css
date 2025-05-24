@@ -1,14 +1,16 @@
 /* Dashboard.module.css */
 
 .dashboardContainer {
-    display: grid;
-    grid-template-rows: auto 1fr;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     background-color: transparent; /* Fondo general */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
     height: 100%;
     width: 100%;
+
     padding: 20px;
     box-sizing: border-box;
     overflow: auto;
@@ -20,7 +22,7 @@
     flex-direction: row;
     align-items: center;
     box-sizing: border-box;
-    max-width: 100%;
+    width: 100%;
 }
 
 .headerLeft {
@@ -98,7 +100,7 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     box-sizing: border-box;
-    max-width: 100%;
+    width: 100%;;
 }
 
 

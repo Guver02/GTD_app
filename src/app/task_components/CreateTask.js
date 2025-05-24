@@ -13,12 +13,17 @@ const {
     formDescription,
     confirmButton,
     cancelButton,
-    buttonText
+    buttonText,
+      colorSelectorContainer,
+  colorCircle,
+  selectedColorCircle,
 } = styles
 
 function CreateTask ({projectId, sectionId}) {
     const inbox = useDataStore((state) => state.inbox);
     const unsections = useDataStore((state) => state.unsectionsByProject);
+    const [selectedColor, setSelectedColor] = useState({});
+      const availableColors = useDataStore((state) => state.colors);
 
     const {createTask} = useTaskService()
     const { closeModal } = useContext(ModalContext)
@@ -31,11 +36,17 @@ function CreateTask ({projectId, sectionId}) {
 
     const [state, setState] = useState(prevState);
 
+     const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
+
     const handleCreate = () => {
         createTask({
             item_name: state.itemName,
             description: state.description,
-            parent_id: state.sectionId
+            parent_id: state.sectionId,
+            color_id: selectedColor.id,
+            myColor: selectedColor,
         })
         setState({
             ...state,
@@ -92,6 +103,24 @@ function CreateTask ({projectId, sectionId}) {
             value={state.description}
             onChange={(e) => setState((state) => ({...state, description: e.target.value}))}
             />
+
+        <div className={colorSelectorContainer}>
+          <label>Color:</label>
+          <div>
+            {availableColors &&
+              availableColors.map((elem) => (
+                <button
+                  key={elem.color}
+                  type="button"
+                  className={`${colorCircle} ${
+                    selectedColor.id === elem.id ? selectedColorCircle : ''
+                  }`}
+                  style={{ backgroundColor:  `rgba(${elem.color},0.5)`}}
+                  onClick={() => handleColorSelect(elem)}
+                ></button>
+              ))}
+          </div>
+        </div>
         </div>
 
     </div>)

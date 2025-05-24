@@ -1,13 +1,16 @@
 import React, { useContext, useRef, useState } from "react";
 import { useDataStore } from "../../store/data_store";
 import * as style from './Task.module.css'
-import { CheckCircle, Circle, Crosshair } from "react-feather";
+import { CheckCircle, Circle, Crosshair, MoreHorizontal, MoreVertical, Sun } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 import { Move2 } from "../utils_component/Move2";
 import { useTaskService } from "../../services/taskService";
+import { SectionOptions } from "../section_components/SectionOptions";
+import { HoverModal } from "../ui_components/HoverModal";
+import { TaskOptions } from "./TaskOptions";
 
 const {
     taskContainer,
@@ -18,7 +21,8 @@ const {
     container,
     moveIcon,
     optionsContainer,
-    placeholderContainer
+    placeholderContainer,
+    nextActionContainer
 } = style
 
 const Task = React.memo(({ taskId, isMove = true }) => {
@@ -32,7 +36,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
 
     const {openModal} = useContext(ModalContext)
     const task = useDataStore((state) => state.tasks[taskId]);
-    const {changeStatus} = useTaskService()
+    const {changeStatus, updateTask, setNextAction} = useTaskService()
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -40,6 +44,15 @@ const Task = React.memo(({ taskId, isMove = true }) => {
         opacity: isDragging ? 0.5 : 1
     };
 
+    const handleNextAction = () => {
+        if(task.status !== 'in_progress'){
+            setNextAction(taskId)
+            console.log('in_progress')
+        }else{
+            changeStatus(taskId, false)
+            console.log('pending')
+        }
+    }
 
     const handleClick = () => {
         openModal(<ViewTask
@@ -76,7 +89,9 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             <div className={moveIcon}></div>
         }
 
-        <div className={taskContainer}>
+        <div
+        className={taskContainer}
+        style={{borderLeft: `${task.myColor.id !== 1 ? '4px ' : '0'} solid rgba(${task.myColor.color}, 1)`}}>
 
             <div
             className={taskContent}
@@ -86,10 +101,18 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                     {task.item_name}
                 </span>
                 <span className={description}>
-                    {task.description}
+                    {task.order}
                 </span>
                 <div className={iconsContainer}>
-
+                    <div></div>
+                    <div>
+                        {task.status == 'in_progress' &&
+                            <div className={nextActionContainer}>
+                                <span>Acción siguiente</span>
+                                <Sun/>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -98,7 +121,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             <CheckCircle onClick={handleCheckIsPending}/>
             }
             {(task.status == 'in_progress') &&
-            <Crosshair onClick={handleCheckIsCompleted}/>
+            <Circle onClick={handleCheckIsCompleted}/>
             }
             {(task.status == 'pending') &&
             <Circle onClick={handleCheckIsCompleted}/>
@@ -107,7 +130,20 @@ const Task = React.memo(({ taskId, isMove = true }) => {
         </div>
 
         <div className={optionsContainer}>
-
+            <HoverModal
+            ParentComponent={
+            <div>
+                <MoreVertical/>
+            </div>}
+            bubbleComponent={(closeModal) => (
+            <TaskOptions
+            id={taskId}
+            closeOptions={closeModal}
+            editFunction={handleClick}
+            handleNextAction={handleNextAction}
+            />)}
+            position='left'
+            gap={4}/>
         </div>
 
       </div>

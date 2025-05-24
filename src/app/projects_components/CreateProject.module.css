@@ -1,9 +1,8 @@
   .formContainer {
-    background-color: #f8f9fa; /* Fondo claro */
+    background-color: var(--color-background); /* Fondo claro */
     color: #212529; /* Texto oscuro */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
     max-width: 100%;
     box-sizing: border-box;

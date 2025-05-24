@@ -41,6 +41,7 @@ const createItemTodoSchema = Joi.object({
     type_id: type_id.valid(1).required(),
     is_favorite: is_favorite.default(false),
     status: status,
+    color_id: color_id.default(1)
 }).unknown(false);
 
 // Esquema para actualizar un ítem
@@ -49,6 +50,7 @@ const updateItemContentSchema = Joi.object({
     description: description,
     is_favorite: is_favorite,
     status: status,
+    color_id: color_id
 }).unknown(false);
 
 const updateStatusItemTodo = Joi.object({

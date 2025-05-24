@@ -31,7 +31,8 @@ class Task extends Item {
             parent_id: this.parent_id,
             type_id: this.type_id,
             is_favorite: this.is_favorite,
-            status: this.status
+            status: this.status,
+            color_id: this.color_id
         })
     }
 
@@ -40,7 +41,8 @@ class Task extends Item {
             item_name: this.item_name,
             description: this.description,
             is_favorite: this.is_favorite,
-            status: this.status
+            status: this.status,
+            color_id: this.color_id
         })
     }
 }

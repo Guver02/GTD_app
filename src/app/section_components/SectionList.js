@@ -8,15 +8,12 @@ import { useSectionService } from '../../services/sectionService';
 const {
     sectionListContainer,
     createButton,
-    projectTittle,
     scrollContainer,
     text,
     createContainer,
-    listContainer
 } = style
 
 function SectionList({ sectionIds, SectionComponent, projectId }) {
-    const projectParent = useDataStore((state) => state.projects[projectId]);
     const {createSection} = useSectionService()
     const [input, setInput] = useState('')
 

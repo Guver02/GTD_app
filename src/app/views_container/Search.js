@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as styles from './Search.module.css';
-import { Inbox, Home, Calendar, Hash, Tag } from 'react-feather'; // Example icons
+import { Inbox, Home, Calendar, Hash, Tag, Coffee, FileText } from 'react-feather'; // Example icons
 import { useDataStore } from '../../store/data_store';
 import { Task } from '../task_components/Task';
 import { Project } from '../projects_components/Project';
@@ -47,8 +47,28 @@ function SearchModal () {
 
 
     const navigate = useNavigate()
+
     const redirectToProject = (projectID) => {
         navigate(`/app/project/${projectID}`)
+    }
+
+    const redirectToInbox = () => {
+        navigate(`/app`)
+    }
+    const handleDashboard = () => {
+        navigate(`/app/dashboard`)
+    }
+    const handleSomeday = () => {
+        navigate(`/app/someday`)
+    }
+    const handleTrakingFile = () => {
+        navigate(`/app/traking-file`)
+    }
+    const handleWaiting = () => {
+        navigate(`/app/waiting`)
+    }
+    const handleReferenceFile = () => {
+        navigate(`/app/reference-file`)
     }
 
   return (
@@ -83,77 +103,41 @@ function SearchModal () {
         </div>
         }
 
-        <div className={recentlyViewedSection}>
-          <h2 className={sectionTitle}>Visto recientemente</h2>
-          <div className={menuItem}>
-            <Inbox className={icon} />
-            <span className={itemText}>Bandeja de entrada</span>
-          </div>
-          <div className={menuItem}>
-            <Calendar className={icon} />
-            <span className={itemText}>Hoy</span>
-            <span className={shortcut}>G luego T</span>
-          </div>
-          <div className={menuItem}>
-            <Hash className={icon} />
-            <span className={itemText}>Today</span>
-            <span className={shortcut}>G Mis Proyectos</span>
-          </div>
-        </div>
-
         <div className={navigationSection}>
           <h2 className={sectionTitle}>Navegación</h2>
-          <div className={menuItem}>
+          <div
+          className={menuItem}
+          onClick={handleDashboard}
+          >
             <Home className={icon} />
             <span className={itemText}>Ir a Inicio</span>
             <span className={shortcut}>G luego H</span>
           </div>
-          <div className={menuItem}>
+
+          <div className={menuItem}
+          onClick={redirectToInbox}
+          >
             <Inbox className={icon} />
             <span className={itemText}>Ir a Bandeja de entrada</span>
             <span className={shortcut}>G luego I</span>
           </div>
-          <div className={menuItem}>
-            <Calendar className={icon} />
-            <span className={itemText}>Ir a Hoy</span>
+
+          <div className={menuItem}
+          onClick={handleSomeday}
+          >
+            <Coffee className={icon} />
+            <span className={itemText}>Ir a Algún día/ Quizás</span>
             <span className={shortcut}>G luego T</span>
           </div>
-          <div className={menuItem}>
-            {/* You might use a different icon here */}
-            <Tag className={icon} />
-            <span className={itemText}>Ir a Próximo</span>
-            <span className={shortcut}>G luego U</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Ir a Filtros y Etiquetas</span>
-            <span className={shortcut}>G luego V</span>
-          </div>
-          {/* Add more navigation items as needed */}
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 1</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 2</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 3</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 4</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 5</span>
-          </div>
-          <div className={menuItem}>
-            <Tag className={icon} />
-            <span className={itemText}>Opción Adicional 6</span>
-          </div>
+
+            <div className={menuItem}
+            onClick={handleReferenceFile}
+            >
+            <FileText className={icon} />
+            <span className={itemText}>Ir al Archivo de Referencia</span>
+            <span className={shortcut}>G luego T</span>
+            </div>
+
         </div>
       </div>
     </div>

@@ -19,6 +19,8 @@ const useDataStore = create ((set, get) => {
             })
         },
 
+
+
         addUnsection: (unsectionBody) => {
             set((state) => {
 
@@ -37,6 +39,17 @@ const useDataStore = create ((set, get) => {
             return (set(normalizeData(itemsFromServices)))
         },
         changeStatus: (id, newStatusBBody) => {
+            set((state) => ({
+                tasks: {
+                    ...state.tasks,
+                    [id]: {
+                        ...state.tasks[id],
+                        ...newStatusBBody
+                    }
+                }
+        }))
+        },
+        changeNextAction: (id, newStatusBBody) => {
             set((state) => ({
                 tasks: {
                     ...state.tasks,

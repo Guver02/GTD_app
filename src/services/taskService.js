@@ -12,11 +12,13 @@ const useTaskService = () => {
   const deleteTask = useDataStore(state => state.deleteTask);
   const swapTaskOrder = useDataStore(state => state.swapTaskOrder);
   const changeSection = useDataStore(state => state.changeSection);
+  const changeNextAction = useDataStore(state => state.changeNextAction);
   const changeStatus = useDataStore(state => state.changeStatus);
   const tasks = useDataStore(state => state.tasks);
 
   const createTaskStateAndApi = useCallback(async (data) => {
     const taskData = Task.getTask(data);
+    console.log(taskData)
     createTask(taskData);
     await taskRepo.create(taskData);
   }, [createTask]);
@@ -74,13 +76,21 @@ const useTaskService = () => {
     await taskRepo.updateStatus(id, data);
   };
 
+
+  const setNextActionStateAndApi = async (id) => {
+    const data = { status: 'in_progress' };
+    changeNextAction(id, data);
+    await taskRepo.updateStatus(id, data);
+  };
+
   return {
     updateTask: updateTaskStateAndApi,
     deleteTask: deleteTaskAndApi,
     swapTaskOrder: swapTaskOrderStateAndApi,
     swapParentAndOrder: swapParentAndOrderStateAndApi,
     createTask: createTaskStateAndApi,
-    changeStatus: changeStatusStateAndApi
+    changeStatus: changeStatusStateAndApi,
+    setNextAction: setNextActionStateAndApi,
   };
 };
 
