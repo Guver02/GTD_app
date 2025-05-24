@@ -77,27 +77,27 @@ class ItemsService {
 async getItems(userId) {
     try {
         const folders = await this.itemsRepository.findAll({
-            where: { user_id: userId, parent_id: null, type_id: 3 },
+            where: { user_id: userId, parent_id: null, type_id: itemTypesIDS.folder },
             include: ['myColor', 'subItems'],
             order: [['order', 'ASC']],
         });
 
         const sections = await this.itemsRepository.findAll({
-            where: { user_id: userId, type_id: 2 },
+            where: { user_id: userId, type_id: itemTypesIDS.section },
             order: [['order', 'ASC']],
         });
 
         const todos = await this.itemsRepository.findAll({
-            where: { user_id: userId, type_id: 1, special_type_id: null },
+            where: { user_id: userId, type_id: itemTypesIDS.todo, special_type_id: null },
             include: ['myColor'],
             order: [['order', 'ASC']],
         });
 
         const subTodos = await this.itemsRepository.findAll({
-            where: { user_id: userId, type_id: 1, special_type_id: 1 },
-
+            where: { user_id: userId, type_id: itemTypesIDS.todo, special_type_id: specialTypesIDS.subTodo },
             order: [['order', 'ASC']],
         });
+
 
         const inbox = await this.itemsRepository.findOne({
             where: {user_id: userId, special_type_id: specialTypesIDS.inbox}
@@ -126,11 +126,11 @@ async getItems(userId) {
 
         return {
             folders: folders,
-            specialProjects: specialProjects,
-
             sections: sections,
             todos: todos,
             subTodos: subTodos,
+
+            specialProjects: specialProjects,
             inbox: inbox,
             unsections: unsections,
             colors: colors

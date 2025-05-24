@@ -5,6 +5,7 @@ const PASSWORD = config.dbPassword
 
 module.exports = {
     development: {
+        uriLink: config.uriLink,
         username: config.dbUser,
         password: config.dbPassword,
         database: config.dbName,
@@ -13,7 +14,7 @@ module.exports = {
         port: config.dbPort
     },
     production: {
-        //uriLink: config.uriLink,
+        uriLink: config.uriLink,
         username: config.dbUser,
         password: config.dbPassword,
         database: config.dbName,
@@ -22,6 +23,7 @@ module.exports = {
         port: config.dbPort
     },
     test: {
+        uriLink: config.uriLinkTest,
         username: config.dbUser,
         password: config.dbPassword,
         database: config.dbNameTest,

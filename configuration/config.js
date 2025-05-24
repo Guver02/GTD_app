@@ -13,6 +13,8 @@ require('dotenv').config();
     dbPort:process.env.DB_PORT,
 
     dbNameTest: process.env.DB_NAME_TEST,
+    uriLinkTest: process.env.URI_LINK_TEST,
+
     uriLink: process.env.URI_LINK
 }
 

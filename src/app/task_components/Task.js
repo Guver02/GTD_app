@@ -102,7 +102,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                     {task.item_name}
                 </span>
                 <span className={description}>
-                    {task.order}
+                    {task.description}
                 </span>
                 <div className={iconsContainer}>
                     <div></div>

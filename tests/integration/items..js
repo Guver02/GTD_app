@@ -4,7 +4,7 @@ const {models} = require('../../db/connec')
 
 const api = superTest(app)
 
-beforeAll( async () => {
+/*beforeAll( async () => {
     await models.items.destroy({
         where: {},
         truncate: true // reinicia el contador autoincremental
@@ -20,4 +20,4 @@ test('Items is a json', async () => {
 
 afterAll(() => {
     server.close()
-})
+})*/

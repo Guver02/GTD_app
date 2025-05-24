@@ -45,6 +45,7 @@ function Application ({children}) {
     useEffect(() => {
         async function getItems() {
             const data = await apiService.get('/api/v1/items');
+            console.log('DATA:',data)
             setItems(data)
             setIsLoading(false)
         }
