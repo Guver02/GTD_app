@@ -34,13 +34,14 @@ function ViewTask({
     itemName,
     description,
     parent_id,
-    order
+    order,
+    myColor
 }){
     const {updateTask} = useTaskService()
     const section = useDataStore((state) => state.sections[parent_id])
     const {deleteTask} = useTaskService()
     const {openModal, closeModal} = useContext(ModalContext)
-    const [selectedColor, setSelectedColor] = useState({});
+
     const availableColors = useDataStore((state) => state.colors);
 
     const handleColorSelect = (color) => {
@@ -55,7 +56,7 @@ function ViewTask({
     }
 
     const [state, setState] = useState(prevState);
-
+    const [selectedColor, setSelectedColor] = useState(myColor);
     const update = () => {
         //Cambiar seccion y/o contenido
 

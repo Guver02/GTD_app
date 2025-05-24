@@ -22,9 +22,8 @@ const {
 function CreateTask ({projectId, sectionId}) {
     const inbox = useDataStore((state) => state.inbox);
     const unsections = useDataStore((state) => state.unsectionsByProject);
-    const [selectedColor, setSelectedColor] = useState({});
-      const availableColors = useDataStore((state) => state.colors);
-
+    const availableColors = useDataStore((state) => state.colors);
+    const [selectedColor, setSelectedColor] = useState(availableColors[0]);
     const {createTask} = useTaskService()
     const { closeModal } = useContext(ModalContext)
     const prevState = {
@@ -53,6 +52,7 @@ function CreateTask ({projectId, sectionId}) {
             itemName: '',
             description: '',
         })
+        setSelectedColor(availableColors[0])
     }
 
     const changeFolderSection = (projectId, sectionId) => {

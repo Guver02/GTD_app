@@ -61,6 +61,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             description = {task.description}
             parent_id={task.parent_id}
             order={task.order}
+            myColor={task.myColor}
             />)
     };
 
