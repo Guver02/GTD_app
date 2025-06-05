@@ -319,10 +319,16 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
 }
 
 function Clarify({ sectionToClarifyID }) {
+        const project = useDataStore((state) => state.specialProjectsBySpecialId[specialTypesIDS.inbox])
+
+        const unsectionedInbox = useDataStore(state => state.unsectionsByProject[project.id])
+
+    const sectionID = sectionToClarifyID ? sectionToClarifyID : unsectionedInbox.id
+
     useRenderLogger()
     const tasksRef = useRef(useDataStore.getState().tasks)
     const tasksList = Object.values(tasksRef.current).filter(
-        task => task.parent_id === sectionToClarifyID && task.status === "pending"
+        task => task.parent_id === sectionID && task.status === "pending"
       );
 
     const [currentIndex, setCurrentIndex] = useState(0);

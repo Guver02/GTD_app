@@ -63,7 +63,17 @@ function CreateTask ({projectId, sectionId}) {
         }))
     }
 
-    return(<div className={container}>
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+        console.log('Se presionó Enter');
+            handleCreate()
+        }
+    }
+
+    return(<div
+    className={container}
+    onKeyDown={handleEnterKey}
+    >
 
         <div className={formHeader}>
             <button

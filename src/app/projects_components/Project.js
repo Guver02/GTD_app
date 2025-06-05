@@ -11,7 +11,7 @@ function Project ({project, onClickProject}) {
 
     return(
         <li className={projectContainer}
-        onClick={() => onClickProject(project.id)}
+        onClick={() => onClickProject(`/app/project/${project.id}`)}
         >
             <Folder
             style={{

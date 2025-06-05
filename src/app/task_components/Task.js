@@ -1,14 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext } from "react";
 import { useDataStore } from "../../store/data_store";
 import * as style from './Task.module.css'
-import { CheckCircle, Circle, Crosshair, MoreHorizontal, MoreVertical, Sun } from "react-feather";
+import { CheckCircle, Circle, MoreVertical, Sun } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 import { Move2 } from "../utils_component/Move2";
 import { useTaskService } from "../../services/taskService";
-import { SectionOptions } from "../section_components/SectionOptions";
 import { HoverModal } from "../ui_components/HoverModal";
 import { TaskOptions } from "./TaskOptions";
 
@@ -139,9 +138,9 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             bubbleComponent={(closeModal) => (
             <TaskOptions
             id={taskId}
-            closeOptions={closeModal}
-            editFunction={handleClick}
-            handleNextAction={handleNextAction}
+            onClose={closeModal}
+            onEdit={handleClick}
+            onNextAction={handleNextAction}
             />)}
             position='left'
             gap={4}/>

@@ -14,7 +14,7 @@ const Navbar = () => {
         createButton,
     } = styles;
 
-    const handleCTask = () => {
+    const handleCreate = () => {
         openModal(<MainPanel/>)
     }
 
@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className={navbarRight}>
                 <button
                 className={createButton}
-                onClick={handleCTask}>
+                onClick={handleCreate}>
                     <span>Create</span>
                     <Plus/>
                 </button>

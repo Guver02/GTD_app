@@ -43,7 +43,7 @@ function Login() {
 
         const {token} = data
         authService.setToken(token)
-        navigate('/app')
+        navigate('/app/inbox')
     }
 
   return (

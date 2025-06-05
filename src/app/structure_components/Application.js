@@ -37,7 +37,6 @@ const specialTypesIDS = {
 
 function Application ({children}) {
     const [isLoading, setIsLoading] = useState(true)
-    const tasks = useDataStore((state) => state.tasks, shallow)
     const setItems = useDataStore((state) => state.setItems)
 
 
@@ -67,9 +66,9 @@ function Application ({children}) {
 
                 <div className={applicationContent}>
                 <Routes>
-                    <Route path="/" element={<InboxView/>} />
+                    <Route path="/inbox" element={<InboxView/>} />
                     <Route path="/someday" element={<Someday specialSomedayID={specialTypesIDS.someday}/>} />
-                    <Route path="/traking-file" element={/**<Inbox specialId={specialTypesIDS.trackingFile}/> */ <TrakingFile/>} />
+                    <Route path="/traking-file" element={<TrakingFile/>} />
                     <Route path="/waiting" element={<Waiting specialWaitingID={specialTypesIDS.waiting}/>} />
                     <Route path="/reference-file" element={<ReferenceFile specialReferenceFileID={specialTypesIDS.referenceFile}/>} />
 

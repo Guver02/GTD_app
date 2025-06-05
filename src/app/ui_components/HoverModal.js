@@ -1,46 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
 import * as styles from "./HoverModal.module.css";
 
-function HoverModal ({
+function HoverModal({
   ParentComponent,
   bubbleComponent,
   position = "bottom",
   gap = 10
-}){
+}) {
   const [showOptions, setShowOptions] = useState(false);
+  const [bubblePosition, setBubblePosition] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef(null);
 
-  const { optionContainer, optionsBubble, ...positions } = styles;
+  const { optionContainer } = styles;
 
-  const closeModal = () => {
-    setShowOptions(false)
-  }
+  const closeModal = () => setShowOptions(false);
 
-  const bubbleStyles = {
-    bottom: { top: `calc(80% + ${gap}px)`, left: "-200%", transform: "translateX(-50%)" },
-    top: { bottom: `calc(80% + ${gap}px)`, left: "20%", transform: "translateX(-50%)" },
-    left: { right: `calc(80% + ${gap}px)`, top: "360%", transform: "translateY(-50%)" },
-    right: { left: `calc(80% + ${gap}px)`, top: "20%", transform: "translateY(-50%)" }
+  const calculatePosition = () => {
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const positions = {
+      bottom: {
+        top: rect.bottom + gap + window.scrollY + 92,
+        left: rect.left + rect.width / 2 + window.scrollX
+      },
+      top: {
+        top: rect.top - gap + window.scrollY,
+        left: rect.left + rect.width / 2 + window.scrollX
+      },
+      left: {
+        top: rect.top + rect.height / 2 + window.scrollY,
+        left: rect.left - gap + window.scrollX - 92
+      },
+      right: {
+        top: rect.top + rect.height / 2 + window.scrollY,
+        left: rect.right + gap + window.scrollX + 92
+      }
+    };
+
+    setBubblePosition(positions[position] || positions.bottom);
   };
+
+  useEffect(() => {
+    if (showOptions) {
+      calculatePosition();
+    }
+  }, [showOptions]);
 
   return (
     <div
       className={optionContainer}
       onMouseEnter={() => setShowOptions(true)}
       onMouseLeave={() => setShowOptions(false)}
+      ref={triggerRef}
     >
       {ParentComponent}
 
-      {showOptions && (
-        <div
-          className={`${optionsBubble} ${positions[position] || positions.bottom}`}
-          style={bubbleStyles[position] || bubbleStyles.bottom}
-        >
-
-          {bubbleComponent(closeModal)}
-        </div>
-      )}
+      {showOptions &&
+        ReactDOM.createPortal(
+          <div
+            className={styles.optionsBubble}
+            style={{
+              position: "fixed",
+              top: bubblePosition.top,
+              left: bubblePosition.left,
+              transform: "translate(-50%, -50%)",
+              zIndex: 1000
+            }}
+            onMouseEnter={() => setShowOptions(true)} // mantener abierto al pasar sobre el bubble
+            onMouseLeave={() => setShowOptions(false)} // cerrar cuando el mouse sale
+          >
+            {bubbleComponent(closeModal)}
+          </div>,
+          document.body
+        )}
     </div>
   );
-};
+}
 
-export {HoverModal};
+export { HoverModal };

@@ -3,9 +3,11 @@ module.exports = {
 
     setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
 
-    moduleNameMapper: {
-    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
-  },
+ moduleNameMapper: {
+  '\\.module\\.css$': 'identity-obj-proxy',
+  '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
+},
+
 
   transformIgnorePatterns: [
     '/node_modules/(?!(uuid|sequelize)/)',

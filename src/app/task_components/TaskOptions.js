@@ -1,57 +1,57 @@
-import React from "react"
-import * as style from '../section_components/SectionOptions.module.css'
-import { useTaskService } from "../../services/taskService"
-import { Edit, Sun, Trash2 } from "react-feather"
+import React from "react";
+import * as style from "./TaskOptions.module.css";
+import { useTaskService } from "../../services/taskService";
+import { Edit, Sun, Trash2 } from "react-feather";
 
-const  {
-    sectionOptionsContainer,
-    sectionOptionsList
+const {
+  sectionOptionsContainer,
+  sectionOptionsList
+} = style;
 
-} = style
+function TaskOptions({ id, onClose, onEdit, onNextAction }) {
+  const { deleteTask } = useTaskService();
 
-function TaskOptions ({id, closeOptions, editFunction, handleNextAction}) {
-    const {deleteTask, updateTask} = useTaskService()
+  const handleDelete = () => {
+    deleteTask(id);
+    onClose();
+  };
 
-    const handleEdit = () => {
-        editFunction()
-        closeOptions()
-    }
+  const handleEdit = () => {
+    onEdit();
+    onClose();
+  };
 
-    const handleDelete = () => {
-        deleteTask(id)
-        closeOptions()
-    }
+  const handleNextAction = () => {
+    onNextAction();
+    onClose();
+  };
 
-    const handleNext = () => {
-        handleNextAction()
-    }
 
-    return(<div className={sectionOptionsContainer}>
-        <ul
-        onPointerDown={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-          }}
+  return (
+    <div className={sectionOptionsContainer}>
+      <ul className={sectionOptionsList}>
 
-        className={sectionOptionsList}>
-            <li
-            onClick={handleDelete}>
-                <Trash2/>
-                <span>Delete</span>
-            </li>
-            <li
-            onClick={handleEdit}
-            >
-                <Edit/>
-                <span>Edit</span>
-            </li>
-            <li
-            onClick={handleNext}>
-                <Sun/>
-                <span>Accion siguiente</span>
-            </li>
-        </ul>
-    </div>)
+        <li>
+          <button onClick={handleEdit}>
+            <Edit />
+            <span>Editar</span>
+          </button>
+        </li>
+        <li>
+          <button onClick={handleNextAction}>
+            <Sun />
+            <span>Acción siguiente</span>
+          </button>
+        </li>
+        <li>
+          <button onClick={handleDelete}>
+            <Trash2 />
+            <span>Eliminar</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
 }
 
-export {TaskOptions}
+export { TaskOptions };
