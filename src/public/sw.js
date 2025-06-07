@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v1';
+const CACHE_NAME = 'cache-v2';
 const urlsToCache = [
     '/icons',
     '/assets',
@@ -6,7 +6,6 @@ const urlsToCache = [
     'https://fonts.googleapis.com/css2?family=Cute+Font&family=Quicksand:wght@300;500;700&display=swap',
 
     'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap',
-    'styles.css'
 ];
 
 self.addEventListener('install', event => {
