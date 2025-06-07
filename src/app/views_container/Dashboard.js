@@ -114,8 +114,8 @@ function Dashboard() {
 
                 <div className={headerLeft}>
                     <div className={userWelcome}>
-                        <h1>{decoded.username}</h1>
-                        <p>Welcome back to Synergy</p>
+                        <h1>{`¡Hola, ${decoded.username}!`}</h1>
+                        <p>Bienvenido de nuevo</p>
                     </div>
                 </div>
 

@@ -39,7 +39,7 @@ function ProjectListModal({onClickProject}) {
         onClick={handleCreate}
         >
             <Plus/>
-            <span>Crear Proyecto en Lista</span>
+            <span>Crear Proyecto</span>
         </li>
       </ul>
     </div>

@@ -1,40 +1,49 @@
 .container {
     box-sizing: border-box;
-  width: 600px;
-  max-width: 100%;
-  margin: auto;
-  height: 680px;
-  max-height: 80%;
-  border-radius: 8px;
-  background-color: var(--color-background);
-  color: white;
-  overflow-y: auto;
-  overflow-x: hidden;
+    width: 500px;
+    max-width: 100%;
+    margin: auto;
+    height: 680px;
+    max-height: 80%;
+    border-radius: 8px;
+    background-color: var(--color-background);
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .tabBar {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
 }
 
 .tabButton {
-  padding: 12px 32px;
-  background: transparent;
-  border: none;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
+    padding: 12px 32px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+
+}
+.tabButton:hover{
+    border-radius: 4px;
+    background-color: var(--color-primary-light);
 }
 
 .activeTabButton {
-  color: var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .contentBox {
-  display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;

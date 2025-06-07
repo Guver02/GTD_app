@@ -6,13 +6,16 @@ import { shallow } from "zustand/shallow";
 import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, Inbox, Plus } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 //import { DataContext } from "../../providers/DataContext";
-import {CreateProject} from '../projects_components/CreateProject'
+import { CreateProject } from '../projects_components/CreateProject'
 
-const {sectionItem, itemInbox, folderDataItem, subModalContainer, button, positionContainer} = style
+const { sectionItem, itemInbox, folderDataItem, subModalContainer, button, positionContainer,
+    iconContainer,
+    contentContainer
+ } = style
 
-function ProjectsModal ({functions, values}) {
-    const {changeFolderSection} = functions
-    const {projectId, sectionId} = values
+function ProjectsModal({ functions, values }) {
+    const { changeFolderSection } = functions
+    const { projectId, sectionId } = values
 
     const projects = useDataStore((state) => state.projects, shallow)
     const sections = useDataStore((state) => state.sections)
@@ -21,32 +24,33 @@ function ProjectsModal ({functions, values}) {
     const unsectionsByProject = useDataStore((state) => state.unsectionsByProject)
     const [isClosed, setIsClosed] = useState(true)
 
-    const {openModal} = useContext(ModalContext)
+    const { openModal } = useContext(ModalContext)
 
     const handleCreate = () => {
-        openModal(<CreateProject/>)
+        openModal(<CreateProject />)
     }
 
     const styleFolders = {
-        color: `rgba(${projects[projectId].myColor?.color},1)`}
+        color: `rgba(${projects[projectId].myColor?.color},1)`
+    }
 
     return (
         <div className={positionContainer}>
 
             <div
-            className={button}
-            style={styleFolders}
-            onClick={() => setIsClosed(!isClosed)}>
+                className={button}
+                style={styleFolders}
+                onClick={() => setIsClosed(!isClosed)}>
 
-                <Folder/>
+                <Folder />
                 <span>{projects[projectId].item_name}</span>
                 <span>{
-                sections[sectionId]?.item_name
-                ?
-                `/${sections[sectionId].item_name}`
-                :
-                ''}</span>
-                <ChevronDown/>
+                    sections[sectionId]?.item_name
+                        ?
+                        `/${sections[sectionId].item_name}`
+                        :
+                        ''}</span>
+                <ChevronDown />
             </div>
 
 
@@ -56,49 +60,55 @@ function ProjectsModal ({functions, values}) {
                     {
                         Object.values(projects).map((elem, i) => {
 
-                            if(elem.id == inbox.id){
+                            if (elem.id == inbox.id) {
                                 return (
                                     <div
                                         key={`inbox${elem.id}`}
 
                                         className={itemInbox}
-                                        onClick={() =>{
+                                        onClick={() => {
                                             changeFolderSection(
                                                 inbox.id,
                                                 unsectionsByProject[inbox.id].id)
                                             setIsClosed(!isClosed)
-                                            }}>
-                                        <Inbox/>
+                                        }}>
+                                        <Inbox />
                                         <span>{elem.item_name}</span>
                                     </div>
                                 )
-                            }else{
+                            } else {
                                 return (<div key={`folder${elem.id}`}>
 
                                     <div
 
 
                                         className={folderDataItem}
-                                        onClick={() =>{
+                                        onClick={() => {
                                             changeFolderSection(
                                                 elem.id,
                                                 unsectionsByProject[elem.id].id)
                                             setIsClosed(!isClosed)
-                                            }}>
-                                        <Folder
-                                        style={{color: `rgba(${elem.myColor.color},1)`}}
-                                        />
-                                        <span>{elem.item_name}</span>
+                                        }}>
+                                        <div
+                                        className={iconContainer}>
+                                            <Folder
+                                                style={{ color: `rgba(${elem.myColor.color},1)` }}
+                                            />
+                                        </div>
+                                        <div
+                                        className={contentContainer}>
+                                            <span>{elem.item_name}</span>
+                                        </div>
                                     </div>
 
                                     {
                                         Object.values(sections)
-                                        .filter((section) => section.parent_id == elem.id)
-                                        .sort((a, b) => a.order - b.order)
-                                        .map((section) => {
+                                            .filter((section) => section.parent_id == elem.id)
+                                            .sort((a, b) => a.order - b.order)
+                                            .map((section) => {
 
 
-                                            return(<div
+                                                return (<div
                                                     key={`section${section.id}`}
 
                                                     className={sectionItem}
@@ -107,15 +117,15 @@ function ProjectsModal ({functions, values}) {
                                                             elem.id,
                                                             section.id)
                                                         setIsClosed(!isClosed)
-                                                        }}>
-                                                    <CornerDownRight/>
+                                                    }}>
+                                                    <CornerDownRight />
                                                     <span>{section.item_name}</span>
                                                 </div>)
 
-                                        })
+                                            })
                                     }
 
-                                    </div>
+                                </div>
                                 )
                             }
 
@@ -124,10 +134,10 @@ function ProjectsModal ({functions, values}) {
                     }
 
                     <div
-                    className={folderDataItem}
-                    onClick={handleCreate}
+                        className={folderDataItem}
+                        onClick={handleCreate}
                     >
-                        <Plus/>
+                        <Plus />
                         <span>Crear Proyecto</span>
                     </div>
 
@@ -139,4 +149,4 @@ function ProjectsModal ({functions, values}) {
 
 }
 
-export {ProjectsModal}
+export { ProjectsModal }

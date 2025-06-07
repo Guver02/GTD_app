@@ -17,8 +17,8 @@ const tabComponents = {
 };
 
 function MainPanel() {
-  const [activeTab, setActiveTab] = useState('Task');
-  const ActiveComponent = tabComponents[activeTab];
+  const [activeTab, setActiveTab] = useState('Task')
+  const ActiveComponent = tabComponents[activeTab]
 
   return (
     <div className={container}>
@@ -41,4 +41,3 @@ function MainPanel() {
 }
 
 export { MainPanel };
-//.charAt(0).toUpperCase() + tabKey.slice(1)

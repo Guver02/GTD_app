@@ -22,6 +22,7 @@
 .iconFilter{
     cursor: pointer;
 }
+
 .filterList{
     display: flex;
     flex-direction: column;
@@ -31,8 +32,11 @@
     border: 1px solid lightgray;
     top: 92%;
     right: 0;
-    height: 400px;
+    height: auto;
+    max-height: 480px;
+    width: 240px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .filterList::-webkit-scrollbar{
     width: 4px;
@@ -53,13 +57,24 @@
 .filterListItem:hover{
     background-color: lightgray;
 }
-.filterListItem > div {
+.filterListItem > .item {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 4px;
     justify-content: start;
+    width: 86%;
 }
 .filterListItem > input {
     cursor: pointer;
+    display: flex;
+    width: 24px;
+}
+.iconContainer {
+    width: max-content;
+}
+.contentContainer {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

@@ -3,25 +3,30 @@ import { Folder } from "react-feather";
 import * as styles from './Project.module.css'
 
 const {
-    projectContainer
+    projectContainer,
+    contentContainer,
+    iconContainer
 } = styles
 
-function Project ({project, onClickProject}) {
+function Project({ project, onClickProject }) {
 
 
-    return(
+    return (
         <li className={projectContainer}
-        onClick={() => onClickProject(`/app/project/${project.id}`)}
+            onClick={() => onClickProject(`/app/project/${project.id}`)}
         >
-            <Folder
-            style={{
-            color: `rgb(${project.myColor.color})`
+            <div>
+                <Folder
+                    style={{
+                        color: `rgb(${project.myColor.color})`
                     }}
-                    />
-            <span>{project.item_name}</span>
-            <span>{project.order}</span>
+                />
+            </div>
+            <div className={contentContainer}>
+                <span>{project.item_name}</span>
+            </div>
         </li>
     )
 }
 
-export {Project}
+export { Project }

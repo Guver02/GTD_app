@@ -9,7 +9,18 @@
     font-size: 16px;
     box-sizing: border-box;
 }
-.projectContainer:hover{
+
+.iconContainer {
+    width: max-content;
+}
+
+.contentContainer {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.projectContainer:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: var(--color-text-muted);
 }

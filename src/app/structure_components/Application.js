@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDataStore } from "../../store/data_store"
 import { apiService } from "../../services/apiService";
-import { shallow } from "zustand/shallow";
 import { SpinnerLoading } from "../ui_components/SpinnerLoading";
 import { Sidebar } from "../ui_components/Sidebar";
 import * as styles from "./Application.module.css"
 import { Navbar } from "../ui_components/Navbar";
-import { Route, Routes } from "react-router-dom";
-import { Login } from "../auth_components/Login";
-import { SignIn } from "../auth_components/SignIn";
-import { Inbox } from "../views_container/Inbox";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Projects } from "../views_container/Projects";
 import { ModalProvider } from "../providers/ModalContext";
 import { Dashboard } from "../views_container/Dashboard";
@@ -35,11 +31,9 @@ const specialTypesIDS = {
     referenceFile: 7,
   };
 
-function Application ({children}) {
+function Application () {
     const [isLoading, setIsLoading] = useState(true)
     const setItems = useDataStore((state) => state.setItems)
-
-
 
     useEffect(() => {
         async function getItems() {
@@ -66,6 +60,7 @@ function Application ({children}) {
 
                 <div className={applicationContent}>
                 <Routes>
+                    <Route path="/" element={<Navigate to="/inbox" replace />} />
                     <Route path="/inbox" element={<InboxView/>} />
                     <Route path="/someday" element={<Someday specialSomedayID={specialTypesIDS.someday}/>} />
                     <Route path="/traking-file" element={<TrakingFile/>} />

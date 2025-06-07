@@ -12,13 +12,13 @@
     font-size: 14px;
     position: relative;
     /*background-color: rgba(0, 0, 0, 0.09);*/
-    
+
 }
 
 .button > span:first-child{
     font-size: 18px;
     font-weight: bold;
-    
+
 }
 .button> span:nth-child(2){
     color: rgba(0, 0, 0, 0.7);
@@ -46,11 +46,13 @@
     max-height: 200px;
     height: fit-content;
     overflow-y: auto;
-    
+
 }
 .subModalContainer::-webkit-scrollbar{
-    
-
+    width: 4px;
+}
+.subModalContainer::-webkit-scrollbar-thumb{
+    background-color: var(--color-text-muted);
 }
 
 .folderDataItem{
@@ -61,15 +63,22 @@
     flex-direction: row;
     justify-content: left;
     gap: 8px;
+    color: var(--color-text-primary);
     align-items: center;
 }
-.folderDataItem > span:first-child{
-    font-size: 20px;
-    font-weight: bold;
+.iconContainer {
+    width: max-content;
+}
+
+.contentContainer {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
 }
 .folderDataItem:hover{
     cursor: pointer;
-    background-color: #eee;
+    background-color: var(--color-text-muted);
 }
 .itemInbox{
     border-radius: 4px;
@@ -80,13 +89,14 @@
     justify-content: left;
     gap: 8px;
     align-items: center;
+    color: var(--color-text-primary);
 }
 .itemInbox > span:first-child{
     font-size: 22px;
 }
 .itemInbox:hover{
     cursor: pointer;
-    background-color: #eee;
+    background-color: var(--color-text-muted);
 }
 .sectionItem{
     border-radius: 4px;
@@ -97,11 +107,12 @@
     justify-content: left;
     gap: 8px;
     align-items: center;
+    color: var(--color-text-primary);
 }
 .sectionItem > span:first-child{
     font-size: 20px;
 }
 .sectionItem:hover{
     cursor: pointer;
-    background-color: #eee;
+    background-color: var(--color-text-muted);
 }
