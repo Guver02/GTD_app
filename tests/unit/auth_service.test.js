@@ -49,7 +49,7 @@ describe('AuthService', () => {
 
     mockItemService.createDefaultProjects.mockResolvedValue(true);
   });
-
+/*
   test('signIn should return user object without password and id', async () => {
     jest.spyOn(bcrypt, 'hash').mockResolvedValue(mockedHash);
 
@@ -64,7 +64,7 @@ describe('AuthService', () => {
     expect(res).not.toHaveProperty('id');
     expect(mockUserService.create).toHaveBeenCalledTimes(1);
     expect(mockItemService.createDefaultProjects).toHaveBeenCalledTimes(1);
-  });
+  }); */
 
   test('signIn should call create and createDefaultProjects', async () => {
     jest.spyOn(bcrypt, 'hash').mockResolvedValue(mockedHash);

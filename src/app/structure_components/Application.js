@@ -34,7 +34,7 @@ const specialTypesIDS = {
 function Application () {
     const [isLoading, setIsLoading] = useState(true)
     const setItems = useDataStore((state) => state.setItems)
-
+    //deberia mover esto al protected?
     useEffect(() => {
         async function getItems() {
             const data = await apiService.get('/api/v1/items');

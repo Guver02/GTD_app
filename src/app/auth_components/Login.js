@@ -49,7 +49,7 @@ function Login() {
   return (
     <div className={loginContainer}>
       <div className={loginLeft}>
-        <div className={logo}>dotwork</div>
+        <div className={logo}>GTD Planner</div>
         <h1>Log in to your Account</h1>
         <p>Welcome back! Select method to log in:</p>
         <div className={socialButtons}>
@@ -87,6 +87,10 @@ function Login() {
           onClick={handleSignUpClick}
           >Create an account</a>
         </p>
+        <button
+        className={googleButton}>
+            Local Mode
+        </button>
       </div>
       <div className={loginRight}>
         <div className={rightContent}>

@@ -19,6 +19,16 @@ class UsersServices {
         return (user)
     }
 
+    async getById (id) {
+        const user = await this.userRepository.findById(id)
+
+        if(!user){
+            throw boom.badRequest('Incorrect User');
+        }
+
+        return (user)
+    }
+
     async create (newUser) {
         const result = this.userRepository.create(newUser)
         return (result)

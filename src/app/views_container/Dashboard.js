@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
-import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward } from 'react-feather'; // Importa más iconos según sea necesario
+import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward, LogOut } from 'react-feather'; // Importa más iconos según sea necesario
 import { useDataStore } from "../../store/data_store";
 import { useTaskService } from "../../services/taskService";
 import { FilterModal } from "../ui_components/FilterModal";
@@ -9,6 +9,7 @@ import {jwtDecode} from "jwt-decode";
 import { ModalContext } from "../providers/ModalContext";
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
+import { useNavigate } from "react-router-dom";
 
 const authService = new AuthService(localStorage)
 
@@ -18,7 +19,6 @@ const {
     headerLeft,
     userWelcome,
     headerRight,
-    searchBar,
     actionButtons,
     scheduleButton,
     createRequestButton,
@@ -26,6 +26,24 @@ const {
     widget,
     widgetHeader,
     widgetBody,
+    notesList,
+    noteItem,
+    noteContainer,
+    circleIcon,
+
+    searchBar,
+    statusTrackerList,
+    statusItem,
+    statusIndicator,
+    statusText,
+    statusTime,
+    meetingItem,
+    meetingInfo,
+    meetingTime,
+    meetingTitle,
+    meetingParticipants,
+    meetingLocation,
+    meetingTag,
     progressBar,
     progressBarTrack,
     progressBarIndicator,
@@ -42,27 +60,12 @@ const {
     calendarHeader,
     calendarDays,
     day,
-    notesList,
-    noteItem,
-    statusTrackerList,
-    statusItem,
-    statusIndicator,
-    statusText,
-    statusTime,
-    meetingItem,
-    meetingInfo,
-    meetingTime,
-    meetingTitle,
-    meetingParticipants,
-    meetingLocation,
-    meetingTag,
-    noteContainer,
-    circleIcon
 } = styles;
 
 function Dashboard() {
     const tasks = useDataStore(state => state.tasks)
     const [nextTasks, setNextTasks] = useState([])
+    const navigate = useNavigate()
 
     const [filters, setFilters] = useState([])
     const {openModal} = useContext(ModalContext)
@@ -83,6 +86,7 @@ function Dashboard() {
     const token = authService.getToken()
     const decoded = jwtDecode(token);
 
+    console.log(decoded)
 
     useEffect(() => {
         if(filters.length > 0){
@@ -107,6 +111,11 @@ function Dashboard() {
         openModal(<CreateProject/>)
     }
 
+    const logoutUser = () => {
+        authService.removeToken()
+        navigate('/auth/login')
+    }
+
     return (
         <div className={dashboardContainer}>
 
@@ -114,8 +123,12 @@ function Dashboard() {
 
                 <div className={headerLeft}>
                     <div className={userWelcome}>
+
                         <h1>{`¡Hola, ${decoded.username}!`}</h1>
                         <p>Bienvenido de nuevo</p>
+                        <LogOut
+                        onClick={logoutUser}/>
+
                     </div>
                 </div>
 

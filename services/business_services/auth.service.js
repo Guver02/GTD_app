@@ -20,10 +20,18 @@ class AuthServices {
         const result = await this.userServices.create(newUser)
         await this.itemsService.createDefaultProjects(result.dataValues.id)
 
-        delete result.dataValues.password
-        delete result.dataValues.id
+        //delete result.dataValues.password
+        //delete result.dataValues.id
 
-        return (result.dataValues)
+        const payload = {
+            userId: result.dataValues.id,
+            username: result.dataValues.username,
+            email: result.dataValues.email
+        }
+
+        const token = jwt.sign(payload, config.secretKey)
+
+        return (token)
     }
 
     async logIn(body){
@@ -52,9 +60,16 @@ class AuthServices {
         return (token)
     }
 
-    async getPayload(token) {
+    static async getPayload(token) {
         const payload = jwt.verify(token, config.secretKey)
         return payload
+    }
+
+    async userValidate(token){
+        const payload = await this.getPayload(token)
+        const user = await this.userServices.findById(payload.userId)
+
+        if (user) return true
     }
 }
 

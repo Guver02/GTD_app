@@ -11,6 +11,7 @@ const validatorHandler = require('./../middlewares/validator.handler')
 const {getItemSchema, createItemTodoSchema, createItemFolderSchema, createItemSectionSchema, updateItemContentSchema, updateStatusItemTodo, changeOrderSameGroupSchema, changeTodoSectionToLastSchema} = require('./../schemas/items.schema')
 const { authHandler } = require('../middlewares/auth.handler')
 const AuthServices = require('./../services/business_services/auth.service')
+const { userValidationHandler } = require('../middlewares/userValidator.handler')
 
 
 const authServices = new AuthServices()
@@ -28,6 +29,7 @@ router.get('/test',
 
 router.get('/',
     authHandler,
+    userValidationHandler,
     async (req, res , next) => {
         try {
             const {token} = req
