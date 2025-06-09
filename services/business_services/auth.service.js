@@ -60,7 +60,7 @@ class AuthServices {
         return (token)
     }
 
-    static async getPayload(token) {
+    async getPayload(token) {
         const payload = jwt.verify(token, config.secretKey)
         return payload
     }
