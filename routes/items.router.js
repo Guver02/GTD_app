@@ -57,9 +57,10 @@ router.post('/create-folder/:id',
             const {userId} = payload
 
             const {id} = req.params
+            const unsectionIDforToFolder = id
 
             const {body} = req
-            const newItem =  await itemsService.createFolder(body, userId, id)
+            const newItem =  await itemsService.createFolder(body, userId, unsectionIDforToFolder)
             res.json(newItem)
         } catch (error) {
             next(error)

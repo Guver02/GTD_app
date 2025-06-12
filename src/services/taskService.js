@@ -3,8 +3,10 @@ import { useDataStore } from "../store/data_store";
 import { getStatus } from "../utils/stateUtils";
 import { useCallback } from 'react';
 import { taskRestApiRepository } from '../repositories/taskRestApiRepository';
+import { createTaskStorage } from "./factories/createTaskStorage";
 
-const taskRepo = taskRestApiRepository;
+const tmaskRepo = taskRestApiRepository;
+const taskStorage = createTaskStorage()
 
 const useTaskService = () => {
   const createTask = useDataStore(state => state.createTask);
@@ -20,7 +22,8 @@ const useTaskService = () => {
     const taskData = Task.getTask(data);
     console.log(taskData)
     createTask(taskData);
-    await taskRepo.create(taskData);
+    /* await taskRepo.create(taskData); */
+    await taskStorage.create(taskData)
   }, [createTask]);
 
   const updateTaskStateAndApi = useCallback(async (data, prevState) => {
@@ -32,15 +35,15 @@ const useTaskService = () => {
     }
     updateTask(taskData);
 
-    if (prevState.sectionId !== taskData.parent_id) {
-      await taskRepo.changeSectionToLast(taskData.id, { parent_id: taskData.parent_id });
+    if (prevState.sectionId !== taskData.parent_id) {/////
+      await taskStorage.changeSectionToLast(taskData.id, { parent_id: taskData.parent_id });
     }
-    await taskRepo.update(taskData);
+    await taskStorage.update(taskData);
   }, [updateTask, changeSection]);
 
   const deleteTaskAndApi = useCallback(async (id) => {
     deleteTask(id);
-    await taskRepo.delete(id);
+    await taskStorage.delete(id);
   }, [deleteTask]);
 
   const swapParentAndOrderStateAndApi = async (id1, id2, parentId) => {
@@ -48,7 +51,7 @@ const useTaskService = () => {
     const { order: order2 } = tasks[id2];
     swapTaskOrder(id1, id2, parentId);
 
-    await taskRepo.changeSection(id1, {
+    await taskStorage.changeSection(id1, {
       sourceOrder: order1,
       targetOrder: order2,
       parent_id: parentId
@@ -62,7 +65,7 @@ const useTaskService = () => {
     if (order1 !== order2) {
       swapTaskOrder(id1, id2, parentId);
 
-      await taskRepo.changeOrderSameGroup({
+      await taskStorage.changeOrderSameGroup({
         sourceOrder: order1,
         targetOrder: order2,
         parent_id: parentId
@@ -73,14 +76,14 @@ const useTaskService = () => {
   const changeStatusStateAndApi = async (id, newStatus) => {
     const data = { status: getStatus(newStatus) };
     changeStatus(id, data);
-    await taskRepo.updateStatus(id, data);
+    await taskStorage.updateStatus(id, data);
   };
 
 
   const setNextActionStateAndApi = async (id) => {
     const data = { status: 'in_progress' };
     changeNextAction(id, data);
-    await taskRepo.updateStatus(id, data);
+    await taskStorage.updateStatus(id, data);
   };
 
   return {

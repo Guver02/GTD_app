@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import * as styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
-import { AuthService } from "../../services/authService";
-import { apiService } from "../../services/apiService";
+import { createAuthSesion } from "../../services/factories/createAuthSesion";
+import { APP_MODES } from "../../services/manager/configs/appModes";
 
 const {
     loginContainer,
@@ -20,8 +20,6 @@ const {
     signupLink
   } = styles;
 
-const authService = new AuthService(localStorage)
-
 function Login() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('')
@@ -33,16 +31,18 @@ function Login() {
       };
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
-        const data = await apiService.post(
-            '/api/v1/auth/login',
-            {
-            username: userName,
-            password: password
-            })
 
-        const {token} = data
-        authService.setToken(token)
+        const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
+        await authSesion.login(userName, password)
+
+        navigate('/app/inbox')
+    }
+
+    const handleSubmitLocal = async (event) => {
+
+        const authSesion = createAuthSesion(APP_MODES.offline.appMode)
+        await authSesion.login(userName, password)
+
         navigate('/app/inbox')
     }
 
@@ -88,8 +88,9 @@ function Login() {
           >Create an account</a>
         </p>
         <button
-        className={googleButton}>
-            Local Mode
+        onClick={handleSubmitLocal}
+        className={loginButton}>
+            Log in Local
         </button>
       </div>
       <div className={loginRight}>

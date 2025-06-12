@@ -1,5 +1,10 @@
-import { AuthService } from "./authService";
-const authService = new AuthService(localStorage)
+import { AppConfigManager } from "./manager/AppConfigManager";
+
+
+const getAuthHeader = () => {
+    const token = AppConfigManager.getToken()
+    return token ? { Authorization: `Bearer ${token}` } : {};
+}
 
 const apiService = {
     request: async (url, options) => {
@@ -22,7 +27,7 @@ const apiService = {
             method: 'GET',
             headers: {
                 ...headers,
-                ...authService.getAuthHeader()
+                ...getAuthHeader()
             },
         });
     },
@@ -32,7 +37,7 @@ const apiService = {
             headers: {
                 'Content-Type': 'application/json',
                 ...headers,
-                ...authService.getAuthHeader()
+                ...getAuthHeader()
             },
             body: JSON.stringify(body),
         });
@@ -43,7 +48,7 @@ const apiService = {
             headers: {
                 'Content-Type': 'application/json',
                 ...headers,
-                ...authService.getAuthHeader()
+                ...getAuthHeader()
             },
             body: JSON.stringify(body),
         });
@@ -54,7 +59,7 @@ const apiService = {
             headers: {
                 'Content-Type': 'application/json',
                 ...headers,
-                ...authService.getAuthHeader()
+                ...getAuthHeader()
             },
             body: JSON.stringify(body),
         });

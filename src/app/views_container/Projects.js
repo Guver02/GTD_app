@@ -108,7 +108,7 @@ function Projects () {
     }
 
     const confirmDelete = () => {
-        navigate('/app/')
+        navigate('/app/inbox')
         deleteProject(id)
         closeModal()
     }
@@ -124,7 +124,9 @@ function Projects () {
             id: id,
             item_name: input,
             parent_id: project.parent_id,
-            order: project.order
+            order: project.order,
+            color_id: project.color_id,
+            myColor: project.myColor
         })
         inputRef.current.blur()
     }

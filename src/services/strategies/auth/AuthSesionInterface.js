@@ -1,4 +1,4 @@
-class authSesionInterface {
+class AuthSesionInterface {
     signIn(userName, password, email) {
         throw new Error('Este método debe ser implementado');
     }
@@ -19,3 +19,5 @@ class authSesionInterface {
         throw new Error('Este método debe ser implementado');
     }
 }
+
+export {AuthSesionInterface}

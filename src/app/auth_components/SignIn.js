@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { apiService } from "../../services/apiService";
+import { createAuthSesion } from "../../services/factories/createAuthSesion";
+import { APP_MODES } from "../../services/manager/configs/appModes";
 
 const {
     signinContainer,
@@ -34,14 +36,42 @@ function SignIn() {
             (email.length > 0)&&
             (userName.length < 0)*/
         ){
-            await apiService.post(
+            /* await apiService.post(
                 '/api/v1/auth/sing-in/',
                 {
                 username: userName,
                 password: password,
                 email: email
-                })
-            navigate('/auth/login')
+                }) */
+
+            const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
+            await authSesion.signIn(userName ,password, email)
+            /* navigate('/auth/login') */
+            navigate('/app/inbox')
+        }else{
+            alert('Las credenciales son incorrectas')
+        }
+    }
+
+    const handleSubmitLocal = async (event) => {
+        event.preventDefault()
+        if((password == confirm)/*&&
+            /*(password.length > 0)
+            (email.length > 0)&&
+            (userName.length < 0)*/
+        ){
+            /* await apiService.post(
+                '/api/v1/auth/sing-in/',
+                {
+                username: userName,
+                password: password,
+                email: email
+                }) */
+
+            const authSesion = createAuthSesion(APP_MODES.offline.appMode)
+            await authSesion.signIn(userName ,password, email)
+            /* navigate('/auth/login') */
+            navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')
         }
@@ -89,6 +119,12 @@ function SignIn() {
         className={signinButton}
         onClick={handleSubmit}
         >Sign Up</button>
+
+        <button
+        className={signinButton}
+        onClick={handleSubmitLocal}
+        >Sign Local</button>
+
         <p className={loginLink}>
           Already have an account?
           <a

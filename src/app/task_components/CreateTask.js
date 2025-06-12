@@ -67,7 +67,7 @@ function CreateTask({ projectId, sectionId }) {
 
     const handleEnterKey = (event) => {
         if (event.key === 'Enter') {
-            console.log('Se presionó Enter');
+
             handleCreate()
         }
     }

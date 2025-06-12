@@ -19,8 +19,6 @@ module.exports = {
         {name: 'todo'},
         {name: 'section'},
         {name: 'folder'},
-        /*{name: 'thing'},
-        {name: 'note'},*/
     ]
 
     const specialTypes = [

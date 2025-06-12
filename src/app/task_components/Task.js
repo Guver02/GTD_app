@@ -46,10 +46,10 @@ const Task = React.memo(({ taskId, isMove = true }) => {
     const handleNextAction = () => {
         if(task.status !== 'in_progress'){
             setNextAction(taskId)
-            console.log('in_progress')
+
         }else{
             changeStatus(taskId, false)
-            console.log('pending')
+
         }
     }
 
@@ -101,7 +101,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                     {task.item_name}
                 </span>
                 <span className={description}>
-                    {task.description}
+                    {task.order}
                 </span>
                 <div className={iconsContainer}>
                     <div></div>

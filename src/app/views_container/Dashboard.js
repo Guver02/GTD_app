@@ -4,14 +4,14 @@ import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle
 import { useDataStore } from "../../store/data_store";
 import { useTaskService } from "../../services/taskService";
 import { FilterModal } from "../ui_components/FilterModal";
-import { AuthService } from "../../services/authService";
 import {jwtDecode} from "jwt-decode";
 import { ModalContext } from "../providers/ModalContext";
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
 import { useNavigate } from "react-router-dom";
+import { createAuthSesion } from "../../services/factories/createAuthSesion";
+import { AppConfigManager } from "../../services/manager/AppConfigManager";
 
-const authService = new AuthService(localStorage)
 
 const {
     dashboardContainer,
@@ -83,10 +83,9 @@ function Dashboard() {
         setFilters((prev) => prev.filter(elem => elem.projectId !== projectId))
     }
 
-    const token = authService.getToken()
+    const token = AppConfigManager.getToken()
     const decoded = jwtDecode(token);
 
-    console.log(decoded)
 
     useEffect(() => {
         if(filters.length > 0){
@@ -112,7 +111,8 @@ function Dashboard() {
     }
 
     const logoutUser = () => {
-        authService.removeToken()
+        const authSesion = createAuthSesion()
+        authSesion.logout()
         navigate('/auth/login')
     }
 

@@ -21,8 +21,8 @@ router.post('/sing-in',
     async (req, res, next) => {
         try {
             const {body} = req
-            const user = await authService.signIn(body)
-            res.json(user)
+            const token = await authService.signIn(body)
+            res.json({token})
         } catch (error) {
             next(error)
         }

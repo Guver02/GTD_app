@@ -21,12 +21,6 @@ class Project extends Item {
         return data
     }
 
-    getProperties() {
-        return ({
-
-        })
-    }
-
     getProjectFormatAPI() {
         return ({
             id: this.id,

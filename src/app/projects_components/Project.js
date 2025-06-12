@@ -23,7 +23,7 @@ function Project({ project, onClickProject }) {
                 />
             </div>
             <div className={contentContainer}>
-                <span>{project.item_name}</span>
+                <span>{`${project.item_name} ${project.order}`}</span>
             </div>
         </li>
     )

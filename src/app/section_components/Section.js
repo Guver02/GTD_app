@@ -90,7 +90,7 @@ const Section = React.memo(({sectionID}) => {
                     :
                 <div className={sectionTittleContainer}>
 
-                    <span className={sectionTittle}>{`${section.item_name}`}</span>
+                    <span className={sectionTittle}>{`${section.item_name} ${section.order}`}</span>
 
                     <div className={iconMore}>
                         <HoverModal

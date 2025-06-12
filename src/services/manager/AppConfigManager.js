@@ -1,4 +1,4 @@
-import { APP_MODES } from '../configs/appModes';
+import { APP_MODES } from './configs/appModes';
 
 export class AppConfigManager {
     static setMode(modeKey, token = null) {
@@ -42,5 +42,14 @@ export class AppConfigManager {
 
     static clear() {
         localStorage.removeItem('appConfig')
+    }
+
+    static getToken() {
+        const config = this.getConfig()
+
+        if(config){
+            return config.jwt
+        }
+        return null
     }
 }

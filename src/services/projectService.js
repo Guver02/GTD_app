@@ -5,6 +5,9 @@ import { Section } from "../constructors/Items/Sections";
 
 import { projectRestApiRepository } from "../repositories/projectRestApiRepository";
 import { sectionRestApiRepository } from "../repositories/sectionRestApiRepository";
+import { createProjectStorage } from "./factories/createProjectStorage";
+
+const projectStorage = createProjectStorage()
 
 const useProjectService = () => {
   const createProject = useDataStore(state => state.createProject);
@@ -21,19 +24,21 @@ const useProjectService = () => {
     const unsection = Section.getUnsectioned(unsectionBaseData);
     createSection(unsection);
     addUnsection(unsection);
-    await projectRestApiRepository.create(project, unsection.id);
+
+    await projectStorage.create(project, unsection.id);
 
   }, [createProject, createSection]);
 
   const updateProjectStateAndApi = useCallback(async (data) => {
     const project = Project.getProject(data);
+    console.log(project)
     updateProject(project);
-    await projectRestApiRepository.update(project);
+    await projectStorage.update(project);
   }, [updateProject]);
 
   const deleteProjectStateAndApi = useCallback(async (id) => {
     deleteProject(id);
-    await projectRestApiRepository.delete(id);
+    await projectStorage.delete(id);
   }, [deleteProject]);
 
   return {

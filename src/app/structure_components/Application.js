@@ -32,23 +32,7 @@ const specialTypesIDS = {
   };
 
 function Application () {
-    const [isLoading, setIsLoading] = useState(true)
-    const setItems = useDataStore((state) => state.setItems)
-    //deberia mover esto al protected?
-    useEffect(() => {
-        async function getItems() {
-            const data = await apiService.get('/api/v1/items');
-            console.log('DATA:',data)
-            setItems(data)
-            setIsLoading(false)
-        }
 
-        getItems();
-    }, [setItems])
-
-    if(isLoading){
-        return (<SpinnerLoading/>)
-    }else{
         return (<ModalProvider>
         <div className={applicationContainer}>
 
@@ -76,7 +60,7 @@ function Application () {
 
         </div>
         </ModalProvider>)
-    }
+
 }
 
 export {Application}
