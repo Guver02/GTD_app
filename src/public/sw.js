@@ -1,5 +1,10 @@
 const CACHE_NAME = 'cache-v2';
 const urlsToCache = [
+    '/',
+    '/index.html',
+    '/bundle.js',
+    '/styles.css',
+    '/variables.css',
     '/icons',
     '/assets',
     '/manifest.json',
