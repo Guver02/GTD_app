@@ -141,45 +141,55 @@ function Projects () {
 
         <div className={projectTittle}>
 
-                <div
-                className={folderIcon}
-                style={{backgroundColor: `rgba(${project.myColor.color},0.7)`}}
-                >
-                    <Folder/>
-                </div>
-
-                <div
-                className={tittle}
-                >
-                    <input
-                    ref={inputRef}
-                    className={inputStyle}
-                    placeholder="El nombre de tu proyecto"
-                    value={input}
-                    onKeyDown={checkEnter}
-                    onChange={(e) => setInput(e.target.value)}
-                    />
-                </div>
+    <div
+        className={folderIcon}
+        style={{backgroundColor: `rgba(${project.myColor.color},0.7)`}}
+    >
+        <Folder/>
+    </div>
 
 
+        <form className={tittle}
 
-            <div>
-            <HoverModal
+            onSubmit={(e) => {
+                e.preventDefault();
+                if (input !== '') {
+                    handleUpdateProject();
+                }
+            }}
+        >
+            <input
+                ref={inputRef}
+                className={inputStyle}
+                placeholder="El nombre de tu proyecto"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                enterKeyHint="done"
+                inputMode="text"
+            />
+        </form>
+
+
+    <div>
+        <HoverModal
             ParentComponent={
                 <div className={iconsContainer}>
                     <MoreHorizontal/>
                 </div>}
             bubbleComponent={(closeModal) => (
                 <ProjectOptions
-                id={id}
-                closeOptions={closeModal}
-                deleteFunction={openConfirmModal}
-                editFunction={() => {}}
+                    id={id}
+                    closeOptions={closeModal}
+                    deleteFunction={openConfirmModal}
+                    editFunction={() => {}}
                 />)}
             position='bottom'
-            gap={4}/>
-            </div>
-        </div>
+            gap={4}
+        />
+    </div>
+
+</div>
+
 
         <DndContext
         sensors={sensors}

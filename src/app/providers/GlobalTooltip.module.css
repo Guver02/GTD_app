@@ -1,0 +1,54 @@
+.tooltipContainer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tooltipContent {
+  width: 500px;
+  max-width: 100%;
+  background-color: var(--color-background-inverted);
+  color: var(--color-text-inverted);
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltipTextStyle {
+  font-size: 14px;
+  flex: 1;
+}
+
+.tooltipButton {
+  background-color: var(--color-primary-medium);
+  color: var(--color-text-inverted);
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.tooltipButton:hover {
+  background-color: var(--color-primary);
+}

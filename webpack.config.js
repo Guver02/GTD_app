@@ -6,6 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'src/public'),
     filename: 'bundle.js',
+    publicPath: '/', // <--- AÑADE ESTA LÍNEA
   },
 
   module: {
@@ -43,11 +44,11 @@ module.exports = {
 
   devServer: {
     port: 4000,
-
     open: true,
+    hot: true,
+    liveReload: false,
     client: {
       overlay: true,
-
     },
     static: {
       directory: path.join(__dirname, 'src/public'),
@@ -59,7 +60,6 @@ module.exports = {
         changeOrigin: true,
         secure: false,
         proxyTimeout: 10000,
-
       },
     ],
     historyApiFallback: true,

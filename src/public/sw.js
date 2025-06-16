@@ -2,24 +2,28 @@ const CACHE_NAME = 'cache-v2';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/bundle.js',
     '/styles.css',
+    '/bundle.js',
     '/variables.css',
-    '/icons',
-    '/assets',
+    '/assets/undraw_reminder.svg',
+    '/assets/undraw-meet-the-team.svg',
     '/manifest.json',
     'https://fonts.googleapis.com/css2?family=Cute+Font&family=Quicksand:wght@300;500;700&display=swap',
-
     'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap',
 ];
 
+// Detectamos si estamos en localhost (modo dev)
+const isDevMode = self.location.hostname === 'localhost';
+
 self.addEventListener('install', event => {
+  if (isDevMode) {
+    // No cacheamos nada en desarrollo
+    return;
+  }
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
-  )
-})
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
+});
 
 self.addEventListener('activate', event => {
   event.waitUntil(
@@ -32,9 +36,18 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  if (isDevMode) {
+    // En desarrollo: no interceptamos nada, dejamos pasar las requests
+    return;
+  }
+
+  const url = new URL(event.request.url);
+
+  if (url.pathname.includes('.hot-update.')) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then(response => response || fetch(event.request))
   );
 });

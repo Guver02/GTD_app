@@ -28,6 +28,9 @@ function CreateTask({ projectId, sectionId }) {
     const [selectedColor, setSelectedColor] = useState(availableColors[0]);
     const { createTask } = useTaskService()
     const { closeModal } = useContext(ModalContext)
+
+
+    console.log('colors',availableColors)
     const prevState = {
         projectId: projectId || inbox.id,
         sectionId: sectionId || unsections[inbox.id].id,

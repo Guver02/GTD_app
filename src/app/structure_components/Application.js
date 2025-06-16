@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDataStore } from "../../store/data_store"
-import { apiService } from "../../services/apiService";
-import { SpinnerLoading } from "../ui_components/SpinnerLoading";
 import { Sidebar } from "../ui_components/Sidebar";
 import * as styles from "./Application.module.css"
 import { Navbar } from "../ui_components/Navbar";
@@ -14,6 +11,7 @@ import { Someday } from "../views_container/Someday";
 import { ReferenceFile } from "../views_container/ReferenceFile";
 import { TrakingFile } from "../views_container/TrakingFile";
 import { Waiting } from "../views_container/Waiting";
+import { GlobalTooltipProvider } from "../providers/GlobalTooltip";
 
 const {
     applicationContainer,
@@ -33,7 +31,7 @@ const specialTypesIDS = {
 
 function Application () {
 
-        return (<ModalProvider>
+        return (<GlobalTooltipProvider><ModalProvider>
         <div className={applicationContainer}>
 
             <Sidebar/>
@@ -44,7 +42,7 @@ function Application () {
 
                 <div className={applicationContent}>
                 <Routes>
-                    <Route path="/" element={<Navigate to="/inbox" replace />} />
+                    <Route path="/" element={<Navigate to="/app/inbox" replace />} />
                     <Route path="/inbox" element={<InboxView/>} />
                     <Route path="/someday" element={<Someday specialSomedayID={specialTypesIDS.someday}/>} />
                     <Route path="/traking-file" element={<TrakingFile/>} />
@@ -59,7 +57,7 @@ function Application () {
             </div>
 
         </div>
-        </ModalProvider>)
+        </ModalProvider></GlobalTooltipProvider>)
 
 }
 

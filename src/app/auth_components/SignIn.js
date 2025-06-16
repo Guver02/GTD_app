@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
-import { apiService } from "../../services/apiService";
 import { createAuthSesion } from "../../services/factories/createAuthSesion";
 import { APP_MODES } from "../../services/manager/configs/appModes";
 

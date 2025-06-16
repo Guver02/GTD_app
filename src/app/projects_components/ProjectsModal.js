@@ -30,8 +30,6 @@ function ProjectsModal({ functions, values }) {
         openModal(<CreateProject />)
     }
 
-    console.log('Proyectos en Modal', projects)
-
     const styleFolders = {
         color: `rgba(${projects[projectId].myColor?.color},1)`
     }

@@ -3,10 +3,11 @@
   --color-primary-medium: rgba(56, 132, 255, 1);     /* Azul intermedio (hover o ítems activos) */
   --color-primary-light: rgba(221, 235, 255, 1);     /* Azul claro de fondo seleccionado */
 
-
+  --color-background-inverted: rgb(51, 51, 51);
   --color-background: rgba(255, 255, 255, 1);  /* Fondo principal */
   --color-background-cool:#f0f4f8; /*f5f7fa*/
   --color-background-grayish:#eeeeee;
+
 
   --color-secondary: rgba(102, 108, 255, 1);         /* Morado azulado (botón Add Customer) */
   --color-secondary-medium: rgba(142, 147, 255, 1);  /* Hover / estados intermedios */

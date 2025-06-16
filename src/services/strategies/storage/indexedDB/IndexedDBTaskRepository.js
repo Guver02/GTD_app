@@ -10,6 +10,7 @@ class IndexedDBTaskRepository extends RepositoryInterface {
     super();
 
     const token = AppConfigManager.getToken();
+    console.log('Token en IndexedDbTAskRepo', token)
     const decoded = token ? jwtDecode(token) : null;
     const indexedDB = IndexedDBManager.getInstance();
 

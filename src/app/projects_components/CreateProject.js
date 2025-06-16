@@ -21,15 +21,17 @@ function CreateProject() {
     const {createProject} = useProjectService()
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedColor, setSelectedColor] = useState({});
+
   const availableColors = useDataStore((state) => state.colors); // Accede a los colores desde el contexto
+
+  const [selectedColor, setSelectedColor] = useState(availableColors[0]);
 
   const handleColorSelect = (color) => {
     setSelectedColor(color);
   };
 
   const handleCreate = () => {
-
+    console.log('MAIN')
     createProject({
       item_name: projectName,
       description: description,
@@ -83,7 +85,7 @@ function CreateProject() {
             onClick={handleCreate}
             disabled={!projectName}
           >
-            Crear
+            Guardar
           </button>
         </div>
       </div>

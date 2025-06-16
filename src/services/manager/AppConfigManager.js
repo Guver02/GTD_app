@@ -1,7 +1,7 @@
 import { APP_MODES } from './configs/appModes';
 
 export class AppConfigManager {
-    static setMode(modeKey, token = null) {
+    static setMode(modeKey, token) {
         const config = APP_MODES[modeKey]
 
         if (!config) {
@@ -12,6 +12,8 @@ export class AppConfigManager {
             ...config,
             jwt: token || config.jwt,
         };
+
+        console.log('configFilnal', finalConfig)
 
         localStorage.setItem('appConfig', JSON.stringify(finalConfig))
     }

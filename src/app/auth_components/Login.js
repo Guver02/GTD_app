@@ -85,7 +85,7 @@ function Login() {
           <a
           href="#"
           onClick={handleSignUpClick}
-          >Create an account</a>
+          >Create an account</a> or:
         </p>
         <button
         onClick={handleSubmitLocal}

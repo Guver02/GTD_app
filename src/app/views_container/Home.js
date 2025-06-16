@@ -7,27 +7,14 @@ function Home() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        async function validateSesion() {
-            const authSesion = createAuthSesion()
-            console.log(authSesion)
-            const isValidSesion = authSesion.validateSesion()
-            if (isValidSesion) {
-                navigate('/app/inbox')
-            } else {
-                setLoading(false)
-            }
-        }
-
-        validateSesion()
-    }, []);
-
-    if (loading) return <SpinnerLoading />
+    const handleClick = () => {
+        navigate('/auth/login')
+    }
 
     return (
         <div>
             <h1>Home</h1>
-            <p>Bienvenido a la página principal. Por favor, inicia sesión.</p>
+            <p>Bienvenido a la página principal, <span onClick={handleClick}>Inicia sesión</span>.</p>
         </div>
     );
 };

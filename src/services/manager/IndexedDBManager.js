@@ -80,7 +80,7 @@ class IndexedDBManager {
                     itemsStore.createIndex("user_id_type_id_parent_id", ["user_id", "type_id", "parent_id"], { unique: false });
 
 
-    itemsStore.createIndex("user_id_parent_id", ["user_id", "parent_id"], { unique: false });
+                    itemsStore.createIndex("user_id_parent_id", ["user_id", "parent_id"], { unique: false });
                 }
 
                 request.transaction.oncomplete = async () => {

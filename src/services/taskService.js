@@ -6,7 +6,7 @@ import { taskRestApiRepository } from '../repositories/taskRestApiRepository';
 import { createTaskStorage } from "./factories/createTaskStorage";
 
 const tmaskRepo = taskRestApiRepository;
-const taskStorage = createTaskStorage()
+
 
 const useTaskService = () => {
   const createTask = useDataStore(state => state.createTask);
@@ -17,6 +17,8 @@ const useTaskService = () => {
   const changeNextAction = useDataStore(state => state.changeNextAction);
   const changeStatus = useDataStore(state => state.changeStatus);
   const tasks = useDataStore(state => state.tasks);
+
+  const taskStorage = createTaskStorage()
 
   const createTaskStateAndApi = useCallback(async (data) => {
     const taskData = Task.getTask(data);
