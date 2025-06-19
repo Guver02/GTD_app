@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { createSectionStorage } from "./factories/createSectionStorage";
 import { useGlobalTooltip } from "../app/providers/GlobalTooltip";
 import { createSectionUseCase, deleteSectionUseCase, updateSectionUseCase } from "../services/sectionServices";
@@ -9,7 +9,7 @@ import { storageError, unknownError } from "../utils/errorFunctions";
 
 const useSectionService = () => {
     const { showTooltip } = useGlobalTooltip()
-    const sectionStorage = createSectionStorage()
+    const sectionStorage = useMemo(() => createSectionStorage(), [])
 
     const createSectionStateAndApi = useCallback(async (data) => {
         try {
