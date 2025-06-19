@@ -1,8 +1,7 @@
-import { ItemsIndexedDBService } from "../../indexedDBServices/ItemsIndexedDBServices";
-import { UsersIndexedDBServices } from "../../indexedDBServices/UsersIndexedDBServices";
+
 import { AppConfigManager } from "../manager/AppConfigManager"
 import { APP_MODES } from "../manager/configs/appModes"
-import { IndexedDBManager } from "../manager/IndexedDBManager";
+;
 import { OfflineStrategy } from "../strategies/auth/OfflineAuthStrategy"
 import { OnlineApiStrategy } from "../strategies/auth/OnlineApiStrategy"
 

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import * as style from './CreateProject.module.css'; // Importa los estilos desestructurados
 import { useDataStore } from '../../store/data_store';
 import { ModalContext } from '../providers/ModalContext';
-import { useProjectService } from '../../services/projectService';
+import { useProjectService } from '../../controllers/projectController';
 
 const {
   formContainer,

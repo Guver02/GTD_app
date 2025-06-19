@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import * as styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
-import { createAuthSesion } from "../../services/factories/createAuthSesion";
-import { APP_MODES } from "../../services/manager/configs/appModes";
+import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
+import { APP_MODES } from "../../controllers/manager/configs/appModes";
 
 const {
     signinContainer,

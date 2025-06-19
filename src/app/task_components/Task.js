@@ -7,7 +7,7 @@ import { ViewTask } from "./ViewTask";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 import { Move2 } from "../utils_component/Move2";
-import { useTaskService } from "../../services/taskService";
+import { useTaskService } from "../../controllers/taskService";
 import { HoverModal } from "../ui_components/HoverModal";
 import { TaskOptions } from "./TaskOptions";
 

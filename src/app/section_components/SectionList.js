@@ -3,7 +3,7 @@ import * as style from './SectionList.module.css'
 import { SortableContext } from '@dnd-kit/sortable';
 import { useDataStore } from '../../store/data_store';
 import { Plus } from 'react-feather';
-import { useSectionService } from '../../services/sectionService';
+import { useSectionService } from '../../controllers/sectionController';
 
 const {
     sectionListContainer,

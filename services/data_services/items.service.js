@@ -137,7 +137,7 @@ class ItemsService {
             throw new Error(boom.badData('The defined folder for this section does not exist'));
         }
 
-        const actLastOrder = await this.getActualLastOrder(itemTypesIDS.section, userId)
+        const actLastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.section, userId, parent_id)
 
         const newItem = await this.itemsRepository.create({
             ...body,
@@ -146,6 +146,8 @@ class ItemsService {
             parent_id: folderOfTheSection.dataValues.id,
             order: actLastOrder
         })
+console.log(actLastOrder)
+        console.log(newItem.dataValues)
 
         delete newItem.dataValues.user_id
 
@@ -330,14 +332,12 @@ class ItemsService {
     async deleteItem(itemId, userId) {
         const itemDeleted = await this.itemsRepository.findByPk(itemId)
 
-
-
-        const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, itemDeleted.dataValues.parent_id)
+        const lastOrder = await this.getActualLastOrderForTodos(itemDeleted.type_id, userId, itemDeleted.dataValues.parent_id)
 
         await this.itemsRepository.query(`
             UPDATE items
             SET \`order\` = CASE
-                WHEN \`order\` BETWEEN :source + 1 AND :target THEN \`order\` - 1
+                WHEN \`order\` BETWEEN :source AND :target THEN \`order\` - 1
                 ELSE \`order\`
             END
             WHERE \`order\` BETWEEN :source AND :target
@@ -348,7 +348,8 @@ class ItemsService {
                 target: lastOrder,
                 parentId: itemDeleted.dataValues.parent_id
             },
-            type: QueryTypes.UPDATE
+            type: QueryTypes.UPDATE,
+
         })
 
         await this.itemsRepository.destroy({

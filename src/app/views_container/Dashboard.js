@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
 import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward, LogOut } from 'react-feather'; // Importa más iconos según sea necesario
 import { useDataStore } from "../../store/data_store";
-import { useTaskService } from "../../services/taskService";
+import { useTaskService } from "../../controllers/taskService";
 import { FilterModal } from "../ui_components/FilterModal";
 import {jwtDecode} from "jwt-decode";
 import { ModalContext } from "../providers/ModalContext";
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
 import { useNavigate } from "react-router-dom";
-import { createAuthSesion } from "../../services/factories/createAuthSesion";
-import { AppConfigManager } from "../../services/manager/AppConfigManager";
+import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
+import { AppConfigManager } from "../../controllers/manager/AppConfigManager";
 
 
 const {

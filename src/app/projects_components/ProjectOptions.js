@@ -1,6 +1,6 @@
 import React from "react"
 import * as style from '../section_components/SectionOptions.module.css'
-import { useProjectService } from "../../services/projectService"
+import { useProjectService } from "../../controllers/projectController"
 
 const  {
     sectionOptionsContainer,

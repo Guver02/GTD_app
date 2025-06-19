@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useDataStore } from '../../store/data_store'
-import { createAuthSesion } from '../../services/factories/createAuthSesion'
+import { createAuthSesion } from '../../controllers/factories/createAuthSesion'
 import { SpinnerLoading } from '../ui_components/SpinnerLoading'
-import { APP_MODES } from '../../services/manager/configs/appModes'
 
 function ProtectedRoute() {
     const setItems = useDataStore(state => state.setItems)

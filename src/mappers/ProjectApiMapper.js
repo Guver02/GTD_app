@@ -1,9 +1,8 @@
 import { Project } from "../constructors/Items/Projects";
 
-
 const ProjectApiMapper = {
   toApiFormat(project) {
-    if (!(project instanceof Project)) {
+    if (!(project instanceof Project )) {
       throw new Error('El objeto proporcionado no es una instancia de Project');
     }
 

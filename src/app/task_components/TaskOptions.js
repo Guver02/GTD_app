@@ -1,6 +1,6 @@
 import React from "react";
 import * as style from "./TaskOptions.module.css";
-import { useTaskService } from "../../services/taskService";
+import { useTaskService } from "../../controllers/taskService";
 import { Edit, Sun, Trash2 } from "react-feather";
 
 const {

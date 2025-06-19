@@ -4,8 +4,7 @@ import * as style from './SomedayTask.module.css'
 import { ArrowDownCircle, CheckCircle, Circle, Crosshair, Inbox, Trash2 } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
-import { Move2 } from "../utils_component/Move2";
-import { useTaskService } from "../../services/taskService";
+import { useTaskService } from "../../controllers/taskService";
 
 const {
    taskContainer,
