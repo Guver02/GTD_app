@@ -1,5 +1,4 @@
 import { TaskApiFormatter } from "../../../formatters/TaskApiFormatter";
-import { TaskApiMapper } from "../../../mappers/TaskApiMapper";
 import { apiService } from "../../apiService";
 import { RepositoryInterface } from "./interfaces/RepositoryInterface";
 

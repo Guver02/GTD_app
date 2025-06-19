@@ -50,8 +50,16 @@
 .createButton:hover{
     background-color: var(--color-text-muted);
 }
-.createButton > input{
+.createButton > form {
     all: unset;
+    width: 100%;
+}
+.text{
+    all: unset;
+    width: 100%;
+}
+.text:focus{
+
 }
 .createButton > svg{
     color: red;

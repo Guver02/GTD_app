@@ -7,10 +7,12 @@ import '../public/variables.css'
 import { Home } from "./views_container/Home"
 import { setupApp } from "../utils/setupApp"
 import { SpinnerLoading } from "./ui_components/SpinnerLoading"
+import { ModalProvider } from "./providers/ModalContext"
+import { GlobalTooltipProvider } from "./providers/GlobalTooltip"
 
 
 function App() {
-const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const ejecuteApp = async () => {
@@ -20,19 +22,25 @@ const [loading, setLoading] = useState(true)
         ejecuteApp()
     }, [])
 
-    if (loading) return <SpinnerLoading/>
+    if (loading) return <SpinnerLoading />
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<Home />} />
                 <Route path="/auth/*" element={
                     <AuthContainer></AuthContainer>
                 }></Route>
                 <Route element={<ProtectedRoute />}>
                     <Route path='/app/*'
-                        element={
-                            <Application />
+                        element={<GlobalTooltipProvider>
+                            <ModalProvider>
+
+                                <Application />
+
+                            </ModalProvider>
+                        </GlobalTooltipProvider>
+
                         }
                     ></Route>
                 </Route>

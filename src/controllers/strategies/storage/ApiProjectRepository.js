@@ -1,5 +1,4 @@
 import { ProjectApiFormatter } from "../../../formatters/ProjectApiFormatter";
-import { ProjectApiMapper } from "../../../mappers/ProjectApiMapper";
 import { apiService } from "../../apiService";
 import { RepositoryInterface } from "./interfaces/RepositoryInterface";
 

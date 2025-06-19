@@ -1,9 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 import { ItemsIndexedDBService } from "../../../../indexedDBServices/ItemsIndexedDBServices";
-import { ProjectApiMapper } from "../../../../mappers/ProjectApiMapper";
 import { AppConfigManager } from "../../../manager/AppConfigManager";
 import { IndexedDBManager } from "../../../manager/IndexedDBManager";
 import { RepositoryInterface } from "../interfaces/RepositoryInterface";
+import { ProjectApiFormatter } from "../../../../formatters/ProjectApiFormatter";
 
 
 class IndexedDBProjectRepository extends RepositoryInterface {
@@ -19,14 +19,14 @@ class IndexedDBProjectRepository extends RepositoryInterface {
   }
 
   async create(project, unsectionId) {
-    const payload = ProjectApiMapper.toApiFormat(project);
+    const payload = ProjectApiFormatter.toApiFormat(project);
     const newFolder = await this.itemsService.createFolder(payload ,this.decoded.userId, unsectionId);
 
     return newFolder;
   }
 
   async update(project) {
-    const payload = ProjectApiMapper.toApiUpdateContentFormat(project);
+    const payload = ProjectApiFormatter.toApiUpdateContentFormat(project);
     const updatedItem = await this.itemsService.updateItem(project.id, payload, this.decoded.userId);
     return updatedItem;
   }

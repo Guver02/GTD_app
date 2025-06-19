@@ -7,7 +7,8 @@ import * as style from './Modal.module.css'
 const {
     modalOverlay,
     modalContainer,
-    modalClose
+    showModal,
+    hideModal
 } = style
 
 function Modal() {
@@ -17,7 +18,9 @@ function Modal() {
 
   return createPortal(
     <div className={modalOverlay} onClick={closeModal}>
-      <div className={modalContainer} onClick={(e) => e.stopPropagation()}>
+      <div
+      className={`${modalContainer} ${isOpen ? showModal : hideModal}`}
+      onClick={(e) => e.stopPropagation()}>
         {modalContent}
       </div>
     </div>,

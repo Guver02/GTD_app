@@ -1,107 +1,112 @@
   .formContainer {
-    background-color: var(--color-background); /* Fondo claro */
-    color: #212529; /* Texto oscuro */
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 100%;
-    box-sizing: border-box;
+      background-color: var(--color-background);
+      /* Fondo claro */
+      color: #212529;
+      /* Texto oscuro */
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
   }
 
   .formContainer h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #343a40;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #343a40;
   }
 
   .inputTittle,
   .inputDescription {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #495057;
-    box-sizing: border-box;
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #495057;
+      box-sizing: border-box;
   }
 
   .inputTittle::placeholder,
   .inputDescription::placeholder {
-    color: #6c757d;
+      color: #6c757d;
   }
 
   .colorSelectorContainer {
-    margin-bottom: 15px;
+      margin-bottom: 15px;
   }
 
   .colorSelectorContainer label {
-    display: block;
-    margin-bottom: 5px;
-    color: #343a40;
+      display: block;
+      margin-bottom: 5px;
+      color: #343a40;
   }
 
   .colorSelectorContainer div {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+      display: flex;
+      gap: 10px;
+      align-items: center;
   }
 
   .colorCircle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 1px solid #6c757d; /* Borde más visible en modo claro */
-    cursor: pointer;
-    transition: border-color 0.3s ease;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
   }
 
   .colorCircle:hover {
-    border-color: #007bff; /* Resaltar al pasar el ratón */
+      border-color: #007bff;
+      /* Resaltar al pasar el ratón */
   }
 
   .selectedColorCircle {
-    border-color: #007bff; /* Indicador de selección */
-    box-shadow: 0 0 0 2px #007bff; /* Añadir un resplandor sutil */
+      border-color: #007bff;
+      /* Indicador de selección */
+      box-shadow: 0 0 0 2px #007bff;
+      /* Añadir un resplandor sutil */
   }
 
   .actionsContainer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
   }
 
   .cancelButton,
   .createButton {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: opacity 0.3s ease;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
   }
 
   .cancelButton {
-    background-color: #e9ecef;
-    color: #495057;
-    border: 1px solid #ced4da;
+      background-color: #e9ecef;
+      color: #495057;
+      border: 1px solid #ced4da;
   }
 
   .cancelButton:hover {
-    opacity: 0.8;
+      opacity: 0.8;
   }
 
   .createButton {
-    background-color: #007bff;
-    color: #fff;
+      background-color: #007bff;
+      color: #fff;
   }
 
   .createButton:hover {
-    opacity: 0.8;
+      opacity: 0.8;
   }
 
   .createButton:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-    opacity: 0.6;
+      background-color: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.6;
   }

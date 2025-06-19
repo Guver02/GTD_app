@@ -14,7 +14,7 @@ const {
 } = style
 
 function SectionList({ sectionIds, SectionComponent, projectId }) {
-    const {createSection} = useSectionService()
+    const { createSection } = useSectionService()
     const [input, setInput] = useState('')
 
     const handleCreateSection = () => {
@@ -25,33 +25,40 @@ function SectionList({ sectionIds, SectionComponent, projectId }) {
         setInput('')
     }
 
-  return (
-    <div className={scrollContainer}>
-    <div
-    className={sectionListContainer}
-    >
-            {sectionIds.map((id) => (
-            <SectionComponent key={id} sectionID={id} />
-            ))}
+    return (
+        <div className={scrollContainer}>
+            <div
+                className={sectionListContainer}
+            >
+                {sectionIds.map((id) => (
+                    <SectionComponent key={id} sectionID={id} />
+                ))}
 
-            <div className={createContainer}>
-                <div className={createButton}>
+                <div className={createContainer}>
+                    <div className={createButton}>
 
-                    <Plus
-                    onClick={handleCreateSection}
-                    />
+                        <Plus
+                            onClick={handleCreateSection}
+                        />
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            handleCreateSection()
+                        }}>
+                            <input
+                                className={text}
+                                placeholder='Añadir Secccion'
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                enterKeyHint="done"
+                                inputMode="text"/>
+                        </form>
 
-                    <input
-                    className={text}
-                    placeholder='Añadir Secccion'
-                    value={input}
-                    onChange={(e)=>setInput(e.target.value)}/>
 
+                    </div>
                 </div>
             </div>
-    </div>
-     </div>
-  );
+        </div>
+    );
 }
 
-export {SectionList}
+export { SectionList }

@@ -3,7 +3,7 @@ const urlsToCache = [
     '/',
     '/index.html',
     '/styles.css',
-    '/bundle.js',
+
     '/variables.css',
     '/assets/undraw_reminder.svg',
     '/assets/undraw-meet-the-team.svg',
