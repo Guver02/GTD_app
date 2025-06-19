@@ -22,24 +22,25 @@ const {
     projectsView,
     tittle,
     inputStyle,
-    folderIcon
+    folderIcon,
+    sectionsContainer
 } = styles
 
-function Projects () {
-    const {id} = useParams()
+function Projects() {
+    const { id } = useParams()
     const [activeItemId, setActiveItemId] = useState(null)
     const [firstActiveContainerId, setFirstContainerId] = useState('')
     const allSections = useDataStore(state => state.sections, shallow)
     const project = useDataStore(state => state.projects[id])
     const changeSection = useDataStore((state) => state.changeSection);
-    const {openModal, closeModal} = useContext(ModalContext)
-    const {deleteProject, updateProject} = useProjectService()
+    const { openModal, closeModal } = useContext(ModalContext)
+    const { deleteProject, updateProject } = useProjectService()
     const [input, setInput] = useState('')
     const navigate = useNavigate();
     const inputRef = useRef(null);
 
     useEffect(() => {
-        if(!project) navigate('/app')
+        if (!project) navigate('/app')
     }, [])
 
     useEffect(() => {
@@ -49,13 +50,13 @@ function Projects () {
     }, [project?.item_name]);
 
 
-    const {swapTaskOrder, swapParentAndOrder} = useTaskService()
+    const { swapTaskOrder, swapParentAndOrder } = useTaskService()
 
-    const sectionIDS = useMemo( () => {
+    const sectionIDS = useMemo(() => {
         return Object.values(allSections)
-        .filter((section) => section.parent_id == id)
-        .sort((a, b) => a.order - b.order)
-        .map(section => section.id)
+            .filter((section) => section.parent_id == id)
+            .sort((a, b) => a.order - b.order)
+            .map(section => section.id)
     })
 
     const sensors = useSensors(
@@ -63,7 +64,7 @@ function Projects () {
     );
 
     const ondragstart = (event) => {
-        const {active} = event
+        const { active } = event
         setActiveItemId(active.id)
         //setIschange(false)
         setFirstContainerId(active.data.current.sortable.containerId)
@@ -72,9 +73,9 @@ function Projects () {
 
 
     const onDragOver = (event) => {
-        const {active, over} = event
+        const { active, over } = event
 
-        if(active.data.current.sortable.containerId != over.data.current.sortable.containerId){
+        if (active.data.current.sortable.containerId != over.data.current.sortable.containerId) {
             changeSection(active.id,
                 over.data.current.sortable.containerId,
                 active.data.current.sortable.containerId
@@ -85,25 +86,25 @@ function Projects () {
     }
 
     const onDragEnd = (event) => {
-        const {active, over} = event
+        const { active, over } = event
 
-        if(
+        if (
             (active.data.current.sortable.containerId == over.data.current.sortable.containerId)
-            && (firstActiveContainerId == over.data.current.sortable.containerId)){
+            && (firstActiveContainerId == over.data.current.sortable.containerId)) {
             swapTaskOrder(active.id, over.id, active.data.current.sortable.containerId);
-        }else if((active.data.current.sortable.containerId == over.data.current.sortable.containerId)
-            && (firstActiveContainerId != over.data.current.sortable.containerId)){
+        } else if ((active.data.current.sortable.containerId == over.data.current.sortable.containerId)
+            && (firstActiveContainerId != over.data.current.sortable.containerId)) {
             swapParentAndOrder(active.id, over.id, active.data.current.sortable.containerId);
         }
     }
 
-    const openConfirmModal = () =>{
+    const openConfirmModal = () => {
         openModal(
-        <DeleteConfirmation
-        itemName={project.item_name}
-        onCancel={closeModal}
-        onConfirm={confirmDelete}
-        />
+            <DeleteConfirmation
+                itemName={project.item_name}
+                onCancel={closeModal}
+                onConfirm={confirmDelete}
+            />
         )
     }
 
@@ -133,85 +134,90 @@ function Projects () {
 
 
 
-    if(!project) return null
+    if (!project) return null
 
     return (
-    <div className={projectsView}>
-        <div className={projectsContainer}>
+        <div className={projectsView}>
+            <div className={projectsContainer}>
 
-        <div className={projectTittle}>
+                <div
+                    className={projectTittle}
+                    style={{ backgroundColor: `rgba(${project.myColor.color},0.3)` }}
+                >
 
-    <div
-        className={folderIcon}
-        style={{backgroundColor: `rgba(${project.myColor.color},0.7)`}}
-    >
-        <Folder/>
-    </div>
-
-
-        <form className={tittle}
-
-            onSubmit={(e) => {
-                e.preventDefault();
-                if (input !== '') {
-                    handleUpdateProject();
-                }
-            }}
-        >
-            <input
-                ref={inputRef}
-                className={inputStyle}
-                placeholder="El nombre de tu proyecto"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                enterKeyHint="done"
-                inputMode="text"
-            />
-        </form>
+                    <div
+                        className={folderIcon}
+                        style={{ backgroundColor: `rgba(${project.myColor.color},0.7)` }}
+                    >
+                        <Folder />
+                    </div>
 
 
-    <div>
-        <HoverModal
-            ParentComponent={
-                <div className={iconsContainer}>
-                    <MoreHorizontal/>
-                </div>}
-            bubbleComponent={(closeModal) => (
-                <ProjectOptions
-                    id={id}
-                    closeOptions={closeModal}
-                    deleteFunction={openConfirmModal}
-                    editFunction={() => {}}
-                />)}
-            position='bottom'
-            gap={4}
-        />
-    </div>
+                    <form className={tittle}
 
-</div>
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            if (input !== '') {
+                                handleUpdateProject();
+                            }
+                        }}
+                    >
+                        <input
+                            ref={inputRef}
+                            className={inputStyle}
+                            placeholder="El nombre de tu proyecto"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            enterKeyHint="done"
+                            inputMode="text"
+                        />
+                    </form>
 
 
-        <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragStart={ondragstart}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
+                    <div>
+                        <HoverModal
+                            ParentComponent={
+                                <div className={iconsContainer}>
+                                    <MoreHorizontal />
+                                </div>}
+                            bubbleComponent={(closeModal) => (
+                                <ProjectOptions
+                                    id={id}
+                                    closeOptions={closeModal}
+                                    deleteFunction={openConfirmModal}
+                                    editFunction={() => { }}
+                                />)}
+                            position='bottom'
+                            gap={4}
+                        />
+                    </div>
 
-        >
-            <SectionList
-            sectionIds={sectionIDS}
-            SectionComponent={Section}
-            projectId={id}
-            />
-            <DragOverlay>
-                {activeItemId &&
-                    <Task taskId={activeItemId}/>
-                }
-            </DragOverlay>
-        </DndContext>
-        </div>
-    </div>)
+                </div>
+
+                <div className={sectionsContainer}>
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragStart={ondragstart}
+                        onDragEnd={onDragEnd}
+                        onDragOver={onDragOver}
+
+                    >
+                        <SectionList
+                            sectionIds={sectionIDS}
+                            SectionComponent={Section}
+                            projectId={id}
+                        />
+                        <DragOverlay>
+                            {activeItemId &&
+                                <Task taskId={activeItemId} />
+                            }
+                        </DragOverlay>
+                    </DndContext>
+                </div>
+
+            </div>
+        </div>)
 }
 
-export {Projects}
+export { Projects }
