@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
 import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward, LogOut } from 'react-feather'; // Importa más iconos según sea necesario
 import { useDataStore } from "../../store/data_store";
-import { useTaskService } from "../../controllers/taskService";
+import { useTaskService } from "../../controllers/taskController";
 import { FilterModal } from "../ui_components/FilterModal";
 import {jwtDecode} from "jwt-decode";
 import { ModalContext } from "../providers/ModalContext";

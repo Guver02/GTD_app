@@ -6,7 +6,7 @@ import { SectionList } from "../section_components/SectionList";
 import { Section } from "../section_components/Section";
 import { DndContext, closestCorners, PointerSensor, useSensor, useSensors, closestCenter, DragOverlay } from "@dnd-kit/core";
 import { Task } from "../task_components/Task";
-import { useTaskService } from "../../controllers/taskService";
+import { useTaskService } from "../../controllers/taskController";
 import * as styles from './Projects.module.css'
 import { Edit, Folder, MoreHorizontal, Trash2 } from "react-feather";
 import { ModalContext } from "../providers/ModalContext";

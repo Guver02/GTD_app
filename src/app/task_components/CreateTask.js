@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../providers/ModalContext";
-import { useTaskService } from "../../controllers/taskService";
+import { useTaskService } from "../../controllers/taskController";
 import * as styles from "./CreateTask.module.css"
 import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useDataStore } from "../../store/data_store";

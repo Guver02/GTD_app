@@ -12,6 +12,7 @@ class Task {
         this.status = data.status ?? 'pending'
         this.color_id = typeof data.color_id === 'number' ? data.color_id : 1
         this.created_at = this.formatDate(data.created_at) ?? new Date().toISOString()
+        this.myColor = data.myColor ?? { id: 1, color: '0,0,0' }
         this.updated_at = new Date().toISOString()
 
         this.validate()

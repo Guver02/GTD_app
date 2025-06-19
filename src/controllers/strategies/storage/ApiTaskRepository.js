@@ -1,10 +1,11 @@
+import { TaskApiFormatter } from "../../../formatters/TaskApiFormatter";
 import { TaskApiMapper } from "../../../mappers/TaskApiMapper";
 import { apiService } from "../../apiService";
 import { RepositoryInterface } from "./interfaces/RepositoryInterface";
 
 class ApiTaskRepository extends RepositoryInterface {
 async create(task) {
-    const taskData = TaskApiMapper.toApiFormat(task)
+    const taskData = TaskApiFormatter.toApiFormat(task)
     return await apiService.post(
       `/api/v1/items/create-todo`,
       taskData
@@ -12,7 +13,7 @@ async create(task) {
   }
 
   async update(task) {
-    const taskData = TaskApiMapper.toApiUpdateFormat(task)
+    const taskData = TaskApiFormatter.toApiUpdateFormat(task)
     return await apiService.put(
       `/api/v1/items/update-content/${task.id}`,
       taskData
