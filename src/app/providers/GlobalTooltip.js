@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useState, useRef, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import * as style from './GlobalTooltip.module.css';
 
@@ -7,37 +7,55 @@ const {
   tooltipContent,
   tooltipTextStyle,
   tooltipButton,
-  show
+  show,
+  hide
 } = style;
 
-// Creamos el contexto
 const TooltipContext = createContext(null);
 
 function GlobalTooltipProvider({ children }) {
-  const [visible, setVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [tooltipText, setTooltipText] = useState('');
   const [buttonText, setButtonText] = useState('');
   const [onButtonClick, setOnButtonClick] = useState(() => () => {});
   const timerRef = useRef(null);
 
+  const ANIMATION_DURATION = 300;
+
   const showTooltip = useCallback(({ tooltipText, buttonText, onButtonClick, duration }) => {
     setTooltipText(tooltipText);
     setButtonText(buttonText);
     setOnButtonClick(() => onButtonClick);
-    setVisible(true);
+    setShouldRender(true);
 
     if (timerRef.current) clearTimeout(timerRef.current);
+
     if (duration) {
       timerRef.current = setTimeout(() => {
-        setVisible(false);
+        setIsVisible(false);
+        setTimeout(() => setShouldRender(false), ANIMATION_DURATION);
       }, duration);
     }
   }, []);
 
   const hideTooltip = useCallback(() => {
-    setVisible(false);
+    setIsVisible(false);
     if (timerRef.current) clearTimeout(timerRef.current);
+    setTimeout(() => setShouldRender(false), ANIMATION_DURATION);
   }, []);
+
+  useEffect(() => {
+    if (shouldRender) {
+      setIsVisible(true);
+    }
+  }, [shouldRender]);
+
+  useEffect(() => {
+    if (!shouldRender) {
+      setIsVisible(false);
+    }
+  }, [shouldRender]);
 
   const value = { showTooltip, hideTooltip };
 
@@ -45,8 +63,8 @@ function GlobalTooltipProvider({ children }) {
     <TooltipContext.Provider value={value}>
       {children}
       {ReactDOM.createPortal(
-        visible && (
-          <div className={`${tooltipContainer} ${show}`}>
+        shouldRender && (
+          <div className={`${tooltipContainer} ${isVisible ? show : hide}`}>
             <div className={tooltipContent}>
               <span className={tooltipTextStyle}>{tooltipText}</span>
               {buttonText && (
@@ -63,7 +81,6 @@ function GlobalTooltipProvider({ children }) {
   );
 }
 
-// Custom hook para usar el tooltip en cualquier lugar
 function useGlobalTooltip() {
   const context = useContext(TooltipContext);
   if (!context) {

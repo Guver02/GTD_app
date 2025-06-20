@@ -1,9 +1,9 @@
-const CACHE_NAME = 'cache-v3';
+const CACHE_NAME = 'cache-v5';
 const urlsToCache = [
     '/',
     '/index.html',
     '/styles.css',
-
+    '/bundle.js',
     '/variables.css',
     '/assets/undraw_reminder.svg',
     '/assets/undraw-meet-the-team.svg',
@@ -12,14 +12,13 @@ const urlsToCache = [
     'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap',
 ];
 
-// Detectamos si estamos en localhost (modo dev)
 const isDevMode = self.location.hostname === 'localhost';
 
 self.addEventListener('install', event => {
-  if (isDevMode) {
+  /* if (isDevMode) {
     // No cacheamos nada en desarrollo
     return;
-  }
+  } */
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );

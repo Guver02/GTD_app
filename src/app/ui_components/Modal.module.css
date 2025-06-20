@@ -13,7 +13,10 @@
 .modalContainer {
     min-width: 300px;
     position: relative;
+    transform: translateY(100%);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .modalClose {

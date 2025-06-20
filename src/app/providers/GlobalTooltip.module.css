@@ -1,4 +1,4 @@
-.tooltipContainer {
+/* .tooltipContainer {
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -13,11 +13,34 @@
   display: flex;
   flex-direction: row;
   justify-content: end;
+} */
+
+.tooltipContainer {
+  position: fixed;
+  bottom: 0;
+  transform: translateX(-100%);
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }
 
 .show {
   opacity: 1;
+  transform: translateX(0);
   pointer-events: auto;
+}
+
+.hide {
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
 }
 
 .tooltipContent {
