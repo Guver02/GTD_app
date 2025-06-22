@@ -15,10 +15,10 @@ const urlsToCache = [
 const isDevMode = self.location.hostname === 'localhost';
 
 self.addEventListener('install', event => {
-  /* if (isDevMode) {
+  if (isDevMode) {
     // No cacheamos nada en desarrollo
     return;
-  } */
+  }
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );

@@ -31,7 +31,7 @@ class Project {
             throw new Error('El nombre del proyecto debe tener entre 3 y 100 caracteres')
         }
 
-        const estadosValidos = ['pending', 'active', 'archived']
+        const estadosValidos = ['pending', 'in_progress', 'completed']
         if (!estadosValidos.includes(this.status)) {
             throw new Error(`Estado inválido: ${this.status}. Debe ser uno de ${estadosValidos.join(', ')}`)
         }

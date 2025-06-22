@@ -91,6 +91,8 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
             }
         }, prevState)
 
+        console.log('handleMe ejecutado')
+
         onComplete()
     }
 

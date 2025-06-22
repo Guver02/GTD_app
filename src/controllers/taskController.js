@@ -37,6 +37,7 @@ const useTaskService = () => {
 
     const updateTaskStateAndApi = useCallback(async (data, prevState) => {
         try {
+            console.log('updateejcutamdopse')
             const task = updateTaskUseCase(data, prevState, taskStorage, taskZustandRepository, storageError);
 
             showTooltip({
