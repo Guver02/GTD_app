@@ -11,7 +11,8 @@ const {
     sectionInbox,
     scrollableContainer,
     listsContainer,
-    sectionTittle
+    sectionTittle,
+    sectionsContainer
 } = styles;
 
 function InboxView () {
@@ -53,8 +54,12 @@ function InboxView () {
     return (
         <div className={inboxView}>
             <div className={inboxContainer}>
+
             <span className={tittle}>Inbox</span>
-            <div className={scrollableContainer}>
+
+
+            <div className={sectionsContainer}>
+                <div className={scrollableContainer}>
                 <div className={listsContainer}>
                     <div className={sectionInbox}>
                         <span className={sectionTittle}>Tareas sin Aclarar</span>
@@ -70,6 +75,10 @@ function InboxView () {
                     </div>
                 </div>
             </div>
+            </div>
+
+
+
         </div>
         </div>
     )

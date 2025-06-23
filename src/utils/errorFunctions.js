@@ -1,7 +1,6 @@
-import { useGlobalTooltip } from "../app/providers/GlobalTooltip"
-
 const storageError = (err) => {
     console.error('Error en el Storage', err)
+    alert(`Error en el Storage: ${err}`)
 }
 
 const unknownError = (err) => {
