@@ -26,7 +26,6 @@
     border: 1px solid var(--color-text-inverted);
     padding: 12px 20px;
     border-radius: 8px;
-    cursor: pointer;
     font-size: 14px;
     display: flex;
     flex-direction: row;
@@ -34,6 +33,12 @@
     align-items: center;
     box-sizing: border-box;
     gap: 6px;
+
+    transition: background-color 0.5s ease;
+}
+.createButton:hover{
+    cursor: pointer;
+    background-color: var(--color-primary-medium);
 }
 .createButton > svg{
     height: 18px;

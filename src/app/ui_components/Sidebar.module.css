@@ -73,7 +73,10 @@
     border-radius: 8px;
 }
 .menuItem svg{
-    color: var(--color-backgound-primary);
+    color: var(--color-text-primary);
+}
+.sidebar svg{
+    color: var(--color-text-primary);
 }
 .menuText {
     margin-left: 10px;
@@ -127,7 +130,7 @@
     border-radius: 8px;
 }
 .menuItemExpanded svg{
-    color: var(--color-backgound-primary);
+    color: var(--color-text-primary);
 }
 .itemProjects{
     padding-left: 10px;

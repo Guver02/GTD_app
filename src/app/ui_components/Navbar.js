@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import * as styles from './Navbar.module.css';
 import { ModalContext } from '../providers/ModalContext';
 import { MainPanel } from './MainPanel';
-import { Plus } from 'react-feather';
+import { Bell, Moon, Plus, User } from 'react-feather';
 
 const Navbar = () => {
     const {openModal} = useContext(ModalContext)
@@ -22,15 +22,28 @@ const Navbar = () => {
         <nav className={navbar}>
 
             <div className={navbarCenter}>
-            </div>
-
-            <div className={navbarRight}>
                 <button
                 className={createButton}
                 onClick={handleCreate}>
                     <span>Create</span>
                     <Plus/>
                 </button>
+            </div>
+
+            <div className={navbarRight}>
+
+                <button>
+                    <Bell/>
+                </button>
+
+                <button>
+                    <Moon/>
+                </button>
+
+                <button>
+                    <User/>
+                </button>
+
             </div>
         </nav>
     );

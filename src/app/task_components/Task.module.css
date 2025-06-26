@@ -8,6 +8,9 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+.container svg{
+    color: var(--color-text-primary);
+}
 .optionsContainer{
     width: 24px;
     opacity: 0;
@@ -47,6 +50,7 @@
 }
 .content{
     font-size: 14px;
+    color: var(--color-text-primary);
 }
 .description{
     font-size: 12px;
@@ -92,4 +96,5 @@
     padding: 8px 16px;
     align-items: center;
     text-align: center;
+    color: var(--color-text-primary);
 }

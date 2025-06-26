@@ -9,6 +9,9 @@
     position: relative;
     z-index: 999;
 }
+.sectionOptionsContainer svg{
+    color: var(--color-text-primary);
+}
 .sectionOptionsList{
     display: flex;
     flex-direction: column;
@@ -35,10 +38,12 @@ li{
     font-family: inherit;
     font-size: 16px;
     gap: 12px;
+
+    color: var(--color-text-primary);
 }
 .sectionOptionsList button:hover{
     cursor: pointer;
-    background-color: lightgray;
+    background-color: var(--color-background-grayish);
 }
 .sectionOptionsList  button > svg{
     color: var(--color-text-primary);

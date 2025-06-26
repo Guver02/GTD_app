@@ -13,6 +13,9 @@
 
     scroll-snap-align: start;
 }
+.sectionContainer svg{
+    color: var(--color-text-primary);
+}
 .sectionTittleContainer{
     display: flex;
     flex-direction: row;
@@ -31,6 +34,7 @@
     font-weight: bold;
     width: 100%;
     overflow: hidden;
+    color: var(--color-text-primary);
 }
 .iconTittle{
     border-radius: 4px;

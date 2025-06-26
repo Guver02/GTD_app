@@ -3,12 +3,13 @@
     display: flex;
     cursor: pointer;
     width: 100%;
+    color: var(--color-text-primary);
 }
 
   .optionsBubble {
     position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-background-cool);
     border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 999;
