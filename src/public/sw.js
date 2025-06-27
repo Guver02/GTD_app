@@ -1,10 +1,10 @@
-const CACHE_NAME = 'cache-v8';
+const CACHE_NAME = 'cache-v10';
 const urlsToCache = [
     '/',
     '/index.html',
-    /*'/styles.css',
+    '/styles.css',
     '/bundle.js',
-    '/variables.css',*/
+    '/variables.css',
     '/assets/undraw_reminder.svg',
     '/assets/undraw-meet-the-team.svg',
     '/manifest.json',
