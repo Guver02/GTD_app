@@ -5,8 +5,10 @@ function logErrors(err, req, res, next) {
 }
 
 function boomErrorHandler(err, req, res, next) {
+
     if (err.isBoom) {
       const { output } = err;
+      console.log('output', output)
       res.status(output.statusCode).json(output.payload);
     }
     else {

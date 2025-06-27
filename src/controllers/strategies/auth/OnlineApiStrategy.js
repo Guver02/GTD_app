@@ -16,6 +16,7 @@ class OnlineApiStrategy extends AuthSesionInterface {
                     email: email
                 })
             const { token } = data
+
             AppConfigManager.setMode(APP_MODES.online_api.appMode, token)
 
         } catch (error) {
@@ -31,10 +32,13 @@ class OnlineApiStrategy extends AuthSesionInterface {
                     password: password
                 })
 
+            if(data.message) throw new Error(data.message)
+
             const { token } = data
             AppConfigManager.setMode(APP_MODES.online_api.appMode, token)
+
         } catch (error) {
-            AppConfigManager.clear()
+            this.logout()
             throw error
         }
     }

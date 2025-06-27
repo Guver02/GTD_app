@@ -3,6 +3,7 @@ import * as styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
 import { APP_MODES } from "../../controllers/manager/configs/appModes";
+import { unknownError } from "../../utils/errorFunctions";
 
 const {
     loginContainer,
@@ -28,20 +29,30 @@ function Login() {
     const handleSignUpClick = (event) => {
         event.preventDefault();
         navigate('/auth/signin');
-      };
+    };
 
     const handleSubmit = async (event) => {
-        const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
-        await authSesion.login(userName, password)
+        event.preventDefault();
+        try {
+            const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
+            await authSesion.login(userName, password)
 
-        navigate('/app/inbox')
+            navigate('/app/inbox')
+        } catch (error) {
+            unknownError(error)
+        }
     }
 
     const handleSubmitLocal = async (event) => {
-        const authSesion = createAuthSesion(APP_MODES.offline.appMode)
-        await authSesion.login(userName, password)
+        event.preventDefault();
+        try {
+            const authSesion = createAuthSesion(APP_MODES.offline.appMode)
+            await authSesion.login(userName, password)
 
-        navigate('/app/inbox')
+            navigate('/app/inbox')
+        } catch (error) {
+            unknownError(error)
+        }
     }
 
   return (

@@ -39,13 +39,13 @@ class AuthServices {
         const user = await this.userServices.getByUser(username)
 
         if(!user){
-            boom.unauthorized('Incorrect credentials')
+            throw boom.unauthorized('Incorrect credentials')
             return
         }
 
         const isMatch = await bcrypt.compare(password, user.dataValues.password)
         if(!isMatch){
-            boom.unauthorized('Incorrect password')
+            throw boom.unauthorized('Incorrect password')
             return;
         }
 
