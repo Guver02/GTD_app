@@ -2,7 +2,7 @@ import { getUUID } from "../../../utils/generateUUID";
 import { UsersIndexedDBServices } from "../../../indexedDBServices/UsersIndexedDBServices";
 import { ItemsIndexedDBService } from "../../../indexedDBServices/ItemsIndexedDBServices";
 import { IndexedDBManager } from "../../manager/IndexedDBManager";
-import { decode } from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 
 const indexedDB = IndexedDBManager.getInstance()
 const usersService = new UsersIndexedDBServices(indexedDB);
@@ -41,7 +41,7 @@ class AuthOfflineStrategy{
     }
 
     async getData(token){
-        const decoded = decode(token)
+        const decoded = jwtDecode(token)
         const data = await itemsService.getItems(decoded.userId);
         return data
     }

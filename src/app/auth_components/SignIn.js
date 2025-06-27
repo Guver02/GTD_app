@@ -3,6 +3,7 @@ import * as styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
 import { APP_MODES } from "../../controllers/manager/configs/appModes";
+import { useAuthController } from "../../controllers/authController";
 
 const {
     signinContainer,
@@ -21,6 +22,9 @@ function SignIn() {
     const [password, setPassword] = useState('')
     const [confirm, setConfirm] = useState('')
 
+    const onlineAuth = useAuthController(APP_MODES.online_api.appMode);
+    const localAuth = useAuthController(APP_MODES.offline.appMode);
+
     const navigate = useNavigate();
 
     const handleLoginClick = (event) => {
@@ -31,8 +35,7 @@ function SignIn() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if((password == confirm)){
-            const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
-            await authSesion.signIn(userName ,password, email)
+            await onlineAuth.signUp({email, password, name: userName})
 
             navigate('/app/inbox')
         }else{
@@ -44,8 +47,7 @@ function SignIn() {
         event.preventDefault()
         if((password == confirm)
         ){
-            const authSesion = createAuthSesion(APP_MODES.offline.appMode)
-            await authSesion.signIn(userName ,password, email)
+            localAuth.signUp({email, password, name: userName})
             navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')

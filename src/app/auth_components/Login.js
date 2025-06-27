@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
 import { APP_MODES } from "../../controllers/manager/configs/appModes";
 import { unknownError } from "../../utils/errorFunctions";
+import { useAuthController } from "../../controllers/authController";
 
 const {
     loginContainer,
@@ -26,6 +27,10 @@ function Login() {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
 
+    const onlineAuth = useAuthController(APP_MODES.online_api.appMode);
+    const localAuth = useAuthController(APP_MODES.offline.appMode);
+
+
     const handleSignUpClick = (event) => {
         event.preventDefault();
         navigate('/auth/signin');
@@ -34,9 +39,12 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
+            /* const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
             await authSesion.login(userName, password)
 
+            navigate('/app/inbox') */
+
+            await onlineAuth.logIn({userName, password})
             navigate('/app/inbox')
         } catch (error) {
             unknownError(error)
@@ -46,8 +54,9 @@ function Login() {
     const handleSubmitLocal = async (event) => {
         event.preventDefault();
         try {
-            const authSesion = createAuthSesion(APP_MODES.offline.appMode)
-            await authSesion.login(userName, password)
+           /*  const authSesion = createAuthSesion(APP_MODES.offline.appMode)
+            await authSesion.login(userName, password) */
+            await localAuth.logIn({userName, password})
 
             navigate('/app/inbox')
         } catch (error) {

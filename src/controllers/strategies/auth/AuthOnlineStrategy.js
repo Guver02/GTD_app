@@ -1,8 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-import { AppConfigManager } from "../../manager/AppConfigManager";
-import { APP_MODES } from "../../manager/configs/appModes";
-
-import { AuthSesionInterface } from "./AuthSesionInterface";
 import { apiService } from "../../apiService";
 
 class AuthOnlineStrategy {

@@ -3,8 +3,8 @@ import { UserRegistration } from "../domain/UserRegistration"
 
 const loginUseCase = async ({ userName, password }, authRepo, sessionRepo, appMode, ) => {
     const credentials = new UserCredentials(userName, password)
-
-    const {token} = await authRepo.login(credentials)
+    console.log(credentials)
+    const {token} = await authRepo.login(credentials.username, credentials.password)
 
     sessionRepo.setMode(appMode, token)
 
@@ -12,7 +12,7 @@ const loginUseCase = async ({ userName, password }, authRepo, sessionRepo, appMo
 
 const signupUseCase = async ({ email, password, name }, authRepo, sessionRepo, appMode) => {
     const registration = new UserRegistration(email, password, name)
-    const {token} = await authRepo.signup(registration)
+    const {token} = await authRepo.signup(registration.password, registration.password, registration.email)
 
     sessionRepo.setMode(appMode, token)
 }
@@ -22,9 +22,12 @@ const logoutUseCase = (sessionRepo) => {
 }
 
 const checkSessionUseCase = (sessionRepo, appMode) => {
+    console.log('appMode', appMode);
     const config = sessionRepo.getConfig()
 
-    if (!config.jwt || !config, appMode || !config.storageType) return null
+    console.log('confi',config)
+
+    if (!config.jwt || !config.appMode || !config.storageType) return null
     if (config.appMode !== appMode) return null
 
     return { token: config.jwt, isLogged: true }

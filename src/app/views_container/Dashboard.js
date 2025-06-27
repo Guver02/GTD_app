@@ -11,6 +11,7 @@ import { CreateProject } from '../projects_components/CreateProject';
 import { useNavigate } from "react-router-dom";
 import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
 import { AppConfigManager } from "../../controllers/manager/AppConfigManager";
+import { useAuthController } from "../../controllers/authController";
 
 
 const {
@@ -66,6 +67,7 @@ function Dashboard() {
     const tasks = useDataStore(state => state.tasks)
     const [nextTasks, setNextTasks] = useState([])
     const navigate = useNavigate()
+    const {logout} = useAuthController()
 
     const [filters, setFilters] = useState([])
     const {openModal} = useContext(ModalContext)
@@ -111,8 +113,11 @@ function Dashboard() {
     }
 
     const logoutUser = () => {
-        const authSesion = createAuthSesion()
+        /* const authSesion = createAuthSesion()
         authSesion.logout()
+        navigate('/auth/login') */
+
+        logout()
         navigate('/auth/login')
     }
 

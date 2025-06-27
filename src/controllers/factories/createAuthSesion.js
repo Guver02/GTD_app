@@ -1,36 +1,36 @@
-
 import { AppConfigManager } from "../manager/AppConfigManager"
 import { APP_MODES } from "../manager/configs/appModes"
-;
-import { OfflineStrategy } from "../strategies/auth/OfflineAuthStrategy"
-import { OnlineApiStrategy } from "../strategies/auth/OnlineApiStrategy"
+import { AuthOfflineStrategy } from "../strategies/auth/AuthOfflineStrategy"
+import { AuthOnlineStrategy } from "../strategies/auth/AuthOnlineStrategy"
 
+let authSessionInstance = null
 
-function createAuthSesion (sesionType) {
+function createAuthSesion(sesionType) {
+
+    if (authSessionInstance) {
+        return authSessionInstance
+    }
 
     let sesion
-    if (sesionType){
+    if (sesionType) {
         sesion = sesionType
-    }else{
+    } else {
         const config = AppConfigManager.getConfig()
         sesion = config ? config.appMode : null
     }
 
-
     switch (sesion) {
         case APP_MODES.online_api.appMode:
-            return new OnlineApiStrategy()
-            break;
+            authSessionInstance = new AuthOnlineStrategy()
+            break
 
         case APP_MODES.offline.appMode:
-            return new OfflineStrategy()
-            break;
-
         default:
-            return new OfflineStrategy()
-            break;
+            authSessionInstance = new AuthOfflineStrategy()
+            break
     }
 
+    return authSessionInstance
 }
 
-export {createAuthSesion}
+export { createAuthSesion }

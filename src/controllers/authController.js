@@ -1,13 +1,20 @@
 import { useCallback } from 'react';
-import { useNavigate } from "react-router-dom";
 import { checkSessionUseCase, getDataUseCase, loginUseCase, logoutUseCase, signupUseCase } from '../services/authServices';
 import { AppConfigManager } from './manager/AppConfigManager';
 import { unknownError } from '../utils/errorFunctions';
 import { createAuthSesion } from './factories/createAuthSesion';
 
-const useAuthController = (appMode) => {
+const useAuthController = (appModeParam) => {
 
-    const navigate = useNavigate()
+    let appMode;
+
+    if(!appModeParam){
+            const config = AppConfigManager.getConfig()
+            appMode = config ? config.appMode : null
+    }else{
+        appMode = appModeParam
+    }
+
     const authRepo = createAuthSesion(appMode)
 
     const loginController = useCallback(async ({ userName, password }) => {
@@ -18,6 +25,8 @@ const useAuthController = (appMode) => {
                 AppConfigManager,
                 appMode,
             )
+
+
 
         } catch (err) {
             unknownError(err)
@@ -33,19 +42,22 @@ const useAuthController = (appMode) => {
                 AppConfigManager,
                 appMode)
 
+
+
         } catch (err) {
             unknownError(err)
         }
     }, []);
 
 
-    const logoutController = useCallback(async (id) => {
+    const logoutController = useCallback(async () => {
         logoutUseCase(AppConfigManager)
-        navigate('/auth/login')
+
     }, []);
 
     const checkSessionController = async () => {
-        const sesion = checkSessionUseCase(AppConfigManager)
+        const sesion = checkSessionUseCase(AppConfigManager, appMode)
+        console.log('sesion',sesion)
         if (!sesion) return [false, null]
 
         const data = await getDataUseCase(authRepo, sesion.token)
