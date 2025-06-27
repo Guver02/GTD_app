@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styles from './Sidebar.module.css';
-import { Search, Briefcase, AlignJustify, Hexagon, ArrowDownCircle} from 'react-feather'
+import { Search, Briefcase, AlignJustify, Hexagon, ArrowDownCircle } from 'react-feather'
 import { HoverModal } from './HoverModal';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
 import { useWidth } from '../custom_hooks/useWidth';
@@ -25,6 +25,7 @@ const Sidebar = () => {
         activeItem,
         menuItems,
 
+        showProjects,
         toggleSidebar,
         handleSearch,
         handleClarify,
@@ -69,21 +70,13 @@ const Sidebar = () => {
 
             {isExpanded && <div className={menuText}>Menu</div>}
 
-            <HoverModal
-                ParentComponent={
-                    <div
-                        className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'project' ? itemActive : ''}`}
-                    >
-                        <Briefcase />
-                        {isExpanded && <div className={menuText}>Projects</div>}
-                    </div>
-                }
-                bubbleComponent={() => (
-                    <ProjectListModal
-                        onClickProject={handleNavigate} />)}
-                position={(width <= 768) ? 'top' : 'right'}
-                gap={12} />
-
+            <div
+                className={`${isExpanded ? menuItemExpanded : menuItem} ${activeItem == 'project' ? itemActive : ''}`}
+                onClick={showProjects}
+            >
+                <Briefcase />
+                {isExpanded && <div className={menuText}>Projects</div>}
+            </div>
 
             {menuItems.map(({ icon, label, path, key }) => (
                 <div

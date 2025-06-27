@@ -8,10 +8,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
 }
 
 .modalContainer {
     min-width: 300px;
+    max-width: 96%;
     position: relative;
     transform: translateY(100%);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);

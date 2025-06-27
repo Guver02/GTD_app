@@ -15,8 +15,10 @@
 
   --color-text-primary: #0f172a;                     /* Azul oscuro grisáceo: texto principal */
   --color-text-secondary: #64748b;                   /* Gris medio: etiquetas, columnas */
-  --color-text-muted: #cbd5e1;                       /* Gris muy claro: bordes o desactivados */
+  --color-text-muted: #e2e8f0;                       /* Gris muy claro: bordes o desactivados */
   --color-text-inverted: #ffffff;                    /* Blanco: íconos sobre fondo oscuro */
+
+    --color-red: #ff0000;
 
   --color-success: rgba(34, 197, 94, 1);              /* Verde éxito */
   --color-error: #ef4444;                            /* Rojo de error o eliminado */

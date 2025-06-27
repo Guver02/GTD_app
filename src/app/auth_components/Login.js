@@ -31,7 +31,6 @@ function Login() {
       };
 
     const handleSubmit = async (event) => {
-
         const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
         await authSesion.login(userName, password)
 
@@ -39,7 +38,6 @@ function Login() {
     }
 
     const handleSubmitLocal = async (event) => {
-
         const authSesion = createAuthSesion(APP_MODES.offline.appMode)
         await authSesion.login(userName, password)
 

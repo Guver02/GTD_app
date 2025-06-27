@@ -61,8 +61,8 @@
 .text:focus{
 
 }
-.createButton > svg{
-    color: red;
+.redIcon{
+    color: var(--color-red);
 }
 @media (max-width: 768px) {
     .createContainer{

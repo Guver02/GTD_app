@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import * as style from './SectionList.module.css'
-import { SortableContext } from '@dnd-kit/sortable';
-import { useDataStore } from '../../store/data_store';
 import { Plus } from 'react-feather';
 import { useSectionService } from '../../controllers/sectionController';
 
@@ -11,6 +9,7 @@ const {
     scrollContainer,
     text,
     createContainer,
+    redIcon
 } = style
 
 function SectionList({ sectionIds, SectionComponent, projectId }) {
@@ -38,6 +37,7 @@ function SectionList({ sectionIds, SectionComponent, projectId }) {
                     <div className={createButton}>
 
                         <Plus
+                            className={redIcon}
                             onClick={handleCreateSection}
                         />
                         <form onSubmit={(e) => {

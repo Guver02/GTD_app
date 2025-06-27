@@ -20,7 +20,8 @@ const {sectionContainer,
     confirmButton,
     cancelButton,
     editModeButtons,
-    iconMore
+    iconMore,
+    redIcon
 } = style
 
 const Section = React.memo(({sectionID}) => {
@@ -121,7 +122,7 @@ const Section = React.memo(({sectionID}) => {
             className={createInSection}
             onClick={openCreateForm}
             >
-                <Plus></Plus>
+                <Plus className={redIcon}/>
                 <span>Añadir tarea</span>
             </div>
         </div>

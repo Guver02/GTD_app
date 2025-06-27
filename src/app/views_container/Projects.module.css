@@ -4,7 +4,7 @@
     height: 100%;
     padding: 8px;
 }
-.projectsView svg{
+.projectsView > svg{
     color: var(--color-text-primary);
 }
 .projectsContainer{

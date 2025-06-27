@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v5';
+const CACHE_NAME = 'cache-v6';
 const urlsToCache = [
     '/',
     '/index.html',
@@ -15,10 +15,10 @@ const urlsToCache = [
 const isDevMode = self.location.hostname === 'localhost';
 
 self.addEventListener('install', event => {
-  /*if (isDevMode) {
+  if (isDevMode) {
     // No cacheamos nada en desarrollo
     return;
-  }*/
+  }
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );

@@ -1,30 +1,43 @@
 import React from "react";
-import { Folder } from "react-feather";
+import { Folder, MoreHorizontal, MoreVertical } from "react-feather";
 import * as styles from './Project.module.css'
 
 const {
     projectContainer,
     contentContainer,
-    iconContainer
+    rightIconContainer,
+    leftContainer,
+    moreIconContainer
 } = styles
 
 function Project({ project, onClickProject }) {
 
+    const iconProjectStyle = {
+        color: `rgb(${project.myColor.color})`
+    }
 
     return (
-        <li className={projectContainer}
-            onClick={() => onClickProject(`/app/project/${project.id}`)}
-        >
-            <div>
-                <Folder
-                    style={{
-                        color: `rgb(${project.myColor.color})`
-                    }}
-                />
+        <li
+        className={projectContainer}>
+
+            <div className={leftContainer}
+            onClick={() => onClickProject(`/app/project/${project.id}`)}>
+                <div>
+                    <Folder
+                    style={iconProjectStyle}/>
+                </div>
+
+                <div className={contentContainer}>
+                    <span>{`${project.item_name} ${project.order}`}</span>
+                </div>
             </div>
-            <div className={contentContainer}>
-                <span>{`${project.item_name} ${project.order}`}</span>
+
+            <div className={rightIconContainer}>
+                <div className={moreIconContainer}>
+                    <MoreHorizontal/>
+                </div>
             </div>
+
         </li>
     )
 }

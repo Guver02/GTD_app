@@ -114,12 +114,6 @@ function Projects() {
         closeModal()
     }
 
-    const checkEnter = (e) => {
-        if (e.key === 'Enter' && input !== '') {
-            handleUpdateProject()
-        }
-    }
-
     const handleUpdateProject = () => {
         updateProject({
             id: id,
@@ -142,7 +136,6 @@ function Projects() {
 
                 <div
                     className={projectTittle}
-                    style={{ backgroundColor: `rgba(${project.myColor.color},0.3)` }}
                 >
 
                     <div

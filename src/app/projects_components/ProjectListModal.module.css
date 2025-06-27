@@ -1,5 +1,7 @@
 .projectsListContainer{
-    width: 300px;
+    width: 500px;
+    max-width: 100%;
+
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -8,52 +10,48 @@
     height: max-content;
     max-height: 320px;
     overflow: auto;
+    padding: 8px;
+    box-sizing: border-box;
 }
-.projectsListContainer > span {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 8px 8px;
-    display: flex;
-    align-items: center;
-    color: inherit;
+.projectListTittle{
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: bolder;
+    padding: 8px;
+    border-bottom: 1px solid var(--color-text-muted);
 }
 .projectsList{
     width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-
+    gap: 4px;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 .createButton{
-    height: 48px;
+    height: 36px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
+    border-radius: 4px;
     padding: 4px 8px;
     font-size: 16px;
     box-sizing: border-box;
-}
-.createButton > svg{
-    color: var(--color-error);
+    transition: background-color 0.5s ease;
 }
 .createButton:hover{
     cursor: pointer;
     background-color: var(--color-text-muted);
 }
-@media (max-width: 768px) {
-    .projectsListContainer{
-        box-sizing: border-box;
-        width: 100vw;
-        border: 1px solid lightgray;
-        position: fixed;
-        z-index: 100;
-        border-radius: 8px 8px 0 0 ;
-        bottom: 0;
-        right: -76vw;
-    }
+.createButton > span{
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    font-size: 16px;
+}
+.createButton > svg{
+    color: var(--color-red);
 }

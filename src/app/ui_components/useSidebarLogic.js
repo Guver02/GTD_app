@@ -4,13 +4,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ModalContext } from '../providers/ModalContext';
 import { SearchModal } from '../views_container/Search';
 import { Clarify } from '../views_container/Clarify';
+import { ProjectListModal } from '../projects_components/ProjectListModal';
 
 function useSidebarLogic() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [activeItem, setActiveItem] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    const { openModal } = useContext(ModalContext);
+    const { openModal, closeModal} = useContext(ModalContext);
 
     const menuItems = [
         { icon: <Inbox />, label: 'Inbox', path: '/app/inbox', key: 'inbox' },
@@ -26,8 +27,12 @@ function useSidebarLogic() {
         setActiveItem(segments[1]);
     }, [location]);
 
+    const showProjects = () => {
+        openModal(<ProjectListModal onClickProject={handleNavigate} />)
+    }
     const handleNavigate = (path) => {
         navigate(path)
+        closeModal()
     };
     const toggleSidebar = () => setIsExpanded(prev => !prev);
     const handleSearch = () => openModal(<SearchModal/>);
@@ -39,6 +44,7 @@ function useSidebarLogic() {
         activeItem,
         menuItems,
 
+        showProjects,
         toggleSidebar,
         handleSearch,
         handleClarify,

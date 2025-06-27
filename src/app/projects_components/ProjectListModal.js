@@ -9,7 +9,8 @@ import { Plus } from 'react-feather';
 const {
     projectsListContainer,
     projectsList,
-    createButton
+    createButton,
+    projectListTittle
 } = style
 
 function ProjectListModal({onClickProject}) {
@@ -25,6 +26,11 @@ function ProjectListModal({onClickProject}) {
   return (
     <div
     className={projectsListContainer}>
+
+        <span className={projectListTittle}>
+            {`${arrFolders.length} proyectos`}
+        </span>
+
       <ul className={projectsList}>
         {arrFolders.map((project) => (
           <Project
@@ -41,7 +47,9 @@ function ProjectListModal({onClickProject}) {
             <Plus/>
             <span>Crear Proyecto</span>
         </li>
+
       </ul>
+
     </div>
   );
 }

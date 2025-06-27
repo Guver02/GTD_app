@@ -52,6 +52,7 @@
 .navigationSection,
 .tasksSection {
     padding: 15px;
+    box-sizing: border-box;
   }
 .tasksSection{
     display: flex;
