@@ -30,22 +30,10 @@ function SignIn() {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if((password == confirm)/*&&
-            /*(password.length > 0)
-            (email.length > 0)&&
-            (userName.length < 0)*/
-        ){
-            /* await apiService.post(
-                '/api/v1/auth/sing-in/',
-                {
-                username: userName,
-                password: password,
-                email: email
-                }) */
-
+        if((password == confirm)){
             const authSesion = createAuthSesion(APP_MODES.online_api.appMode)
             await authSesion.signIn(userName ,password, email)
-            /* navigate('/auth/login') */
+
             navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')
@@ -54,22 +42,10 @@ function SignIn() {
 
     const handleSubmitLocal = async (event) => {
         event.preventDefault()
-        if((password == confirm)/*&&
-            /*(password.length > 0)
-            (email.length > 0)&&
-            (userName.length < 0)*/
+        if((password == confirm)
         ){
-            /* await apiService.post(
-                '/api/v1/auth/sing-in/',
-                {
-                username: userName,
-                password: password,
-                email: email
-                }) */
-
             const authSesion = createAuthSesion(APP_MODES.offline.appMode)
             await authSesion.signIn(userName ,password, email)
-            /* navigate('/auth/login') */
             navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')

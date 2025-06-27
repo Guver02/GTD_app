@@ -15,6 +15,8 @@ class OnlineApiStrategy extends AuthSesionInterface {
                     password: password,
                     email: email
                 })
+            if (data.error || data.message) throw new Error(data);
+
             const { token } = data
 
             AppConfigManager.setMode(APP_MODES.online_api.appMode, token)
@@ -31,7 +33,7 @@ class OnlineApiStrategy extends AuthSesionInterface {
                     username: userName,
                     password: password
                 })
-
+                console.log('data',data)
             if(data.message) throw new Error(data.message)
 
             const { token } = data
@@ -53,36 +55,19 @@ class OnlineApiStrategy extends AuthSesionInterface {
             config.storageType === APP_MODES.online_api.storageType &&
             config.jwt //jwt exists
         ) return true
-/*         else{
-            AppConfigManager.clear()
-            return false
-        } */
+
         return false
     }
 
     async isLogged() {//debo verificar que el usuario existe
         try {
-            !this.validateSesion() ?? new Error()
+            !this.validateSesion() ?? new Error('No hay ninguna Sesion Activa')
             const data = await apiService.get('/api/v1/items');
             return [true, data]
         } catch (error) {
             return [false, null]
         }
     }
-
-/*     getToken() {
-        const config = AppConfigManager.getConfig()
-
-        if(config){
-            return config.jwt
-        }
-        return null
-    }
-
-    getAuthHeader() {
-        const token = this.getToken();
-        return token ? { Authorization: `Bearer ${token}` } : {};
-    } */
 }
 
 export { OnlineApiStrategy }

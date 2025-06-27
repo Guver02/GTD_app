@@ -7,7 +7,8 @@ const {
     contentContainer,
     rightIconContainer,
     leftContainer,
-    moreIconContainer
+    moreIconContainer,
+    folderIconContainer
 } = styles
 
 function Project({ project, onClickProject }) {
@@ -22,7 +23,7 @@ function Project({ project, onClickProject }) {
 
             <div className={leftContainer}
             onClick={() => onClickProject(`/app/project/${project.id}`)}>
-                <div>
+                <div className={folderIconContainer}>
                     <Folder
                     style={iconProjectStyle}/>
                 </div>
