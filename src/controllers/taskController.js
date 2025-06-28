@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDataStore } from "../store/data_store";
-import { createTaskStorage } from "./factories/createTaskStorage";
+import { createTaskStorage } from "../factories/createTaskStorage";
 import { useGlobalTooltip } from "../app/providers/GlobalTooltip";
 import { getStatus } from "../utils/stateUtils";
 import {

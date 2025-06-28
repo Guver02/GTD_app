@@ -1,5 +1,5 @@
-import { ProjectApiFormatter } from "../../../formatters/ProjectApiFormatter";
-import { apiService } from "../../apiService";
+import { ProjectApiFormatter } from "../../formatters/ProjectApiFormatter";
+import { apiService } from "../../controllers/apiService";
 import { RepositoryInterface } from "./interfaces/RepositoryInterface";
 
 

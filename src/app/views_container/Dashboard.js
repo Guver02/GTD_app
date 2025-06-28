@@ -9,8 +9,8 @@ import { ModalContext } from "../providers/ModalContext";
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
 import { useNavigate } from "react-router-dom";
-import { createAuthSesion } from "../../controllers/factories/createAuthSesion";
-import { AppConfigManager } from "../../controllers/manager/AppConfigManager";
+import { createAuthSesion } from "../../factories/createAuthSesion";
+import { AppConfigManager } from "../../manager/AppConfigManager";
 import { useAuthController } from "../../controllers/authController";
 
 

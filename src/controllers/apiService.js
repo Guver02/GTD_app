@@ -1,4 +1,4 @@
-import { AppConfigManager } from "./manager/AppConfigManager";
+import { AppConfigManager } from "../manager/AppConfigManager";
 
 
 const getAuthHeader = () => {

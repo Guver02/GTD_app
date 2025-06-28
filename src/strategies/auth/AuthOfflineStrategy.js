@@ -1,6 +1,6 @@
-import { getUUID } from "../../../utils/generateUUID";
-import { UsersIndexedDBServices } from "../../../indexedDBServices/UsersIndexedDBServices";
-import { ItemsIndexedDBService } from "../../../indexedDBServices/ItemsIndexedDBServices";
+import { getUUID } from "../../utils/generateUUID";
+import { UsersIndexedDBServices } from "../../indexedDB/UsersIndexedDBServices";
+import { ItemsIndexedDBService } from "../../indexedDB/ItemsIndexedDBServices";
 import { IndexedDBManager } from "../../manager/IndexedDBManager";
 import { jwtDecode } from "jwt-decode";
 import { AuthSessionInterface } from "./AuthSesionInterface";

@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { checkSessionUseCase, getDataUseCase, loginUseCase, logoutUseCase, signupUseCase } from '../services/authServices';
-import { AppConfigManager } from './manager/AppConfigManager';
+import { AppConfigManager } from '../manager/AppConfigManager';
 import { unknownError } from '../utils/errorFunctions';
-import { createAuthSesion } from './factories/createAuthSesion';
+import { createAuthSesion } from '../factories/createAuthSesion';
 
 const useAuthController = (appModeParam) => {
 

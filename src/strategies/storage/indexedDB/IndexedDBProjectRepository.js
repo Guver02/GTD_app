@@ -1,9 +1,9 @@
 import { jwtDecode } from "jwt-decode";
-import { ItemsIndexedDBService } from "../../../../indexedDBServices/ItemsIndexedDBServices";
+import { ItemsIndexedDBService } from "../../../indexedDB/ItemsIndexedDBServices";
 import { AppConfigManager } from "../../../manager/AppConfigManager";
 import { IndexedDBManager } from "../../../manager/IndexedDBManager";
 import { RepositoryInterface } from "../interfaces/RepositoryInterface";
-import { ProjectApiFormatter } from "../../../../formatters/ProjectApiFormatter";
+import { ProjectApiFormatter } from "../../../formatters/ProjectApiFormatter";
 
 
 class IndexedDBProjectRepository extends RepositoryInterface {

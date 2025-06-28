@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".", // La raíz del proyecto
+    "paths": {
+      "*": ["*", "src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "services",
+    "cors",
+    "middlewares",
+    "repositories",
+    "db",
+    "routes",
+    "schemas",
+    "test",
+    "configuration",
+    "index.js"
+  ]
+}

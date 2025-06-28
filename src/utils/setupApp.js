@@ -1,4 +1,4 @@
-import { IndexedDBManager } from "../controllers/manager/IndexedDBManager"
+import { IndexedDBManager } from "../manager/IndexedDBManager"
 
 async function setupApp()  {
     const indexedDB = IndexedDBManager.getInstance()

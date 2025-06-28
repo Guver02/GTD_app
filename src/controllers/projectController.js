@@ -1,6 +1,6 @@
 import { useDataStore } from "../store/data_store";
 import { useCallback } from 'react';
-import { createProjectStorage } from "./factories/createProjectStorage";
+import { createProjectStorage } from "../factories/createProjectStorage";
 import { useGlobalTooltip } from "../app/providers/GlobalTooltip";
 import { useNavigate } from "react-router-dom";
 import { createProjectUseCase, deleteProjectUseCase, updateProjectUseCase } from "../services/projectServices";

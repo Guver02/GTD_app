@@ -1,10 +1,10 @@
 
 import { jwtDecode } from "jwt-decode";
-import { ItemsIndexedDBService } from "../../../../indexedDBServices/ItemsIndexedDBServices";
+import { ItemsIndexedDBService } from "../../../indexedDB/ItemsIndexedDBServices";
 import { AppConfigManager } from "../../../manager/AppConfigManager";
 import { RepositoryInterface } from "../interfaces/RepositoryInterface";
 import { IndexedDBManager } from "../../../manager/IndexedDBManager";
-import {SectionApiFormatter} from "../../../../formatters/SectionApiFormatter"
+import {SectionApiFormatter} from "../../../formatters/SectionApiFormatter"
 
 class IndexedDBSectionRepository extends RepositoryInterface {
   constructor() {

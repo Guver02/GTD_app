@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { createSectionStorage } from "./factories/createSectionStorage";
+import { createSectionStorage } from "../factories/createSectionStorage";
 import { useGlobalTooltip } from "../app/providers/GlobalTooltip";
 import { createSectionUseCase, deleteSectionUseCase, updateSectionUseCase } from "../services/sectionServices";
 import { sectionZustandRepository } from "../repositories/sectionZustandRepository";

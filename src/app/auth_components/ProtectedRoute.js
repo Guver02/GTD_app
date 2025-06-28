@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useDataStore } from '../../store/data_store'
-import { createAuthSesion } from '../../controllers/factories/createAuthSesion'
+import { createAuthSesion } from '../../factories/createAuthSesion'
 import { SpinnerLoading } from '../ui_components/SpinnerLoading'
 import { useAuthController } from '../../controllers/authController'
 

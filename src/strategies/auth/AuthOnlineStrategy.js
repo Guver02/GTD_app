@@ -1,4 +1,4 @@
-import { apiService } from "../../apiService";
+import { apiService } from "../../controllers/apiService";
 import {AuthSessionInterface} from "./AuthSesionInterface"
 
 class AuthOnlineStrategy extends AuthSessionInterface{

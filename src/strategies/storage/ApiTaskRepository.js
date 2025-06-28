@@ -1,5 +1,5 @@
-import { TaskApiFormatter } from "../../../formatters/TaskApiFormatter";
-import { apiService } from "../../apiService";
+import { TaskApiFormatter } from "../../formatters/TaskApiFormatter";
+import { apiService } from "../../controllers/apiService";
 import { RepositoryInterface } from "./interfaces/RepositoryInterface";
 
 class ApiTaskRepository extends RepositoryInterface {
