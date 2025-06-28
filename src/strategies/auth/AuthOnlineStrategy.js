@@ -1,5 +1,5 @@
 import { apiService } from "../../controllers/apiService";
-import {AuthSessionInterface} from "./AuthSesionInterface"
+import {AuthSessionInterface} from "./interfaces/AuthSesionInterface"
 
 class AuthOnlineStrategy extends AuthSessionInterface{
     async signIn(userName, password, email) {

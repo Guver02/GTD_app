@@ -36,7 +36,7 @@ function SignIn() {
         event.preventDefault()
         if((password == confirm)){
             await onlineAuth.signUp({email, password, name: userName})
-
+            console.log('redirigiendo');
             navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')
@@ -47,7 +47,8 @@ function SignIn() {
         event.preventDefault()
         if((password == confirm)
         ){
-            localAuth.signUp({email, password, name: userName})
+            await localAuth.signUp({email, password, name: userName})
+            console.log('redirigiendo');
             navigate('/app/inbox')
         }else{
             alert('Las credenciales son incorrectas')

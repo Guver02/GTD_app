@@ -13,7 +13,6 @@ export class AppConfigManager {
             jwt: token || config.jwt,
         };
 
-        console.log('configFilnal', finalConfig)
 
         localStorage.setItem('appConfig', JSON.stringify(finalConfig))
     }

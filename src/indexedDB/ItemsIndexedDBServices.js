@@ -16,15 +16,13 @@ const specialTypesIDS = {
 };
 
 class ItemsIndexedDBService {
-    // El constructor ahora recibe el dbManager completo
+
     constructor(dbManager) {
-        this.dbManager = dbManager; // Guarda la instancia del manager
+        this.dbManager = dbManager;
     }
 
     async getItems(userId) {
-        console.log('dentro de getitems');
 
-        // Todas estas llamadas ya esperarán la DB internamente en sus métodos
         const [folders, sections, todos, subTodos, inbox, specialProjects, unsections, colors] = await Promise.all([
             this.getFolders(userId),
             this.getSections(userId),
@@ -35,8 +33,6 @@ class ItemsIndexedDBService {
             this.getUnsections(userId),
             this.getColors()
         ]);
-
-        console.log('después de todas las recuperaciones');
 
         return {
             folders,
@@ -66,9 +62,6 @@ class ItemsIndexedDBService {
         });
     }
 
-    // Los métodos getFolders, getSections, etc., que llaman a getItemsByFilter
-    // no necesitan await this.dbManager.db directamente porque getItemsByFilter lo hace.
-    // Solo si accedieran a `this.db` directamente, lo necesitarían.
 async getFolders(userId) {
     const db = await this.dbManager.db;
     const tx = db.transaction(["items", "colors"], "readonly");
@@ -77,7 +70,6 @@ async getFolders(userId) {
 
     const folders = [];
 
-    // Primero obtenemos todos los folders
     await new Promise((resolve, reject) => {
         const request = itemsStore.openCursor();
         request.onsuccess = async (event) => {
@@ -95,10 +87,8 @@ async getFolders(userId) {
         request.onerror = () => reject(request.error);
     });
 
-    // Ahora para cada folder le buscamos sus myColor y subItems
     for (let folder of folders) {
 
-        // Obtener myColor
         if (folder.color_id) {
             folder.myColor = await new Promise((resolve, reject) => {
                 const colorRequest = colorsStore.get(folder.color_id);
@@ -112,7 +102,6 @@ async getFolders(userId) {
             };
         }
 
-        // Obtener subItems
         folder.subItems = await new Promise((resolve, reject) => {
             const subItems = [];
             const subRequest = itemsStore.openCursor();
@@ -131,12 +120,11 @@ async getFolders(userId) {
             subRequest.onerror = () => reject(subRequest.error);
         });
 
-        // Ordenamos los subItems por order ASC (simulando order: [['order', 'ASC']])
         folder.subItems.sort((a, b) => a.order - b.order);
     }
 
-    // Ordenamos los folders por order ASC
     folders.sort((a, b) => a.order - b.order);
+
 
     return folders;
 }
@@ -150,12 +138,10 @@ async getFolders(userId) {
     }
 
 async getTodos(userId) {
-  // Primero traemos todos los todos como ya hacías
   const todos = await this.getItemsByFilter(
     item => item.user_id === userId && item.type_id === itemTypesIDS.todo && item.special_type_id == null
   );
 
-  // Ahora agregamos el myColor
   const enrichedTodos = await Promise.all(todos.map(async (todo) => {
     let myColor = null;
 
@@ -172,7 +158,6 @@ async getTodos(userId) {
   return enrichedTodos;
 }
 
-// Esta función auxiliar busca el color por su id dentro de la store de colors
 async getColorById(colorId) {
     const db = await this.dbManager.db
 
@@ -202,6 +187,7 @@ async getColorById(colorId) {
         const items = await this.getItemsByFilter(
             item => item.user_id === userId && item.special_type_id === specialTypesIDS.inbox
         );
+
         return items[0] || null;
     }
 
@@ -225,7 +211,6 @@ async getColorById(colorId) {
     }
 
     async getColors() {
-        // Obtenemos la instancia de la base de datos esperando la promesa
         const db = await this.dbManager.db;
         const tx = db.transaction("colors", "readonly");
         const store = tx.objectStore("colors");
@@ -293,9 +278,7 @@ async getColorById(colorId) {
 
         for (let project of defaultProjects) {
             await this.createItem(project);
-            // La llamada a createUnsectioned también se beneficia de este patrón
-            // Asegúrate de que `createUnsectioned` también sea asíncrono
-            // y que llame a `this.createItem` que, a su vez, espera la DB.
+
             await this.createUnsectioned(project, userId);
         }
     }
@@ -310,11 +293,11 @@ async getColorById(colorId) {
             order: 0,
             special_type_id: specialTypesIDS.unsectioned
         };
-        return await this.createItem(unsectioned); // createItem ya espera la DB
+        return await this.createItem(unsectioned);
     }
 
     async getById(id) {
-        // Obtenemos la instancia de la base de datos esperando la promesa
+
         const db = await this.dbManager.db;
         const tx = db.transaction("items", "readonly");
         const store = tx.objectStore("items");
@@ -327,10 +310,9 @@ async getColorById(colorId) {
     }
 
     async updateItem(id, newData, userID) {
-        // Obtenemos la instancia de la base de datos esperando la promesa
         const db = await this.dbManager.db;
 
-        const item = await this.getById(id); // getById ya espera la DB
+        const item = await this.getById(id);
         if (!item) {
             throw new Error('Item Not Found');
         }
@@ -348,7 +330,6 @@ async getColorById(colorId) {
     }
 
     async createItem(item) {
-        // Obtenemos la instancia de la base de datos esperando la promesa
         const db = await this.dbManager.db;
         const tx = db.transaction("items", "readwrite");
         const store = tx.objectStore("items");
@@ -409,10 +390,8 @@ async deleteSection(sectionId, userId) {
         throw new Error("Section not found or invalid");
     }
 
-    // Reordenar los siblings antes de borrar
     await this.reorderOnDeleteSection(section, userId);
 
-    // Obtener todos de la sección
     const todos = await this.getItemsByFilter(item =>
         item.parent_id === sectionId &&
         item.type_id === itemTypesIDS.todo &&
@@ -423,7 +402,6 @@ async deleteSection(sectionId, userId) {
         await this.deleteItem(todo.id, userId);
     }
 
-    // Finalmente eliminar la sección
     await this.deleteItem(sectionId, userId);
 }
 async deleteTodo(todoId, userId) {
@@ -432,10 +410,8 @@ async deleteTodo(todoId, userId) {
         throw new Error("Todo not found or invalid");
     }
 
-    // Reordenar los siblings antes de borrar
     await this.reorderOnDeleteTodo(todo, userId);
 
-    // Finalmente eliminar el todo
     await this.deleteItem(todoId, userId);
 }
 
@@ -448,7 +424,6 @@ async deleteTodo(todoId, userId) {
 
         await this.reorderOnDeleteProject(project, userID);
 
-        // Obtener secciones del proyecto
         const sections = await this.getItemsByFilter(item =>
             item.parent_id === projectId &&
             item.type_id === itemTypesIDS.section &&
@@ -456,7 +431,6 @@ async deleteTodo(todoId, userId) {
         );
 
         for (const section of sections) {
-            // Eliminar todos de la sección
             const todos = await this.getItemsByFilter(item =>
                 item.parent_id === section.id &&
                 item.type_id === itemTypesIDS.todo &&
@@ -467,11 +441,9 @@ async deleteTodo(todoId, userId) {
                 await this.deleteItem(todo.id, userID);
             }
 
-            // Eliminar la sección
             await this.deleteItem(section.id, userID);
         }
 
-        // Finalmente eliminar el proyecto
         await this.deleteItem(projectId, userID);
     }
 
@@ -491,7 +463,6 @@ async deleteTodo(todoId, userId) {
     async createTodo(body, userId) {
         const { parent_id } = body;
 
-        // Validar existencia del padre (todo o section)
         const parent = await this.getById(parent_id);
         if (!parent || parent.user_id !== userId || ![itemTypesIDS.todo, itemTypesIDS.section].includes(parent.type_id)) {
             throw new Error("The defined item for this to-do does not exist");
@@ -596,7 +567,6 @@ async deleteTodo(todoId, userId) {
         const lastOrderPreviousSection = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, editedItem.parent_id);
         const newOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, newSectionParentId);
 
-        // Simular el UPDATE CASE SQL para la sección anterior
         const siblings = await this.getItemsByFilter(i =>
             i.user_id === userId &&
             i.type_id === itemTypesIDS.todo &&
@@ -609,7 +579,6 @@ async deleteTodo(todoId, userId) {
             await this.updateItem(sibling.id, { order: sibling.order }, userId);
         }
 
-        // Finalmente mover el item
         editedItem.parent_id = newSectionParentId;
         editedItem.order = newOrder;
         await this.updateItem(editedItem.id, editedItem, userId);
@@ -654,7 +623,6 @@ async deleteTodo(todoId, userId) {
 
         const lastOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, newFolder.parent_id);
 
-        // Simular el reordenamiento previo
         const siblings = await this.getItemsByFilter(i =>
             i.user_id === userId &&
             i.type_id === itemTypesIDS.todo &&
@@ -667,16 +635,13 @@ async deleteTodo(todoId, userId) {
             await this.updateItem(sibling.id, { order: sibling.order }, userId);
         }
 
-        // Convertir en folder
         const newOrder = await this.getActualLastOrder(itemTypesIDS.folder, userId);
         newFolder.type_id = itemTypesIDS.folder;
         newFolder.order = newOrder;
         await this.updateItem(newFolder.id, newFolder, userId);
 
-        // Crear Unsectioned
         const unsectioned = await this.createUnsectioned(newFolder.id, userId);
 
-        // Cambiar subtodos a todos
         const subtodos = await this.getItemsByFilter(i =>
             i.user_id === userId &&
             i.parent_id === todoId
@@ -719,7 +684,6 @@ async deleteTodo(todoId, userId) {
 
         const unsectioned = await this.createUnsectioned(newFolder.id, userId);
 
-        // Mover los subtodos
         const subtodos = await this.getItemsByFilter(i =>
             i.user_id === userId &&
             i.parent_id === sectionID

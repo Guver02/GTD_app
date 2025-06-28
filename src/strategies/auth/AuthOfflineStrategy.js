@@ -3,7 +3,7 @@ import { UsersIndexedDBServices } from "../../indexedDB/UsersIndexedDBServices";
 import { ItemsIndexedDBService } from "../../indexedDB/ItemsIndexedDBServices";
 import { IndexedDBManager } from "../../manager/IndexedDBManager";
 import { jwtDecode } from "jwt-decode";
-import { AuthSessionInterface } from "./AuthSesionInterface";
+import { AuthSessionInterface } from "./interfaces/AuthSesionInterface";
 
 const indexedDB = IndexedDBManager.getInstance()
 const usersService = new UsersIndexedDBServices(indexedDB);
@@ -22,11 +22,10 @@ class AuthOfflineStrategy extends AuthSessionInterface{
         }
 
         const user = await usersService.create(newUser);
-        const token = this.#generateSymbolicJwt(data.id, data.username, data.email);
+        const token = this.#generateSymbolicJwt(user.id, user.username, user.email);
+        await itemsService.createDefaultProjects(user.id);
 
         const data = {user, token}
-        await itemsService.createDefaultProjects(data.id);
-
         return data;
     }
 
@@ -36,7 +35,7 @@ class AuthOfflineStrategy extends AuthSessionInterface{
         if (!user) {
             throw new Error("Invalid username or password.");
         }
-        const token = this.#generateSymbolicJwt(data.id, data.username, data.email);
+        const token = this.#generateSymbolicJwt(user.id, user.username, user.email);
         const data = {user, token}
         return data
     }
@@ -44,6 +43,7 @@ class AuthOfflineStrategy extends AuthSessionInterface{
     async getData(token){
         const decoded = jwtDecode(token)
         const data = await itemsService.getItems(decoded.userId);
+        console.log('data obtenida en indexd', data)
         return data
     }
 

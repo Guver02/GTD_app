@@ -1,11 +1,10 @@
 class UsersIndexedDBServices {
-    // Recibe el IndexedDBManager completo, no solo la DB
     constructor(indexedDBManager) {
         this.dbManager = indexedDBManager;
     }
 
     async getByUserAndPassword(username, password) {
-        const db = await this.dbManager.db; // <--- Ahora 'db' es una promesa, y la 'await' es crucial
+        const db = await this.dbManager.db;
         const hash = await this.#hashPassword(password);
 
         return new Promise((resolve, reject) => {
@@ -27,7 +26,7 @@ class UsersIndexedDBServices {
     }
 
     async getByUser(username) {
-        const db = await this.dbManager.db; // <--- ¡Importante!
+        const db = await this.dbManager.db;
         return new Promise((resolve, reject) => {
             const tx = db.transaction('users', 'readonly');
             const store = tx.objectStore('users');
@@ -40,7 +39,7 @@ class UsersIndexedDBServices {
     }
 
     async getById(id) {
-        const db = await this.dbManager.db; // <--- ¡Importante!
+        const db = await this.dbManager.db;
         return new Promise((resolve, reject) => {
             const tx = db.transaction('users', 'readonly');
             const store = tx.objectStore('users');
@@ -52,10 +51,10 @@ class UsersIndexedDBServices {
     }
 
     async create(user) {
-        // Primero, esperamos a que la DB esté lista antes de hacer cualquier cosa.
-        const db = await this.dbManager.db; // <--- ¡Importante!
 
-        const existingUser = await this.getByUser(user.username); // Esta llamada también espera la DB
+        const db = await this.dbManager.db;
+
+        const existingUser = await this.getByUser(user.username);
         if (existingUser) {
             throw new Error('User already exists');
         }

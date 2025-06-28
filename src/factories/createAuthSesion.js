@@ -7,9 +7,7 @@ let authSessionInstance = null
 
 function createAuthSesion(sesionType) {
 
-    if (authSessionInstance) {
-        return authSessionInstance
-    }
+
 
     let sesion
     if (sesionType) {

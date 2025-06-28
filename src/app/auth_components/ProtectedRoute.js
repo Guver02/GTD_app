@@ -16,12 +16,11 @@ function ProtectedRoute() {
         async function setupAppAndValidate() {
             try {
                 console.log('Protected')
-                /* const authSesion = createAuthSesion()
-                const [isLoged, data] = await authSesion.isLogged() */
                 const [isLoged, data] = await authSession.checkSessionAndGetData()
                 console.log('Protected: ', isLoged, data)
                 if (isLoged) {
                     setItems(data)
+
                 }
                 setIsAuthenticated(isLoged)
             } catch (error) {

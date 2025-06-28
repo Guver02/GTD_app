@@ -1,6 +1,6 @@
 import { AppConfigManager } from "../manager/AppConfigManager";
 import { APP_MODES } from "../manager/configs/appModes";
-import { ApiProjectRepository } from "../strategies/storage/ApiProjectRepository";
+import { ApiProjectRepository } from "../strategies/storage/apiStorage/ApiProjectRepository";
 import { IndexedDBProjectRepository } from "../strategies/storage/indexedDB/IndexedDBProjectRepository";
 
 let projectStorageInstance = null;

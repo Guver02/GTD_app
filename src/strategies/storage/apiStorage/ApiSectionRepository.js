@@ -1,7 +1,7 @@
 
-import { SectionApiFormatter } from "../../formatters/SectionApiFormatter";
-import { apiService } from "../../controllers/apiService";
-import { RepositoryInterface } from "./interfaces/RepositoryInterface";
+import { SectionApiFormatter } from "../../../formatters/SectionApiFormatter";
+import { apiService } from "../../../controllers/apiService";
+import { RepositoryInterface } from "../interfaces/RepositoryInterface";
 
 class ApiSectionRepository extends RepositoryInterface{
   async create(section) {

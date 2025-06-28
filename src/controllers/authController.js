@@ -34,7 +34,7 @@ const useAuthController = (appModeParam) => {
 
     const singupController = useCallback(async ({ email, password, name }) => {
         try {
-            signupUseCase(
+            await signupUseCase(
                 { email, password, name },
                 authRepo,
                 AppConfigManager,
@@ -57,6 +57,7 @@ const useAuthController = (appModeParam) => {
         if (!sesion) return [false, null]
 
         const data = await getDataUseCase(authRepo, sesion.token)
+        console.log('data obtenida',data)
         return [true, data]
     }
 

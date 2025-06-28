@@ -1,6 +1,6 @@
 import { AppConfigManager } from "../manager/AppConfigManager";
 import { APP_MODES } from "../manager/configs/appModes";
-import { ApiTaskRepository } from "../strategies/storage/ApiTaskRepository";
+import { ApiTaskRepository } from "../strategies/storage/apiStorage/ApiTaskRepository";
 import { IndexedDBTaskRepository } from "../strategies/storage/indexedDB/IndexedDBTaskRepository";
 
 let taskStorageInstance = null;

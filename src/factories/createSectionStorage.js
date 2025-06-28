@@ -1,7 +1,7 @@
 
 import { AppConfigManager } from "../manager/AppConfigManager";
 import { APP_MODES } from "../manager/configs/appModes";
-import { ApiSectionRepository } from "../strategies/storage/ApiSectionRepository";
+import { ApiSectionRepository } from "../strategies/storage/apiStorage/ApiSectionRepository";
 import { IndexedDBSectionRepository } from "../strategies/storage/indexedDB/IndexedDBSectionRepository";
 
 let _sectionStorage = null;

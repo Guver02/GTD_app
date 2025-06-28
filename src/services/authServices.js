@@ -12,9 +12,10 @@ const loginUseCase = async ({ userName, password }, authRepo, sessionRepo, appMo
 
 const signupUseCase = async ({ email, password, name }, authRepo, sessionRepo, appMode) => {
     const registration = new UserRegistration(email, password, name)
-    const {token} = await authRepo.signup(registration.password, registration.password, registration.email)
+    const {token} = await authRepo.signIn(registration.password, registration.password, registration.email)
 
-    sessionRepo.setMode(appMode, token)
+    sessionRepo.setMode(appMode, token);
+    console.log('usuario Creado')
 }
 
 const logoutUseCase = (sessionRepo) => {
@@ -24,7 +25,7 @@ const logoutUseCase = (sessionRepo) => {
 const checkSessionUseCase = (sessionRepo, appMode) => {
     const config = sessionRepo.getConfig()
 
-
+    if (!config) return null
     if (!config.jwt || !config.appMode || !config.storageType) return null
     if (config.appMode !== appMode) return null
 
@@ -38,6 +39,7 @@ const getDataUseCase = async (authRepo, token) => {
 
 const checkConfigUseCase = (sessionRepo) => {
     const config = sessionRepo.getConfig()
+    if (!config) return null
     if (!config.jwt || !config.appMode || !config.storageType){
         sessionRepo.clear()
         return null

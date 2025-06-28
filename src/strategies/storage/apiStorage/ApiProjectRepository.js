@@ -1,6 +1,6 @@
-import { ProjectApiFormatter } from "../../formatters/ProjectApiFormatter";
-import { apiService } from "../../controllers/apiService";
-import { RepositoryInterface } from "./interfaces/RepositoryInterface";
+import { ProjectApiFormatter } from "../../../formatters/ProjectApiFormatter";
+import { apiService } from "../../../controllers/apiService";
+import { RepositoryInterface } from "../interfaces/RepositoryInterface";
 
 
 class ApiProjectRepository extends RepositoryInterface {
