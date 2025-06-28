@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".", // La raíz del proyecto
     "paths": {
-      "*": ["*", "src/*"]
+      "*": ["*"] /*,"src/*"*/
     }
   },
   "include": [

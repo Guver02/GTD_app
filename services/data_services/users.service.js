@@ -13,7 +13,7 @@ class UsersServices {
         })
 
         if(!user){
-            throw boom.badRequest('Incorrect User');
+            throw boom.unauthorized('Incorrect User');
         }
 
         return (user)
@@ -23,7 +23,7 @@ class UsersServices {
         const user = await this.userRepository.findById(id)
 
         if(!user){
-            throw boom.badRequest('Incorrect User');
+            throw boom.unauthorized('Incorrect User');
         }
 
         return (user)

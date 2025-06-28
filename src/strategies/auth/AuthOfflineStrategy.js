@@ -4,6 +4,7 @@ import { ItemsIndexedDBService } from "../../indexedDB/ItemsIndexedDBServices";
 import { IndexedDBManager } from "../../manager/IndexedDBManager";
 import { jwtDecode } from "jwt-decode";
 import { AuthSessionInterface } from "./interfaces/AuthSesionInterface";
+import { ApplicationError } from "../../errors/CustomErrors";
 
 const indexedDB = IndexedDBManager.getInstance()
 const usersService = new UsersIndexedDBServices(indexedDB);
@@ -33,10 +34,15 @@ class AuthOfflineStrategy extends AuthSessionInterface{
         const user = await usersService.getByUserAndPassword(userName, password);
 
         if (!user) {
-            throw new Error("Invalid username or password.");
+            throw new ApplicationError("Invalid username or password", {type: 'unauthorized'});
         }
+
+
         const token = this.#generateSymbolicJwt(user.id, user.username, user.email);
         const data = {user, token}
+
+                console.log('usuario:',data)
+
         return data
     }
 

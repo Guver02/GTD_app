@@ -3,6 +3,7 @@ import { checkSessionUseCase, getDataUseCase, loginUseCase, logoutUseCase, signu
 import { AppConfigManager } from '../manager/AppConfigManager';
 import { unknownError } from '../utils/errorFunctions';
 import { createAuthSesion } from '../factories/createAuthSesion';
+import { ApplicationError, DomainError, InfrastructureError } from '../errors/CustomErrors';
 
 const useAuthController = (appModeParam) => {
 
@@ -17,7 +18,7 @@ const useAuthController = (appModeParam) => {
 
     const authRepo = createAuthSesion(appMode)
 
-    const loginController = useCallback(async ({ userName, password }) => {
+    const loginController = useCallback(async ({ userName, password }, showErrors) => {
         try {
             await loginUseCase(
                 { userName, password },
@@ -26,8 +27,14 @@ const useAuthController = (appModeParam) => {
                 appMode,
             )
 
+            return true
         } catch (err) {
-            unknownError(err)
+            if(err instanceof DomainError) showErrors(err.type, err.message);
+
+            else if(err instanceof ApplicationError) showErrors(err.type, err.message)
+
+            else if(err instanceof InfrastructureError) showErrors()
+            return null
         }
     }, []);
 

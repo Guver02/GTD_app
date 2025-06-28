@@ -742,10 +742,8 @@ async deleteTodo(todoId, userId) {
             throw new Error("Item not found");
         }
 
-        const lastOrderPreviousSection = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, editedItem.parent_id);
         const newOrder = await this.getActualLastOrderForTodos(itemTypesIDS.todo, userId, newSectionParentId);
 
-        // Simular el UPDATE CASE SQL para la sección anterior
         const siblings = await this.getItemsByFilter(i =>
             i.user_id === userId &&
             i.type_id === itemTypesIDS.todo &&
@@ -758,7 +756,7 @@ async deleteTodo(todoId, userId) {
             await this.updateItem(sibling.id, { order: sibling.order }, userId);
         }
 
-        // Finalmente mover el item
+
         editedItem.parent_id = newSectionParentId;
         editedItem.order = newOrder;
         await this.updateItem(editedItem.id, editedItem, userId);

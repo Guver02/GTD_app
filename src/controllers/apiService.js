@@ -8,20 +8,27 @@ const getAuthHeader = () => {
 
 const apiService = {
     request: async (url, options) => {
-        try {
-            const response = await fetch(url, options);
+    try {
+        const response = await fetch(url, options);
+        const contentType = response.headers.get("Content-Type");
 
-            /*if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }*/
+        const data = contentType?.includes("application/json")
+            ? await response.json()
+            : null;
 
-            const data = await response.json();
-            return data;
-        } catch (error) {
+        // No lanzamos error, simplemente devolvemos la respuesta + status
+        return {
+            ...data,
+            status: response.status,
+            ok: response.ok
+        };
+    } catch (error) {
+        // Solo lanzamos si es un error de red real
+        console.log('rederro')
+        throw error;
+    }
+},
 
-            throw error;
-        }
-    },
     get: async (url, headers = {}) => {
         return apiService.request(url, {
             method: 'GET',

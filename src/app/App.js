@@ -31,7 +31,7 @@ function App() {
     if (loading) return <SpinnerLoading />
 
     return (
-
+        <ModalProvider>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/auth/*" element={
@@ -40,17 +40,18 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                     <Route path='/app/*'
                         element={<GlobalTooltipProvider>
-                            <ModalProvider>
+
 
                                 <Application />
 
-                            </ModalProvider>
+
                         </GlobalTooltipProvider>
 
                         }
                     ></Route>
                 </Route>
             </Routes>
+        </ModalProvider>
     )
 }
 

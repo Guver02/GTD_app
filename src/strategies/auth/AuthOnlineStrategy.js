@@ -1,3 +1,4 @@
+import { ApplicationError, InfrastructureError } from "../../errors/CustomErrors";
 import { apiService } from "../../controllers/apiService";
 import {AuthSessionInterface} from "./interfaces/AuthSesionInterface"
 
@@ -27,11 +28,19 @@ class AuthOnlineStrategy extends AuthSessionInterface{
                     password: password
                 })
 
-            if (data.message) throw new Error(data.message)
+            if(data.status === 401) throw new ApplicationError(data.message, {type: 'unauthorized'})
+
+            if (data.status >= 400 && data.status < 500) throw new ApplicationError(data.message, {type: 'badRequest'})
+
+            if(data.status >= 500)throw new InfrastructureError(data.message,{})
+
+
             return data
 
         } catch (error) {
-            throw error
+            if (error instanceof ApplicationError) throw error;
+            if (error instanceof InfrastructureError) throw error;
+            throw new InfrastructureError(error,{})
         }
     }
 

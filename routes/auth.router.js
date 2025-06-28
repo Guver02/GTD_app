@@ -34,9 +34,9 @@ router.post('/login',
     async (req, res, next) => {
         try {
             const {body} = req
-            const token = await authService.logIn(body)
+            const data = await authService.logIn(body)
 
-            res.json({token})
+            res.json(data)
         } catch (error) {
             next(error)
         }
