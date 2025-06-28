@@ -141,7 +141,7 @@ function Login() {
             <a href="#">Forgot Password?</a>
           </div>
 
-          <button type="submit" className={loginButton}>Log in</button>
+          <button type="submit" className={loginButton}>Log in Cloud</button>
         </form>
 
         <p className={signupLink}>

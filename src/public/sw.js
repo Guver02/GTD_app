@@ -14,6 +14,7 @@ const urlsToCache = [
 
 const isDevMode = self.location.hostname === 'localhost';
 
+
 self.addEventListener('install', event => {
   if (isDevMode) {
     // No cacheamos nada en desarrollo

@@ -31,6 +31,7 @@ function App() {
     if (loading) return <SpinnerLoading />
 
     return (
+        <GlobalTooltipProvider>
         <ModalProvider>
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -39,19 +40,20 @@ function App() {
                 }></Route>
                 <Route element={<ProtectedRoute />}>
                     <Route path='/app/*'
-                        element={<GlobalTooltipProvider>
+                        element={
 
 
                                 <Application />
 
 
-                        </GlobalTooltipProvider>
+
 
                         }
                     ></Route>
                 </Route>
             </Routes>
         </ModalProvider>
+        </GlobalTooltipProvider>
     )
 }
 
