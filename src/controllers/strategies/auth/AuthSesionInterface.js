@@ -1,4 +1,4 @@
-class AuthSesionInterface {
+class AuthSessionInterface {
     signIn(userName, password, email) {
         throw new Error('Este método debe ser implementado');
     }
@@ -7,17 +7,9 @@ class AuthSesionInterface {
         throw new Error('Este método debe ser implementado');
     }
 
-    logout() {
-        throw new Error('Este método debe ser implementado');
-    }
-
-    validateSesion() {
-        throw new Error('Este método debe ser implementado');
-    }
-
-    isLogged() {
+    getData(token){
         throw new Error('Este método debe ser implementado');
     }
 }
 
-export {AuthSesionInterface}
+export {AuthSessionInterface}

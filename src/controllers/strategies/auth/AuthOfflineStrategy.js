@@ -3,12 +3,13 @@ import { UsersIndexedDBServices } from "../../../indexedDBServices/UsersIndexedD
 import { ItemsIndexedDBService } from "../../../indexedDBServices/ItemsIndexedDBServices";
 import { IndexedDBManager } from "../../manager/IndexedDBManager";
 import { jwtDecode } from "jwt-decode";
+import { AuthSessionInterface } from "./AuthSesionInterface";
 
 const indexedDB = IndexedDBManager.getInstance()
 const usersService = new UsersIndexedDBServices(indexedDB);
 const itemsService = new ItemsIndexedDBService(indexedDB);
 
-class AuthOfflineStrategy{
+class AuthOfflineStrategy extends AuthSessionInterface{
 
     async signIn(userName, password, email) {
         const hash = await this.#hashPassword(password)

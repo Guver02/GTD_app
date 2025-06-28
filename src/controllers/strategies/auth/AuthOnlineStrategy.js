@@ -1,6 +1,7 @@
 import { apiService } from "../../apiService";
+import {AuthSessionInterface} from "./AuthSesionInterface"
 
-class AuthOnlineStrategy {
+class AuthOnlineStrategy extends AuthSessionInterface{
     async signIn(userName, password, email) {
         try {
             const data = await apiService.post(

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { AuthContainer } from "./auth_components/AuthContainer"
 import { ProtectedRoute } from "./auth_components/ProtectedRoute"
 import { Application } from "./structure_components/Application"
@@ -9,10 +9,13 @@ import { setupApp } from "../utils/setupApp"
 import { SpinnerLoading } from "./ui_components/SpinnerLoading"
 import { ModalProvider } from "./providers/ModalContext"
 import { GlobalTooltipProvider } from "./providers/GlobalTooltip"
+import { useAuthController } from "../controllers/authController"
 
 
 function App() {
     const [loading, setLoading] = useState(true)
+    const {chackConfig} = useAuthController()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const ejecuteApp = async () => {
@@ -20,12 +23,15 @@ function App() {
             setLoading(false)
         }
         ejecuteApp()
+
+        if(chackConfig()) navigate('/app/inbox')
+
     }, [])
 
     if (loading) return <SpinnerLoading />
 
     return (
-        <BrowserRouter>
+
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/auth/*" element={
@@ -45,7 +51,6 @@ function App() {
                     ></Route>
                 </Route>
             </Routes>
-        </BrowserRouter>
     )
 }
 

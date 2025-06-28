@@ -26,8 +26,6 @@ const useAuthController = (appModeParam) => {
                 appMode,
             )
 
-
-
         } catch (err) {
             unknownError(err)
         }
@@ -42,8 +40,6 @@ const useAuthController = (appModeParam) => {
                 AppConfigManager,
                 appMode)
 
-
-
         } catch (err) {
             unknownError(err)
         }
@@ -55,7 +51,7 @@ const useAuthController = (appModeParam) => {
 
     }, []);
 
-    const checkSessionController = async () => {
+    const checkSessionAndGetDataController = async () => {
         const sesion = checkSessionUseCase(AppConfigManager, appMode)
         console.log('sesion',sesion)
         if (!sesion) return [false, null]
@@ -64,11 +60,19 @@ const useAuthController = (appModeParam) => {
         return [true, data]
     }
 
+    const checkConfigController = () => {
+        const sesion = checkSessionUseCase(AppConfigManager, appMode)
+        if (!sesion) return false
+
+        return true
+    }
+
     return {
         logIn: loginController,
         signUp: singupController,
         logout: logoutController,
-        checkSession: checkSessionController
+        checkSessionAndGetData: checkSessionAndGetDataController,
+        chackConfig: checkConfigController
     };
 };
 

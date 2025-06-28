@@ -22,10 +22,8 @@ const logoutUseCase = (sessionRepo) => {
 }
 
 const checkSessionUseCase = (sessionRepo, appMode) => {
-    console.log('appMode', appMode);
     const config = sessionRepo.getConfig()
 
-    console.log('confi',config)
 
     if (!config.jwt || !config.appMode || !config.storageType) return null
     if (config.appMode !== appMode) return null
@@ -38,5 +36,14 @@ const getDataUseCase = async (authRepo, token) => {
     return data
 }
 
+const checkConfigUseCase = (sessionRepo) => {
+    const config = sessionRepo.getConfig()
+    if (!config.jwt || !config.appMode || !config.storageType){
+        sessionRepo.clear()
+        return null
+    }
 
-export { loginUseCase, signupUseCase, logoutUseCase, checkSessionUseCase, getDataUseCase}
+    return true
+}
+
+export { loginUseCase, signupUseCase, logoutUseCase, checkSessionUseCase, getDataUseCase, checkConfigUseCase}
