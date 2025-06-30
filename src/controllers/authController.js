@@ -3,7 +3,8 @@ import { checkSessionUseCase, getDataUseCase, loginUseCase, logoutUseCase, signu
 import { AppConfigManager } from '../manager/AppConfigManager';
 import { unknownError } from '../utils/errorFunctions';
 import { createAuthSesion } from '../factories/createAuthSesion';
-import { ApplicationError, DomainError, InfrastructureError } from '../errors/CustomErrors';
+import { CustomError } from '../errors/CustomError';
+import { UnknowError } from '../errors/UnknowError';
 
 const useAuthController = (appModeParam) => {
 
@@ -29,17 +30,23 @@ const useAuthController = (appModeParam) => {
 
             return true
         } catch (err) {
-            if(err instanceof DomainError) showErrors(err.type, err.message);
+            if(err instanceof CustomError){
+                console.log(err)
+                console.log(err.metadata)
 
-            else if(err instanceof ApplicationError) showErrors(err.type, err.message)
+                showErrors(err)
+            }
+            else{
+                console.error('Error desconocido encontrado:', err)
+                showErrors(new UnknowError())
+            }
 
-            else if(err instanceof InfrastructureError) showErrors()
             return null
         }
     }, []);
 
 
-    const singupController = useCallback(async ({ email, password, name }) => {
+    const singupController = useCallback(async ({ email, password, name }, showErrors) => {
         try {
             await signupUseCase(
                 { email, password, name },
@@ -47,8 +54,21 @@ const useAuthController = (appModeParam) => {
                 AppConfigManager,
                 appMode)
 
+            return true
+
         } catch (err) {
-            unknownError(err)
+            if(err instanceof CustomError){
+                console.log(err)
+                console.log(err.metadata)
+
+                showErrors(err)
+            }
+            else{
+                console.error('Error desconocido encontrado:', err)
+                showErrors(new UnknowError())
+            }
+
+            return null
         }
     }, []);
 

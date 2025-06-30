@@ -17,7 +17,6 @@ const isDevMode = self.location.hostname === 'localhost';
 
 self.addEventListener('install', event => {
   if (isDevMode) {
-    // No cacheamos nada en desarrollo
     return;
   }
   event.waitUntil(
@@ -37,7 +36,6 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (isDevMode) {
-    // En desarrollo: no interceptamos nada, dejamos pasar las requests
     return;
   }
 

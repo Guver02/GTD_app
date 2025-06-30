@@ -1,10 +1,10 @@
-import { DomainError } from "../errors/CustomErrors"
+import { InvalidEmailError, InvalidPasswordError, InvalidUsernameError } from "../errors/AuthCustomErrors"
 
 class UserRegistration {
     constructor(email, password, name) {
-        if (!email.includes("@")) throw new DomainError("Email inválido")
-        if (password.length < 6) throw new DomainError("Contraseña muy corta")
-        if (!name || name.length < 2) throw new DomainError("Nombre requerido")
+        if (!email.includes("@")) throw new InvalidEmailError()
+        if (password.length < 6) throw new InvalidPasswordError()
+        if (!name || name.length < 2) throw new InvalidUsernameError()
 
         this.email = email
         this.password = password

@@ -1,6 +1,6 @@
-import { ApplicationError, InfrastructureError } from "../../errors/CustomErrors";
 import { apiService } from "../../controllers/apiService";
 import {AuthSessionInterface} from "./interfaces/AuthSesionInterface"
+import { BadRequestError, InternalServerError, InvalidCredentialsError } from "../../errors/AuthCustomErrors";
 
 class AuthOnlineStrategy extends AuthSessionInterface{
     async signIn(userName, password, email) {
@@ -12,7 +12,7 @@ class AuthOnlineStrategy extends AuthSessionInterface{
                 email: email
             })
 
-            if (data.error || data.message) throw new Error(data);
+            if (data.error || data.message) throw new BadRequestError(data)
             return data
 
         } catch (error) {
@@ -28,19 +28,16 @@ class AuthOnlineStrategy extends AuthSessionInterface{
                     password: password
                 })
 
-            if(data.status === 401) throw new ApplicationError(data.message, {type: 'unauthorized'})
+            if(data.status === 401) throw new InvalidCredentialsError(data)
 
-            if (data.status >= 400 && data.status < 500) throw new ApplicationError(data.message, {type: 'badRequest'})
+            if (data.status >= 400 && data.status < 500) throw new BadRequestError(data)
 
-            if(data.status >= 500)throw new InfrastructureError(data.message,{})
-
+            if(data.status >= 500)throw new InternalServerError(data)
 
             return data
 
         } catch (error) {
-            if (error instanceof ApplicationError) throw error;
-            if (error instanceof InfrastructureError) throw error;
-            throw new InfrastructureError(error,{})
+            throw error
         }
     }
 

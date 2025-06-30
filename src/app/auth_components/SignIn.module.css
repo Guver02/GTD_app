@@ -4,6 +4,7 @@
     margin: 50px auto;
     border-radius: 10px;
     overflow: hidden;
+    max-width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
@@ -14,15 +15,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     padding: 40px;
   }
 
   .signinRight {
     flex: 1;
+    box-sizing: border-box;
     padding: 40px;
     background-color: #f9f9f9;
   }
-
+  .inputError,
+.inputError:focus{
+    border: 1px solid var(--color-error) !important;
+}
   .leftContent {
     text-align: center;
   }
@@ -41,9 +47,23 @@
   p {
     margin-bottom: 20px;
   }
+  .toastError{
+    width: 100%;
+    height: fit-content;
+    text-align:end;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 0 28px;
+    box-sizing: border-box;
+    color: var(--color-error);
+    font-family: inherit;
+}
 
   .emailPassword input {
+    all: unset;
     width: calc(100% - 22px);
+    box-sizing: border-box;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -52,6 +72,7 @@
 
   .signinButton {
     width: 100%;
+    box-sizing: border-box;
     padding: 12px;
     background-color: #3f51b5;
     color: white;
@@ -64,3 +85,8 @@
   .loginLink {
     text-align: center;
   }
+@media (max-width: 768px) {
+    .signinLeft{
+        display: none;
+    }
+}

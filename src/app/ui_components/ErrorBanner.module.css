@@ -1,0 +1,147 @@
+.cardContainer {
+    background-color: var(--color-background);
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 300px;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    justify-content: center;
+}
+
+.closeButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px;
+    line-height: 1;
+}
+
+.closeButton:hover {
+    color: var(--color-text);
+}
+
+.iconContainer {
+    margin-bottom: 20px;
+}
+
+.errorIcon {
+    color: #ff4d4f;
+    width: 60px;
+    height: 60px;
+    stroke: #ff4d4f;
+    fill: none;
+}
+
+.errorIcon circle {
+    fill: #ff4d4f;
+    stroke: none;
+}
+
+.errorIcon line {
+    stroke: var(--color-text-primary);
+    stroke-width: 2.5px;
+}
+
+.title {
+    color: var(--color-text-primary);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.message {
+    color:  var(--color-text-secondary);
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    max-width: 80%;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.quitButton,
+.tryAgainButton {
+    box-sizing: border-box;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex-grow: 1;
+    max-width: 150px;
+}
+
+.quitButton {
+    background-color: transparent;
+    border: 1px solid var(--color-text-secondary);
+    color: var(--color-text);
+}
+
+.quitButton:hover {
+    background-color: var(--color-text-muted);
+    color: var(--color-text);
+}
+
+.tryAgainButton {
+    background-color: var(--color-primary-medium);
+    border: none;
+    color: var(--color-text);
+}
+
+.tryAgainButton:hover {
+    background-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+
+    .cardContainer {
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        box-sizing: border-box;
+        padding: 25px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .message {
+        font-size: 14px;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .quitButton,
+    .tryAgainButton {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .cardContainer {
+        box-sizing: border-box;
+        padding: 20px;
+    }
+}
