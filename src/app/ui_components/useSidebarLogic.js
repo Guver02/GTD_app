@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Inbox, Grid, Archive, Coffee, UserCheck, FileText } from 'react-feather'
+import { Inbox, Grid, Archive, Coffee, UserCheck, FileText } from 'lucide-react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ModalContext } from '../providers/ModalContext';
 import { SearchModal } from '../views_container/Search';

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import * as style from './SectionList.module.css'
-import { Plus } from 'react-feather';
+import { Plus } from 'lucide-react';
 import { useSectionService } from '../../controllers/sectionController';
 
 const {

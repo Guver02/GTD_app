@@ -44,8 +44,10 @@ function ProjectsModal({ functions, values }) {
 
                 <Folder />
                 <span>{projects[projectId].item_name}</span>
+
                 <span>{
-                    sections[sectionId]?.item_name
+                    (sections[sectionId]?.item_name) &&
+                    (sections[sectionId].special_type_id == null)
                         ?
                         `/${sections[sectionId].item_name}`
                         :
@@ -77,7 +79,8 @@ function ProjectsModal({ functions, values }) {
                                     </div>
                                 )
                             } else {
-                                return (<div key={`folder${elem.id}`}>
+                                if(!elem.special_type_id){
+                                    return (<div key={`folder${elem.id}`}>
 
                                     <div
 
@@ -103,7 +106,9 @@ function ProjectsModal({ functions, values }) {
 
                                     {
                                         Object.values(sections)
-                                            .filter((section) => section.parent_id == elem.id)
+                                            .filter((section) =>
+                                                ((section.parent_id == elem.id) &&
+                                                (!section.special_type_id)))
                                             .sort((a, b) => a.order - b.order)
                                             .map((section) => {
 
@@ -127,6 +132,7 @@ function ProjectsModal({ functions, values }) {
 
                                 </div>
                                 )
+                                }
                             }
 
 

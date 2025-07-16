@@ -6,6 +6,7 @@
     box-sizing: border-box;
     background-color: var(--color-background-cool);
     padding: 8px;
+
 }
 
 .grow{
@@ -27,6 +28,8 @@
     height:100%;
     flex: 1;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
     /*overflow-x: auto;
     overflow-y: auto;*/
 }

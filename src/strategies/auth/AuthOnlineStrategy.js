@@ -49,7 +49,17 @@ class AuthOnlineStrategy extends AuthSessionInterface{
                  Authorization: `Bearer ${token}`
             }})
 
-            const data = res.json()
+            const data = await apiService.get(
+                '/api/v1/items',
+                {
+                    Authorization: `Bearer ${token}`})
+
+
+            if(data.status === 401) throw new InvalidCredentialsError(data)
+
+            if (data.status >= 400 && data.status < 500) throw new BadRequestError(data)
+
+            if(data.status >= 500)throw new InternalServerError(data)
 
             return data
         } catch (error) {

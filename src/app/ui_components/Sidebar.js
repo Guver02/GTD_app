@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styles from './Sidebar.module.css';
-import { Search, Briefcase, AlignJustify, Hexagon, ArrowDownCircle } from 'react-feather'
+import { Search, Briefcase, AlignJustify, Hexagon, ArrowDownCircle } from 'lucide-react'
 import { HoverModal } from './HoverModal';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
 import { useWidth } from '../custom_hooks/useWidth';

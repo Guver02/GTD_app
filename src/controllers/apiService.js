@@ -33,8 +33,9 @@ const apiService = {
         return apiService.request(url, {
             method: 'GET',
             headers: {
+                ...getAuthHeader(),
                 ...headers,
-                ...getAuthHeader()
+
             },
         });
     },
@@ -43,8 +44,9 @@ const apiService = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                ...getAuthHeader(),
                 ...headers,
-                ...getAuthHeader()
+
             },
             body: JSON.stringify(body),
         });
@@ -54,8 +56,9 @@ const apiService = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                ...getAuthHeader(),
                 ...headers,
-                ...getAuthHeader()
+
             },
             body: JSON.stringify(body),
         });
@@ -65,8 +68,9 @@ const apiService = {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                ...getAuthHeader(),
                 ...headers,
-                ...getAuthHeader()
+
             },
             body: JSON.stringify(body),
         });

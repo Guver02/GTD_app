@@ -51,8 +51,7 @@ function HoverModal({
   return (
     <div
       className={optionContainer}
-      onMouseEnter={() => setShowOptions(true)}
-      onMouseLeave={() => setShowOptions(false)}
+      onClick ={() => setShowOptions(true)}
       ref={triggerRef}
     >
       {ParentComponent}
@@ -68,8 +67,8 @@ function HoverModal({
               transform: "translate(-50%, -50%)",
               zIndex: 1000
             }}
-            onMouseEnter={() => setShowOptions(true)} // mantener abierto al pasar sobre el bubble
-            onMouseLeave={() => setShowOptions(false)} // cerrar cuando el mouse sale
+            onMouseEnter={() => setShowOptions(true)}
+            onMouseLeave={() => setShowOptions(false)}
           >
             {bubbleComponent(closeModal)}
           </div>,

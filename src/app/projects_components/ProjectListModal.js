@@ -4,7 +4,7 @@ import * as style from './ProjectListModal.module.css';
 import { Project } from './Project';
 import { ModalContext } from '../providers/ModalContext';
 import { CreateProject } from './CreateProject';
-import { Plus } from 'react-feather';
+import { Plus } from 'lucide-react';
 
 const {
     projectsListContainer,

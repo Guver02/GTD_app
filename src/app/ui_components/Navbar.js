@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import * as styles from './Navbar.module.css';
 import { ModalContext } from '../providers/ModalContext';
 import { MainPanel } from './MainPanel';
-import { Bell, Moon, Plus, User } from 'react-feather';
+import { Bell, Moon, Plus, User } from 'lucide-react';
 
 const Navbar = () => {
     const {openModal} = useContext(ModalContext)

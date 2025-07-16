@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as styles from './Search.module.css';
-import { Inbox, Home, Calendar, Hash, Tag, Coffee, FileText } from 'react-feather'; // Example icons
+import { Inbox, Home, Calendar, Hash, Tag, Coffee, FileText } from 'lucide-react'; // Example icons
 import { useDataStore } from '../../store/data_store';
 import { Task } from '../task_components/Task';
 import { Project } from '../projects_components/Project';

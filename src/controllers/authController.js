@@ -78,14 +78,28 @@ const useAuthController = (appModeParam) => {
 
     }, []);
 
-    const checkSessionAndGetDataController = async () => {
-        const sesion = checkSessionUseCase(AppConfigManager, appMode)
-        console.log('sesion',sesion)
-        if (!sesion) return [false, null]
+    const checkSessionAndGetDataController = async (showErrors) => {
+        try {
+            const sesion = checkSessionUseCase(AppConfigManager, appMode)
+            //console.log('sesion',sesion)
+            if (!sesion) return [false, null]
 
-        const data = await getDataUseCase(authRepo, sesion.token)
-        console.log('data obtenida',data)
+            const data = await getDataUseCase(authRepo, sesion.token)
+            //console.log('data obtenida',data)
         return [true, data]
+        } catch (err) {
+            if(err instanceof CustomError){
+                console.log(err)
+                console.log(err.metadata)
+
+                showErrors(err)
+            }
+            else{
+                console.error('Error desconocido encontrado:', err)
+                showErrors(new UnknowError())
+            }
+            return [false, null]
+        }
     }
 
     const checkConfigController = () => {

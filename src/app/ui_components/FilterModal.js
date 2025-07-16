@@ -11,35 +11,43 @@ const {
     iconFilter,
     iconContainer,
     contentContainer,
-    item
+    item,
+    filterButton,
+    checkBox,
+    listTittle
 } = styles
 
 function FilterModal({ addFilter, removeFilter, filters }) {
     const projects = useDataStore(state => state.projects)
-    const arrProjects = Object.values(projects)
+    const arrProjectswithSpecial = Object.values(projects)
+    const arrProjects = arrProjectswithSpecial.filter((elem) => elem.special_type_id == null)
     const [isOpenModal, setIsOpenModal] = useState(false)
 
     return (
         <div className={filterModalContainer}>
 
-            <div
+            <div className={filterButton}
+            onClick={() => setIsOpenModal(!isOpenModal)}
             >
+
                 {(filters.length > 0) &&
                     <div className={filtersCount}>{filters.length}</div>
                 }
+
                 <Filter
                     className={iconFilter}
-                    onClick={() => setIsOpenModal(!isOpenModal)}
-                    onMouseEnter={() => setIsOpenModal(true)}
-
                 />
+
+                <span>Filter</span>
+
+
             </div>
 
             {isOpenModal &&
                 <div
                     className={filterList}
-                    onMouseLeave={() => setIsOpenModal(false)}
                 >
+                    <span className={listTittle}>Folders</span>
                     {
                         arrProjects.map((project) => (
                             <ProjectCheck
@@ -74,9 +82,21 @@ function ProjectCheck({ project, addFilter, removeFilter, filters }) {
 
     return (
         <div className={filterListItem}>
+
+            <input
+                className={checkBox}
+                type="checkbox"
+                checked={isChecked}
+                onChange={handleChange}
+            >
+            </input>
+
             <div className={item}>
                 <div className={iconContainer}>
-                    <Folder style={{ color: `rgb(${project.myColor.color})` }} />
+                    <Folder
+                    color={`rgb(${project.myColor.color})`}
+                    fill={`rgb(${project.myColor.color})`}
+                    />
                 </div>
 
                 <div className={contentContainer}>
@@ -84,12 +104,6 @@ function ProjectCheck({ project, addFilter, removeFilter, filters }) {
                 </div>
             </div>
 
-            <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleChange}
-            >
-            </input>
         </div>
     )
 }

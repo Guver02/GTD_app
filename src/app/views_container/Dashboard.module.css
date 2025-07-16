@@ -1,5 +1,3 @@
-/* Dashboard.module.css */
-
 .dashboardContainer {
     display:flex;
     flex-direction: column;
@@ -10,7 +8,7 @@
     color: #333;
     height: 100%;
     width: 100%;
-
+    max-width: 1020px;
     padding: 20px;
     box-sizing: border-box;
     overflow: auto;
@@ -23,21 +21,28 @@
     align-items: center;
     box-sizing: border-box;
     width: 100%;
+    background-color: var(--color-background);
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px;
 }
 
 .headerLeft {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 12px;
 }
-.userWelcome h1 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-    color: #2c3e50; /* Título principal */
+.userIcon{
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+    height: 52px;
+    width: 52px;
+    display: grid;
+    place-content: center;
 }
-.userWelcome p {
-    font-size: 0.9em;
-    color: #7f8c8d; /* Texto secundario */
+.userIcon:hover{
+    cursor: pointer;
 }
 
 .headerRight {
@@ -46,52 +51,28 @@
     align-items: center;
     gap: 15px;
 }
-.searchBar {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 20px;
-    padding: 8px 15px;
-    border: 1px solid #e0e0e0;
-    box-sizing: border-box;
-}
-.searchBar svg {
-    margin-right: 8px;
-    color: #95a5a6;
-}
-.searchBar input[type="text"] {
-    border: none;
-    outline: none;
-    font-size: 0.9em;
-    color: #34495e;
-}
 
-.actionButtons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.actionButtons svg {
-    color: #7f8c8d;
-    cursor: pointer;
-}
 .scheduleButton,
 .createRequestButton {
-    background-color: white;
-    color: #3498db; /* Botón primario */
-    border: 1px solid #3498db;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-size: 0.9em;
-    cursor: pointer;
+    background-color: var(--color-primary);
+    color: white;
+    border: 1px solid var(--color-text-inverted);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
-    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    gap: 6px;
+
+    transition: background-color 0.5s ease;
 }
 .scheduleButton:hover,
 .createRequestButton:hover {
-    background-color: #e7f5ff;
+    cursor: pointer;
+    background-color: var(--color-primary-medium);
 }
 
 
@@ -105,9 +86,8 @@
 
 
 .widget {
-    background-color: white;
+    background-color: var(--color-background);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -124,7 +104,8 @@
     padding: 15px 20px;
     border-bottom: 1px solid #e0e0e0;
     font-size: 1em;
-    color: #34495e;
+    color: var(--color-text);
+    border: 1px solid var(--color-text-muted);
     box-sizing: border-box;
     max-width: 100%;
 }
@@ -150,260 +131,13 @@
 .widgetBody {
     padding: 20px;
     box-sizing: border-box;
-    max-width: 100%;
-}
-
-.progressBar {
-    background-color: #ecf0f1;
-    border-radius: 10px;
-    height: 10px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    position: relative;
-}
-
-.progressBarTrack {
-    background-color: #bdc3c7;
-    border-radius: 10px;
-    height: 100%;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.progressBarIndicator {
-    background-color: #2ecc71; /* Color de la barra de progreso */
-    height: 100%;
-    border-radius: 10px;
-}
-
-.progressBarText {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8em;
-    color: #7f8c8d;
-    margin-top: 5px;
-}
-
-.list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.listItem {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.listItem:last-child {
-    border-bottom: none;
-}
-
-.listItemIndicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.listItemContent p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #34495e;
-}
-
-.listItemContent span {
-    color: #7f8c8d;
-    font-size: 0.8em;
-}
-
-.listItemStatus {
-    font-size: 0.8em;
-    color: #fff;
-    padding: 5px 8px;
-    border-radius: 5px;
-}
-
-.currentProjectDetails {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.projectInfoRow {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 10px;
-    align-items: center;
-    font-size: 0.9em;
-    color: #34495e;
-}
-
-.projectInfoRow label {
-    color: #7f8c8d;
-    font-weight: bold;
-}
-
-.statusBadge {
-    font-size: 0.7em;
-    padding: 3px 6px;
-    border-radius: 5px;
-}
-
-.teamMembers {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.avatar {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: #95a5a6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 0.7em;
-}
-
-.timelineBar {
-    background-color: #ecf0f1;
-    height: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.timelineBar > div {
-    height: 100%;
-    border-radius: 4px;
-}
-
-.scheduleCalendar {
-    margin-bottom: 15px;
-}
-
-.calendarHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-    color: #34495e;
-}
-
-.calendarHeader button {
-    background: none;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    color: #7f8c8d;
-}
-
-.calendarDays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    text-align: center;
-    font-size: 0.8em;
-    color: #7f8c8d;
-}
-
-.day {
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.day.active {
-    background-color: #3498db;
-    color: white;
-}
-
-.scheduleTabs {
-    display: flex;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.scheduleTabs button {
-    background: none;
-    border: none;
-    padding: 10px 15px;
-    font-size: 0.9em;
-    color: #7f8c8d;
-    cursor: pointer;
-}
-
-.scheduleTabs button.activeTab {
-    color: #3498db;
-    border-bottom: 2px solid #3498db;
-}
-
-.meetingList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.meetingItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.meetingItem:last-child {
-    border-bottom: none;
-}
-
-.meetingInfo {
-    display: flex;
-    flex-direction: column;
-}
-
-.meetingTime {
-    font-size: 0.8em;
-    color: #7f8c8d;
-    margin-bottom: 5px;
-}
-
-.meetingTitle {
-    font-size: 1em;
-    color: #34495e;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.meetingParticipants {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8em;
-    color: #7f8c8d;
-}
-
-.meetingParticipants svg {
-    color: #7f8c8d;
-}
-
-.meetingLocation {
-    font-size: 0.8em;
-    color: #7f8c8d;
-}
-
-.meetingTag {
-    font-size: 0.7em;
-    padding: 5px 8px;
-    border-radius: 5px;
+    flex: 1;
+    background-color: var(--color-background-cool);
 }
 
 .notesList {
+    all: unset;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -413,13 +147,73 @@
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 12px ;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: var(--color-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.noteContainer:hover{
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .noteItem {
-    padding: 15px 0;
+    width: 100%;
+}
 
+.topItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.topLeft{
+    display: flex;
+    flex-direction: row;
+}
+.topRight>svg{
+    color: var(--color-text-secondary);
+}
+.contentItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 0 20px 0;
+}
+.progressContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.tittleItem{
+    font-weight: 500;
+    font-size: 16px;
+
+}
+.bottomItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-text-muted);
+    box-sizing: border-box;
+    width: 100%;
+}
+.rigthBottom{
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+.rigthBottom>svg{
+    width: 12px;
 }
 .circleIcon{
     cursor: pointer;
@@ -428,19 +222,6 @@
     border-bottom: none;
 }
 
-.noteItem strong {
-    display: block;
-    margin-bottom: 5px;
-    color: #34495e;
-    font-size: 1em;
-    font-weight: 500;
-}
-
-.noteItem p {
-    font-size: 0.9em;
-    color: #7f8c8d;
-    margin-bottom: 8px;
-}
 
 .noteMeta {
     display: flex;
@@ -451,73 +232,18 @@
 }
 
 .noteTag {
-    padding: 3px 6px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 12px;
+    box-sizing: border-box;
 }
 
 .noteMeta svg {
     margin-right: 3px;
 }
 
-.statusTrackerList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
 
-.statusItem {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.statusItem:last-child {
-    border-bottom: none;
-}
-
-.userAvatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: #95a5a6;
-    color: white;
-    font-size: 0.8em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.statusText {
-    flex-grow: 1;
-}
-
-.statusText strong {
-    display: block;
-    color: #34495e;
-    font-size: 0.9em;
-}
-
-.secondaryText {
-    color: #7f8c8d;
-    font-size: 0.8em;
-}
-
-.statusTime {
-    font-size: 0.8em;
-    color: #7f8c8d;
-    margin-left: 10px;
-}
-
-.statusIndicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-left: 10px;
-}
 @media (max-width: 768px) {
     .header{
         flex-direction: column;
