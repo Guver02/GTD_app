@@ -64,6 +64,12 @@ class IndexedDBTaskRepository extends RepositoryInterface {
         const updatedStatus = await this.itemsService.updateStatusTodo(id, data, this.decoded.userId);
         return updatedStatus;
     }
+
+    async setNextActionState (id, data) {
+        const itemUpdated = await this.itemsService.setNextActionState(id, data, this.decoded.userId);
+        return itemUpdated;
+    }
+
 }
 
 export { IndexedDBTaskRepository };

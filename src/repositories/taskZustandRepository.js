@@ -35,6 +35,12 @@ const taskZustandRepository = {
         const store = useDataStore.getState();
         store.changeNextAction(id, data);
     },
+
+    setNextActionState: (id, data) => {
+        console.log('AQQQQQQUI')
+        const store = useDataStore.getState();
+        store.setNextActionState(id, data)
+    }
 };
 
 export { taskZustandRepository };

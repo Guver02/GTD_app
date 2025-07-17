@@ -12,6 +12,7 @@ import {
     swapParentAndOrderUseCase,
     changeTaskStatusUseCase,
     setNextActionUseCase,
+    setNextActionStateUseCase
 } from "../services/taskServices";
 import { taskZustandRepository } from "../repositories/taskZustandRepository";
 import { storageError, unknownError } from "../utils/errorFunctions";
@@ -86,9 +87,17 @@ const useTaskService = () => {
         }
     }, []);
 
-    const setNextActionStateAndApi = useCallback(async (id) => {
+    const setInProgressStateAndApi = useCallback(async (id) => {
         try {
             setNextActionUseCase(id, taskStorage, taskZustandRepository, storageError);
+        } catch (error) {
+            unknownError(error);
+        }
+    }, []);
+
+    const setNextActionStatStateAndApi = useCallback(async (id, newState) => {
+        try {
+            setNextActionStateUseCase(id, newState, taskStorage, taskZustandRepository, storageError);
         } catch (error) {
             unknownError(error);
         }
@@ -101,7 +110,8 @@ const useTaskService = () => {
         swapTaskOrder: swapTaskOrderStateAndApi,
         swapParentAndOrder: swapParentAndOrderStateAndApi,
         changeStatus: changeStatusStateAndApi,
-        setNextAction: setNextActionStateAndApi,
+        setNextAction: setInProgressStateAndApi,
+        setNextActionState: setNextActionStatStateAndApi
     };
 };
 

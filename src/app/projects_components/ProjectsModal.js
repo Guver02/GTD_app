@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import * as style from './ProjectsModal.module.css'
 import { useDataStore } from "../../store/data_store";
 import { shallow } from "zustand/shallow";
-import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, Inbox, Plus } from "react-feather";
+import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, Inbox, Plus } from 'lucide-react';
 import { ModalContext } from "../providers/ModalContext";
 //import { DataContext } from "../../providers/DataContext";
 import { CreateProject } from '../projects_components/CreateProject'

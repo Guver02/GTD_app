@@ -11,7 +11,7 @@ module.exports = {
         database: config.dbName,
         host: config.dbHost,
         dialect: 'mysql',
-        port: config.dbPort
+        port: config.devDbPort
     },
     production: {
         uriLink: config.uriLink,

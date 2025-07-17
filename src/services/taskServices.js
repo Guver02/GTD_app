@@ -72,6 +72,13 @@ const setNextActionUseCase = (id, taskStorage, taskState, onError) => {
   void taskStorage.updateStatus(id, data).catch(onError);
 };
 
+const setNextActionStateUseCase = (id, newSate, taskStorage, taskState, onError) => {
+  const data = { is_next: newSate };
+  console.log('servicio')
+  taskState.setNextActionState (id, data);
+  void taskStorage.setNextActionState(id, data).catch(onError);
+};
+
 export {
   createTaskUseCase,
   updateTaskUseCase,
@@ -80,4 +87,5 @@ export {
   swapParentAndOrderUseCase,
   changeTaskStatusUseCase,
   setNextActionUseCase,
+  setNextActionStateUseCase
 };

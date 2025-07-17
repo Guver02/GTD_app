@@ -14,6 +14,7 @@ class Task {
         this.created_at = this.formatDate(data.created_at) ?? new Date().toISOString()
         this.myColor = data.myColor ?? { id: 1, color: '0,0,0' }
         this.updated_at = new Date().toISOString()
+        this.is_next = data.is_next ?? false;
 
         this.validate()
     }

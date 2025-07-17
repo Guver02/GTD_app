@@ -1,5 +1,5 @@
 import React from "react";
-import { MoreVertical } from "react-feather";
+import { MoreVertical } from 'lucide-react';
 
 function Move2 ({className}){
 

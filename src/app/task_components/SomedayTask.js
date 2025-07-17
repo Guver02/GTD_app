@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import { useDataStore } from "../../store/data_store";
 import * as style from './SomedayTask.module.css'
-import { ArrowDownCircle, CheckCircle, Circle, Crosshair, Inbox, Trash2 } from "react-feather";
+import { ArrowDownCircle, CheckCircle, Circle, Crosshair, Inbox, Trash2 } from 'lucide-react';
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
 import { useTaskService } from "../../controllers/taskController";

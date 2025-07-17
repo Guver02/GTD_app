@@ -1,18 +1,20 @@
-.sectionOptionsContainer{
+.container {
     display: flex;
     flex-direction: column;
     width: 200px;
     box-sizing: border-box;
     padding: 0;
     border-radius: 2px;
-    min-height: 200px;
+    height: auto;
     position: relative;
     z-index: 999;
 }
-.sectionOptionsContainer svg{
+
+.container svg {
     color: var(--color-text-primary);
 }
-.sectionOptionsList{
+
+.list {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -20,10 +22,12 @@
     padding: 0;
     margin: 0;
 }
-li{
+
+li {
     list-style-type: none;
 }
-.sectionOptionsList button{
+
+.list button {
     width: 100%;
     background-color: var(--background-color);
     border: none;
@@ -41,12 +45,29 @@ li{
 
     color: var(--color-text-primary);
 }
-.sectionOptionsList button:hover{
+
+.list button:hover {
     cursor: pointer;
     background-color: var(--color-background-grayish);
 }
-.sectionOptionsList  button > svg{
+
+.list button>svg {
     color: var(--color-text-primary);
     width: 18px;
 }
 
+.listGroup {
+    padding: 8px 0;
+}
+
+.listGroup+.listGroup {
+    border-top: 1px solid var(--color-text-muted);
+}
+
+.logoutButton > span{
+    color: var(--color-error);
+}
+
+.logoutButton>svg {
+    stroke: var(--color-error);
+}

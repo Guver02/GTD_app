@@ -8,7 +8,7 @@ import { DndContext, closestCorners, PointerSensor, useSensor, useSensors, close
 import { Task } from "../task_components/Task";
 import { useTaskService } from "../../controllers/taskController";
 import * as styles from './Projects.module.css'
-import { Edit, Folder, MoreHorizontal, Trash2 } from "react-feather";
+import { Edit, Folder, MoreHorizontal, Trash2 } from 'lucide-react';
 import { ModalContext } from "../providers/ModalContext";
 import { DeleteConfirmation } from "../ui_components/DeleteConfirmation";
 import { useProjectService } from "../../controllers/projectController";
@@ -181,7 +181,7 @@ function Projects() {
                                     editFunction={() => { }}
                                 />)}
                             position='bottom'
-                            gap={4}
+                            alignment="end"
                         />
                     </div>
 

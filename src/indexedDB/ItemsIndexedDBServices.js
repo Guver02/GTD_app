@@ -736,6 +736,26 @@ async deleteTodo(todoId, userId) {
         });
     }
 
+    async setNextActionState(id, newData, userId) {
+        const item = await this.getById(id);
+        if (!item || item.user_id !== userId || item.type_id !== itemTypesIDS.todo) {
+            throw new Error("The item does not exist or is not a todo");
+        }
+
+        Object.assign(item, newData);
+        item.updated_at = new Date();
+        const db = await this.dbManager.db;
+        const tx = db.transaction("items", "readwrite");
+        const store = tx.objectStore("items");
+        store.put(item);
+
+        return new Promise((resolve, reject) => {
+            tx.oncomplete = () => resolve(item);
+            tx.onerror = (event) => reject(event.target.error);
+        });
+    }
+
+
     async moveTodoToSection(taskId, newSectionParentId, userId) {
         const editedItem = await this.getById(taskId);
         if (!editedItem || editedItem.user_id !== userId) {

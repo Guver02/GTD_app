@@ -4,7 +4,7 @@ import { useTaskService } from "../../controllers/taskController";
 import * as styles from "./ViewTask.module.css"
 import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useDataStore } from "../../store/data_store";
-import { Trash, Trash2 } from "react-feather";
+import { Trash, Trash2 } from 'lucide-react';
 import { ClarifyModal } from "../views_container/Clarify";
 
 const typesForm = {

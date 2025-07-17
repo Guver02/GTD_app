@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import * as styles from './Clarify.module.css'
-import { Aperture, Battery, Calendar, Check, Clock, Save, Tag, Trash, UserMinus } from "react-feather";
+import { Aperture, Battery, Calendar, Check, Clock, Save, Tag, Trash, UserMinus } from 'lucide-react';
 import { useDataStore } from "../../store/data_store";
 import { useTaskService } from "../../controllers/taskController";
 import { ProjectsModal } from "../projects_components/ProjectsModal";

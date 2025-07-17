@@ -1,0 +1,76 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 2px;
+    height: min-content;
+    position: relative;
+    z-index: 999;
+}
+
+.optionsList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.optionsList li{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+}
+
+.statusContent{
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    font-size: 12px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+.statusContent:hover{
+    cursor: pointer;
+
+}
+.statusContent > svg{
+    width: 12px;
+    height: 12px;
+}
+
+.optionsList li:nth-of-type(1) .statusContent {
+  background-color: rgba(139, 142, 147, 0.15);
+  color: rgba(139, 142, 147, 1);
+}
+
+.optionsList li:nth-of-type(2) .statusContent {
+  background-color: rgba(217, 117, 59, 0.15);
+  color: rgba(217, 117, 59, 1);
+}
+
+.optionsList li:nth-of-type(3) .statusContent {
+  background-color: rgba(3, 140, 76, 0.15);
+  color: rgba(3, 140, 76, 1);
+}
+
+
+.optionsList li:nth-of-type(1) .statusContent:hover {
+  background-color: rgba(139, 142, 147, 0.25);
+}
+
+.optionsList li:nth-of-type(2) .statusContent:hover {
+  background-color: rgba(217, 117, 59, 0.25);
+}
+
+.optionsList li:nth-of-type(3) .statusContent:hover {
+  background-color: rgba(3, 140, 76, 0.25);
+}

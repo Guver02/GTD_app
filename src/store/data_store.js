@@ -60,6 +60,17 @@ const useDataStore = create ((set, get) => {
                 }
         }))
         },
+        setNextActionState: (id, newStatusBBody) => {
+            set((state) => ({
+                tasks: {
+                    ...state.tasks,
+                    [id]: {
+                        ...state.tasks[id],
+                        ...newStatusBBody
+                    }
+                }
+        }))
+        },
         createTask: (body) => {
             set((state) => {
                 const tasksThisSection =  Object.values(state.tasks)

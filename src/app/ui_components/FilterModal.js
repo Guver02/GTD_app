@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Filter, Folder } from "react-feather";
+import { Filter, Folder } from 'lucide-react';
 import { useDataStore } from "../../store/data_store";
 import * as styles from './FilterModal.module.css';
 

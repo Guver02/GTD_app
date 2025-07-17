@@ -74,6 +74,7 @@ class IndexedDBManager {
                     itemsStore.createIndex('type_id', 'type_id', { unique: false });
                     itemsStore.createIndex('special_type_id', 'special_type_id', { unique: false });
                     itemsStore.createIndex('color_id', 'color_id', { unique: false });
+                    itemsStore.createIndex('is_next', 'color_id', { unique: false });
                     itemsStore.createIndex('created_at', 'created_at');
                     itemsStore.createIndex('updated_at', 'updated_at');
 

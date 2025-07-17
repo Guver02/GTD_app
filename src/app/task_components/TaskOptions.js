@@ -1,7 +1,7 @@
 import React from "react";
 import * as style from "./TaskOptions.module.css";
 import { useTaskService } from "../../controllers/taskController";
-import { Edit, Sun, Trash2 } from "react-feather";
+import { Edit, Sun, Trash2 } from 'lucide-react';
 
 const {
   sectionOptionsContainer,

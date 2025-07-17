@@ -1,5 +1,5 @@
 import React from "react";
-import { Folder, MoreHorizontal, MoreVertical } from "react-feather";
+import { Folder, MoreHorizontal, MoreVertical } from 'lucide-react';
 import * as styles from './Project.module.css'
 
 const {

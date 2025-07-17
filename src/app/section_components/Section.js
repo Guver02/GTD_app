@@ -5,7 +5,7 @@ import { Task } from "../task_components/Task";
 import * as style from './Section.module.css'
 import { CreateTask } from "../task_components/CreateTask";
 import { ModalContext } from "../providers/ModalContext";
-import { MoreHorizontal, Plus } from "react-feather";
+import { MoreHorizontal, Plus } from 'lucide-react';
 import { HoverModal } from "../ui_components/HoverModal";
 import { SectionOptions } from "./SectionOptions";
 import { useSectionService } from "../../controllers/sectionController";

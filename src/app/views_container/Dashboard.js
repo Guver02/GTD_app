@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as styles from './Dashboard.module.css';
-import { Bell, Calendar, Plus, Search, Clock, FileText, Users, Flag, CheckCircle, XCircle, MinusCircle, Circle, AlertCircle, FastForward, LogOut, UserPlus, CalendarArrowDown, MoreVerticalIcon } from 'lucide-react'; // Importa más iconos según sea necesario
+import { FastForward, UserPlus } from 'lucide-react';
 import { useDataStore } from "../../store/data_store";
-import { useTaskService } from "../../controllers/taskController";
-import { FilterModal } from "../ui_components/FilterModal";
 import { jwtDecode } from "jwt-decode";
 import { ModalContext } from "../providers/ModalContext";
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
-import { useNavigate } from "react-router-dom";
-import { createAuthSesion } from "../../factories/createAuthSesion";
+import { HoverModal } from "../ui_components/HoverModal";
+import { ProfileOptions } from "../ui_components/ProfileOptions";
+import { TaskList } from "../task_components/TaskList";
+import { NextTask } from "../task_components/NextTask";
+import { FilterModal } from "../ui_components/FilterModal";
 import { AppConfigManager } from "../../manager/AppConfigManager";
-import { useAuthController } from "../../controllers/authController";
-
+import { useProjectByTaskID } from "../custom_hooks/useGetProject";
 
 const {
     dashboardContainer,
@@ -23,232 +23,128 @@ const {
     actionButtons,
     scheduleButton,
     createRequestButton,
-    widgetsContainer,
-    widget,
-    widgetHeader,
-    widgetBody,
-    notesList,
-    noteItem,
-    noteContainer,
-    circleIcon,
     userIcon,
-    bottomItem,
-    rigthBottom,
-    topItem,
-    topLeft,
-    topRight,
-    contentItem,
-    tittleItem,
-    progressContent
+    nextActionHeader,
+    nextActionContainer,
+    boardContainer,
+    listsContainer,
+    columnContainer,
+    columnTittle
 } = styles;
 
-function formatDate(dateISO) {
-    const date = new Date(dateISO);
-
-    return date.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
-}
-
-
 function Dashboard() {
-    const tasks = useDataStore(state => state.tasks)
-    console.log(tasks)
-    const [nextTasks, setNextTasks] = useState([])
-    const navigate = useNavigate()
-    const { logout } = useAuthController()
+    const tasks = useDataStore(state => state.tasks);
+    const sections = useDataStore(state => state.sections);
+    const projects = useDataStore(state => state.projects);
+    const [filters, setFilters] = useState([]);
+    const [filteredTaskIds, setFilteredTaskIds] = useState({
+        pending: [],
+        in_progress: [],
+        completed: [],
+    });
 
-    const [filters, setFilters] = useState([])
-    const { openModal } = useContext(ModalContext)
-
-    const addFilter = (unsectionedId, projectId) => {
-        setFilters((prev) => [
-            ...prev,
-            {
-                unsectionedId,
-                projectId
-            }])
-    }
-
-    const removeFilter = (projectId) => {
-        setFilters((prev) => prev.filter(elem => elem.projectId !== projectId))
-    }
-
-    const token = AppConfigManager.getToken()
+    const { openModal } = useContext(ModalContext);
+    const token = AppConfigManager.getToken();
     const decoded = jwtDecode(token);
 
+    const addFilter = (unsectionedId, projectId) => {
+        setFilters(prev => [...prev, { unsectionedId, projectId }]);
+    };
+
+    const removeFilter = (projectId) => {
+        setFilters(prev => prev.filter(elem => elem.projectId !== projectId));
+    };
 
     useEffect(() => {
-        if (filters.length > 0) {
-            const unsectionedFiltered = filters.map(elem => elem.unsectionedId)
-            setNextTasks(
-                Object.values(tasks)
-                    .filter(task => task.status === 'in_progress')
-                    .filter(elem => unsectionedFiltered.includes(elem.parent_id))
-            )
-        } else if (filters.length == 0) {
-            setNextTasks(
-                Object.values(tasks)
-                    .filter(task => task.status === 'in_progress'))
+        const tasksArray = Object.values(tasks).filter(t => t.is_next);
+        const pending = [];
+        const inProgress = [];
+        const completed = [];
+
+        for (const task of tasksArray) {
+            const section = sections[task.parent_id];
+            if (!section) continue;
+
+            const projectId = section.parent_id;
+            const project = projects[projectId];
+            if (!project) continue;
+
+            const isFiltered =
+                filters.length === 0 ||
+                filters.some(f => f.projectId === projectId);
+
+            if (!isFiltered) continue;
+
+            if (task.status === 'pending') pending.push(task);
+            else if (task.status === 'in_progress') inProgress.push(task);
+            else if (task.status === 'completed') completed.push(task);
         }
-    }, [filters, tasks])
 
-    const handleCreateTask = () => {
-        openModal(<CreateTask />)
-    }
+        const sortByOrder = arr => arr.sort((a, b) => a.order - b.order).map(t => t.id);
 
-    const handleCreateProject = () => {
-        openModal(<CreateProject />)
-    }
+        setFilteredTaskIds({
+            pending: sortByOrder(pending),
+            in_progress: sortByOrder(inProgress),
+            completed: sortByOrder(completed),
+        });
+    }, [filters, tasks, sections, projects]);
 
-    const logoutUser = () => {
-        /* const authSesion = createAuthSesion()
-        authSesion.logout()
-        navigate('/auth/login') */
 
-        logout()
-        navigate('/auth/login')
-    }
+    const handleCreateTask = () => openModal(<CreateTask />);
+    const handleCreateProject = () => openModal(<CreateProject />);
 
     return (
         <div className={dashboardContainer}>
-
             <header className={header}>
-
                 <div className={headerLeft}>
-                    <div className={userIcon}>
-                        <UserPlus />
-                    </div>
+                    <HoverModal
+                        ParentComponent={<div className={userIcon}><UserPlus /></div>}
+                        bubbleComponent={() => <ProfileOptions />}
+                        position="bottom"
+                    />
                     <div className={userWelcome}>
-                        <h1>{`${decoded.username}`}</h1>
+                        <h1>{decoded.username}</h1>
                         <p>Bienvenido de nuevo</p>
                     </div>
                 </div>
 
                 <div className={headerRight}>
-
                     <div className={actionButtons}>
-                        <button
-                            className={scheduleButton}
-                            onClick={handleCreateProject}>
-                            Create Project
-                        </button>
-                        <button
-                            className={createRequestButton}
-                            onClick={handleCreateTask}>
-                            Create Task
-                        </button>
+                        <button className={scheduleButton} onClick={handleCreateProject}>Create Project</button>
+                        <button className={createRequestButton} onClick={handleCreateTask}>Create Task</button>
                     </div>
-
                 </div>
             </header>
 
-            <div className={widgetsContainer}>
+            <div className={nextActionContainer}>
+                <div className={nextActionHeader}>
+                    <h3><FastForward size={16} className="inline-icon" />Next Actions</h3>
+                    <FilterModal
+                        addFilter={addFilter}
+                        removeFilter={removeFilter}
+                        filters={filters}
+                    />
+                </div>
 
-                <div className={widget}>
-
-                    <div className={widgetHeader}>
-                        <h3><FastForward size={16} className="inline-icon" />Next Actions</h3>
-
-
-                        <FilterModal
-                            addFilter={addFilter}
-                            removeFilter={removeFilter}
-                            filters={filters}
-                        />
-
-
-                    </div>
-
-                    <div className={widgetBody}>
-
-                        <div className={notesList}>
-                            {
-                                nextTasks.map((task) => (
-                                    <NextTaskItem key={task.id} taskId={task.id} />
-                                ))
-                            }
+                <div className={boardContainer}>
+                    <div className={listsContainer}>
+                        <div className={columnContainer}>
+                            <span className={columnTittle}>Pending</span>
+                            <TaskList taskIds={filteredTaskIds.pending} TaskComponent={NextTask} isMove={false} />
+                        </div>
+                        <div className={columnContainer}>
+                            <span className={columnTittle}>In Progress</span>
+                            <TaskList taskIds={filteredTaskIds.in_progress} TaskComponent={NextTask} isMove={false} />
+                        </div>
+                        <div className={columnContainer}>
+                            <span className={columnTittle}>Done</span>
+                            <TaskList taskIds={filteredTaskIds.completed} TaskComponent={NextTask} isMove={false} />
                         </div>
                     </div>
-
                 </div>
-
-
             </div>
-
         </div>
     );
-}
-
-function NextTaskItem({ taskId }) {
-    const task = useDataStore(state => state.tasks[taskId])
-    const sections = useDataStore(state => state.sections)
-    const projects = useDataStore(state => state.projects)
-    const [check, setCheck] = useState(task.status)
-    const { changeStatus } = useTaskService()
-    const date = formatDate(task.created_at);
-    const handleCheck = () => {
-        changeStatus(taskId, true)
-    }
-    const color = projects[sections[task.parent_id].parent_id].myColor.color;
-
-    return (
-        <div className={noteContainer}>
-            <div className={noteItem}>
-
-                <div className={topItem}>
-                    <div className={topLeft}>
-                        <span
-                        className={styles.noteTag}
-                        style={{
-                            backgroundColor: `rgba(${color},0.2)`,
-                            color: `rgba(${color},1)`,
-                        }}>
-
-                        {projects[sections[task.parent_id].parent_id].item_name}
-                    </span>
-                    </div>
-                    <div className={topRight}>
-                        <MoreVerticalIcon/>
-                    </div>
-                </div>
-
-
-                <div className={contentItem}>
-
-                    <div>
-                    <strong className={tittleItem}>{task.item_name}</strong>
-                    <p>{task.description}</p>
-                    </div>
-
-                    <div className={progressContent}>
-                    {check == 'in_progress' ?
-                        <Circle
-                            className={circleIcon}
-                            onClick={handleCheck}
-                        />
-                        :
-                        <AlertCircle
-                        />
-                    }
-                    </div>
-
-                </div>
-
-                <div className={bottomItem}>
-                    <div></div>
-                    <div className={rigthBottom}>
-                        <CalendarArrowDown />
-                        <span>{date}</span>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    )
 }
 
 export { Dashboard };
