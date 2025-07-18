@@ -1,0 +1,55 @@
+.badge {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--color-text-muted);
+  border-radius: 8px;
+  padding: 8 16px;
+  box-sizing: border-box;
+  gap: 0.5rem;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.newborn {
+  background-color: #c084fc;
+}
+
+.growing {
+  background-color: #4ade80;
+}
+
+.active {
+  background-color: #38bdf8;
+}
+
+.mature {
+  background-color: #22c55e;
+}
+
+.idle {
+  background-color: #facc15;
+}
+
+.forgotten {
+  background-color: #9ca3af;
+}
+
+.text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+}

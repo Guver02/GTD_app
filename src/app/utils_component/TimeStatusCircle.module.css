@@ -1,0 +1,34 @@
+.circle {
+  width: 34px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.green {
+  background-color: #22c55e;
+}
+
+.blue {
+  background-color: #38bdf8;
+}
+
+.yellow {
+  background-color: #facc15;
+}
+
+.orange {
+  background-color: #f97316;
+}
+
+.red {
+  background-color: #ef4444;
+}

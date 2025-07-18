@@ -1,9 +1,11 @@
 .taskContainer{
-    width: 700px;
-    max-width: 100%;
+    width: 100%;
+    max-height: 352px;
     box-sizing: border-box;
-    background-color: var(--color-background);
-    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: var(--color-text-muted);
 }
 .taskItem{
     width: 100%;
@@ -13,30 +15,149 @@
     justify-content: space-between;
     background-color: var(--color-background);
     box-sizing: border-box;
-    padding: 8px 16px;
     border-radius: 8px;
 }
 .taskContent{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 90%;
+    height: 100%;
+    padding: 0 16px 16px 16px;
+    box-sizing: border-box;
+    justify-content: space-between;
 }
-.optionsContainer{
-    gap: 8px;
-    height: 10%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-}
+
 .content{
     font-size: 18px;
     font-weight: bold;
+    padding-bottom: 8px;
 }
 .description{
-    font-size: 16px;
+    font-size: 12px;
+    color: gray;
+    font-weight: 600;
 }
 .iconsContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: start;
+}
 
+.optionsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid var(--color-text-muted);
+    box-sizing: border-box;
+    padding: 12px;
+    align-items: center;
+    border-radius: 8px;
+
+}
+.taskTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 16px;
+    align-items: center;
+}
+.projectContent{
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+.projectContent > svg{
+    width: 12px;
+    height: 12px;
+}
+.textContainer{
+    width: 100%;
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+}
+.quickActionsContainer{
+    width: 100%;
+    background-color: var(--color-text-muted);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.quickActionsContainer::-webkit-scrollbar{
+    height: 4px;
+}
+.quickActionsContainer::-webkit-scrollbar-thumb{
+    background-color: var(--color-text-muted);
+}
+
+
+.statusContent{
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+    height: min-content;
+    box-sizing: border-box;
+}
+.statusContent > svg{
+    width: 12px;
+    height: 12px;
+}
+.nextActionContainer{
+    color: gray;
+    font-size: 11px;
+
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.nextActionContainer > svg{
+    height: 12px;
+}
+
+
+
+.buttonList{
+display: flex;
+flex-direction: row;
+width: max-content;
+gap: 8px;
+}
+.actionButton {
+
+  display: flex;
+    flex-direction: row;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 12px;
+    width: max-content;
+  gap: 8px;
+}
+
+.actionButton:hover {
+  background-color: #e9ecef;
 }

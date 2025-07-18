@@ -1,8 +1,5 @@
 const config = require('../configuration/config')
 
-const USER = config.dbUser
-const PASSWORD = config.dbPassword
-
 module.exports = {
     development: {
         username: config.dbUser,

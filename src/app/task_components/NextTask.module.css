@@ -107,4 +107,27 @@
 .nextActionContainer > svg{
     height: 12px;
 }
+.moveIcons{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+.moveIcons .icon{
+    border-radius: 4px;
+    padding: 4px;
+
+    transition: background-color 0.5ms ease;
+}
+.icon > svg{
+    height: 14px;
+    width: 14px;
+    color: var(--color-text-muted);
+}
+.iconActive > svg{
+    color: var(--color-text-primary);
+}
+.iconActive:hover{
+    background-color: var(--color-text-muted);
+    cursor: pointer;
+}
 

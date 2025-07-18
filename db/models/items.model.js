@@ -31,9 +31,9 @@ const itemsSchema = {
         references: {
             model: ITEMS_TABLE,
             key: 'id',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
     },
     order: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -85,12 +85,12 @@ const itemsSchema = {
         allowNull: false,
         defaultValue: defaultValues.colorId,
         references: {
-          model: COLORS_TABLE,
-          key: 'id',
+            model: COLORS_TABLE,
+            key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'RESTRICT',
-      },
+    },
     activation_date: {
         type: DataTypes.DATE,
         allowNull: true,
@@ -99,13 +99,18 @@ const itemsSchema = {
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW ,
+        defaultValue: Sequelize.NOW,
     },
     updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW ,
+        defaultValue: Sequelize.NOW,
     },
+    is_next: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    }
 };
 
 class Items extends Model {
@@ -153,7 +158,7 @@ class Items extends Model {
                     const now = new Date();
                     if (!item.created_at) item.created_at = now;
                     if (!item.updated_at) item.updated_at = now;
-                  },
+                },
 
                 beforeUpdate: (item) => {
                     item.updated_at = new Date(); // Actualiza la fecha de actualización

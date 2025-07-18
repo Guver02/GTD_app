@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useDataStore } from "../../store/data_store";
 import * as style from './NextTask.module.css'
-import { CalendarArrowDown, CheckCircle, Circle, CircleCheck, CircleDashed, ClockFading, Folder, MoreHorizontal, MoreVertical, Sun } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarArrowDown, CheckCircle, ChevronLeft, ChevronRight, Circle, CircleCheck, CircleDashed, ClockFading, Folder, MoreHorizontal, MoreVertical, Sun } from 'lucide-react';
 import { ModalContext } from "../providers/ModalContext";
 import { ViewTask } from "./ViewTask";
 import { useSortable } from "@dnd-kit/sortable";
@@ -31,8 +31,22 @@ const {
     nextActionContainer,
     taskCenter,
     taskTop,
-    projectContent
+    projectContent,
+    moveIcons,
+    icon,
+    iconActive
 } = style
+
+const taskStatus = {
+    pending: 0,
+    in_progress: 1,
+    completed: 2,
+}
+const numbertoStatus = {
+    0: 'pending',
+    1: 'in_progress',
+    2: 'completed',
+}
 
 const NextTask = React.memo(({ taskId, isMove = true }) => {
     const {
@@ -45,10 +59,11 @@ const NextTask = React.memo(({ taskId, isMove = true }) => {
 
     const task = useDataStore((state) => state.tasks[taskId]);
     const project = useProjectByTaskID(task.id);
+    const [status, setStatus] = useState(taskStatus[task.status]);
 
     const { openModal } = useContext(ModalContext)
 
-    const {} = useTaskService()
+    const {changeStatus} = useTaskService()
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -59,6 +74,18 @@ const NextTask = React.memo(({ taskId, isMove = true }) => {
     const dateCreated = formatShortDate(task.created_at);
 
 
+    const moveTaskToPrev = () => {
+        if(status > taskStatus.pending){
+            setStatus((prevStatus) => prevStatus - 1)
+            changeStatus(taskId, numbertoStatus[status - 1])
+        }
+    }
+    const moveTaskToNext = () => {
+        if(status < taskStatus.completed){
+            setStatus((prevStatus) => prevStatus + 1)
+            changeStatus(taskId, numbertoStatus[status + 1])
+        }
+    }
 
     const handleClick = () => {
         openModal(<ViewTask
@@ -113,7 +140,7 @@ const NextTask = React.memo(({ taskId, isMove = true }) => {
                             {task.item_name}
                         </span>
                         <span className={description}>
-                            {task.order}
+                            {task.description}
                         </span>
 
                     </div>
@@ -122,16 +149,29 @@ const NextTask = React.memo(({ taskId, isMove = true }) => {
 
                 </div>
 
-                {task.is_next &&
+
                     <div className={iconsContainer}>
-                        <div></div>
+
                         <div className={nextActionContainer}>
                             <CalendarArrowDown/>
                             <span>{dateCreated}</span>
                         </div>
+
+                        <div className={moveIcons}>
+                            <div
+                            className={`${icon} ${status > taskStatus.pending ? iconActive : ''}`}
+                            onClick={moveTaskToPrev}>
+                                <ChevronLeft/>
+                            </div>
+                            <div
+                            className={`${icon} ${status < taskStatus.completed ? iconActive : ''}`}
+                            onClick={moveTaskToNext}>
+                                <ChevronRight/>
+                            </div>
+                        </div>
+
                     </div>
 
-                }
             </div>
 
         </div>

@@ -281,7 +281,7 @@ console.log(actLastOrder)
     }
 
     async updateItem(id, newData, userId) {
-        const itemEdited = this.itemsRepository.findOne({
+        const itemEdited = await this.itemsRepository.findOne({
             where: {
                 id: id,
                 user_id: userId,
@@ -293,7 +293,7 @@ console.log(actLastOrder)
 
         }
 
-        const newItem = this.itemsRepository.update(newData, {
+        const newItem = await this.itemsRepository.update(newData, {
             where: {
                 id: id,
                 user_id: userId
@@ -305,7 +305,7 @@ console.log(actLastOrder)
     }
 
     async updateStatusTodo(id, newData, userId) {
-        const itemEdited = this.itemsRepository.findOne({
+        const itemEdited = await this.itemsRepository.findOne({
             where: {
                 id: id,
                 user_id: userId,
@@ -318,12 +318,42 @@ console.log(actLastOrder)
 
         }
 
-        const newItem = this.itemsRepository.update(newData, {
+        const newItem = await this.itemsRepository.update(newData, {
+            where: {
+                id: id,
+                user_id: userId,
+                type_id: itemTypesIDS.todo
+            }
+        })
+
+        return (newItem)
+
+    }
+
+    async updateIsNext(id, newData, userId) {
+        const itemEdited = await this.itemsRepository.findOne({
+            where: {
+                id: id,
+                user_id: userId,
+            }
+        })
+
+        if (!itemEdited) {
+            throw new Error(boom.badData("The item does not exist"));
+
+        }
+
+        console.log(itemEdited ? true : false, newData);
+        console.log(JSON.stringify(itemEdited, null, 2));
+
+        const newItem = await this.itemsRepository.update(newData, {
             where: {
                 id: id,
                 user_id: userId
             }
         })
+
+        console.log(newItem)
 
         return (newItem)
 

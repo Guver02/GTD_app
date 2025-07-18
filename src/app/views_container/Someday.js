@@ -29,14 +29,17 @@ function Someday ({specialSomedayID}) {
     return (
         <div className={somedayView}>
             <div className={somedayContainer}>
+
             <span className={tittle}>Someday / Maybe</span>
             <div className={scrollableContainer}>
+
                 <div className={listContainer}>
                     {tasksSomeday.map((elem) =>
                         <SomedayTask key={elem.id} taskId={elem.id}/>
                     )
                     }
                 </div>
+
             </div>
             </div>
         </div>
