@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as style from "./ProfileOptions.module.css";
-import { User, LogOut, Settings } from "lucide-react";
+import { User, LogOut, Settings, Moon, Sun } from "lucide-react";
 import { useAuthController } from "../../controllers/authController";
 import { useNavigate } from "react-router-dom";
+import { ModalContext } from "../providers/ModalContext";
+import { ProfileView } from "./ProfileView";
+import { useTheme } from "../providers/ThemeContext";
 
 
 const {
@@ -13,8 +16,10 @@ const {
 } = style;
 
 function ProfileOptions({ }) {
+    const {theme, setTheme} = useTheme()
     const {logout} = useAuthController()
     const navigate = useNavigate()
+    const {openModal, closeModal} = useContext(ModalContext)
 
     const handleLogOut = async () => {
         navigate('/auth/login')
@@ -22,11 +27,12 @@ function ProfileOptions({ }) {
     };
 
     const handleProfile = () => {
+        openModal(<ProfileView/>);
 
     };
 
-    const handleConfig = () => {
-
+    const handleMoonMode = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark')
     };
 
     return (
@@ -41,9 +47,20 @@ function ProfileOptions({ }) {
                         </button>
                     </li>
                     <li>
-                        <button onClick={handleConfig}>
-                            <Settings />
-                            <span>Config</span>
+                        <button onClick={handleMoonMode}>
+                            {theme == 'light'
+                            ?
+                            <>
+                                <Moon/>
+                            <span>Moon Mode</span>
+                            </>
+                            :
+                            <>
+                            <Sun/>
+
+                            <span>Light Mode</span>
+                            </>
+                            }
                         </button>
                     </li>
                 </li>

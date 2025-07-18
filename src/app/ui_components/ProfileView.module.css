@@ -1,0 +1,97 @@
+.container {
+  width: 500px;
+  height: 740px;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: sans-serif;
+}
+
+.avatar {
+  background-color: var(--color-background-cool);
+  border-radius: 50%;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userInfo {
+  text-align: center;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.email {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.inputField {
+  font-size: 1rem;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  width: 250px;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.section {
+  width: 100%;
+}
+
+.sectionTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.sectionContent {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.passwordSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.passwordInput {
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

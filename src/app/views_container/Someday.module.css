@@ -1,10 +1,11 @@
-.somedayView{
+.somedayView {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 8px;
 }
-.somedayContainer{
+
+.somedayContainer {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -15,26 +16,21 @@
     background-color: var(--color-background);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-.tittle{
+
+.tittle {
     font-size: 22px;
     font-weight: bold;
     padding: 8px;
     color: var(--color-text-primary);
 }
-.scrollableContainer{
+
+.scrollableContainer {
     height: 100%;
-    overflow: scroll;
     width: 100%;
+    background-color: red;
 }
-.scrollableContainer::-webkit-scrollbar{
-    background-color: transparent;
-    width: 4px;
-}
-.scrollableContainer::-webkit-scrollbar-thumb{
-    background-color: var(--color-text-muted);
-    border-radius: 20px;
-}
-.listContainer{
+
+.listContainer {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -44,12 +40,25 @@
     box-sizing: border-box;
     gap: 16px;
     background-color: var(--color-background-cool);
+    overflow-x: scroll;
 }
+
+.listContainer::-webkit-scrollbar {
+    background-color: transparent;
+    width: 4px;
+}
+
+.listContainer::-webkit-scrollbar-thumb {
+    background-color: var(--color-text-muted);
+    border-radius: 20px;
+}
+
 @media (max-width: 768px) {
-    .somedayView{
+    .somedayView {
         padding: 0;
     }
-    .somedayContainer{
+
+    .somedayContainer {
         border-radius: 8px 8px 0 0;
     }
 }

@@ -45,6 +45,17 @@
     width: fit-content;
     font-weight: bold;
 }
+.userIcon{
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: grid;
+    place-content: center;
+}
+.userIcon:hover{
+    cursor: pointer;
+}
 @media (max-width: 768px) {
 
     .createButton{

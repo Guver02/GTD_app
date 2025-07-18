@@ -31,7 +31,7 @@ function Someday ({specialSomedayID}) {
             <div className={somedayContainer}>
 
             <span className={tittle}>Someday / Maybe</span>
-            <div className={scrollableContainer}>
+
 
                 <div className={listContainer}>
                     {tasksSomeday.map((elem) =>
@@ -40,7 +40,7 @@ function Someday ({specialSomedayID}) {
                     }
                 </div>
 
-            </div>
+
             </div>
         </div>
     )

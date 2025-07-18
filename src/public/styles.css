@@ -5,4 +5,8 @@ body {
 
     user-select: none;
     height: 100svh;
+
+}
+html, body {
+  transition: background-color 0.9s ease;
 }

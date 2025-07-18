@@ -2,7 +2,9 @@ import React, { useContext, useState } from 'react';
 import * as styles from './Navbar.module.css';
 import { ModalContext } from '../providers/ModalContext';
 import { MainPanel } from './MainPanel';
-import { Bell, Moon, Plus, User } from 'lucide-react';
+import { Bell, Moon, Plus, User, UserPlus } from 'lucide-react';
+import { HoverModal } from './HoverModal';
+import { ProfileOptions } from './ProfileOptions';
 
 const Navbar = () => {
     const {openModal} = useContext(ModalContext)
@@ -12,6 +14,7 @@ const Navbar = () => {
         navbarCenter,
         navbarRight,
         createButton,
+        userIcon
     } = styles;
 
     const handleCreate = () => {
@@ -32,17 +35,12 @@ const Navbar = () => {
 
             <div className={navbarRight}>
 
-                <button>
-                    <Bell/>
-                </button>
-
-                <button>
-                    <Moon/>
-                </button>
-
-                <button>
-                    <User/>
-                </button>
+                <HoverModal
+                        ParentComponent={<div className={userIcon}><UserPlus/></div>}
+                        bubbleComponent={() => <ProfileOptions />}
+                        position="bottom"
+                        alignment='end'
+                    />
 
             </div>
         </nav>

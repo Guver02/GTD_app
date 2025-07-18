@@ -1,4 +1,4 @@
-.taskContainer{
+.taskContainer {
     width: 100%;
     max-height: 352px;
     box-sizing: border-box;
@@ -7,7 +7,8 @@
     border-radius: 8px;
     background-color: var(--color-text-muted);
 }
-.taskItem{
+
+.taskItem {
     width: 100%;
     min-height: 200px;
     display: flex;
@@ -17,7 +18,8 @@
     box-sizing: border-box;
     border-radius: 8px;
 }
-.taskContent{
+
+.taskContent {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -27,17 +29,19 @@
     justify-content: space-between;
 }
 
-.content{
+.content {
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 8px;
 }
-.description{
+
+.description {
     font-size: 12px;
     color: gray;
     font-weight: 600;
 }
-.iconsContainer{
+
+.iconsContainer {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -45,7 +49,7 @@
     justify-content: start;
 }
 
-.optionsContainer{
+.optionsContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -57,7 +61,8 @@
     border-radius: 8px;
 
 }
-.taskTop{
+
+.taskTop {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -67,7 +72,8 @@
     gap: 16px;
     align-items: center;
 }
-.projectContent{
+
+.projectContent {
     border-radius: 4px;
     display: flex;
     flex-direction: row;
@@ -78,18 +84,21 @@
     padding: 4px 8px;
     box-sizing: border-box;
 }
-.projectContent > svg{
+
+.projectContent>svg {
     width: 12px;
     height: 12px;
 }
-.textContainer{
+
+.textContainer {
     width: 100%;
     min-height: 120px;
 
     display: flex;
     flex-direction: column;
 }
-.quickActionsContainer{
+
+.quickActionsContainer {
     width: 100%;
     background-color: var(--color-text-muted);
     border-radius: 8px;
@@ -98,15 +107,17 @@
     overflow-x: scroll;
     overflow-y: hidden;
 }
-.quickActionsContainer::-webkit-scrollbar{
+
+.quickActionsContainer::-webkit-scrollbar {
     height: 4px;
 }
-.quickActionsContainer::-webkit-scrollbar-thumb{
+
+.quickActionsContainer::-webkit-scrollbar-thumb {
     background-color: var(--color-text-muted);
 }
 
 
-.statusContent{
+.statusContent {
     border-radius: 4px;
     display: flex;
     flex-direction: row;
@@ -117,11 +128,13 @@
     height: min-content;
     box-sizing: border-box;
 }
-.statusContent > svg{
+
+.statusContent>svg {
     width: 12px;
     height: 12px;
 }
-.nextActionContainer{
+
+.nextActionContainer {
     color: gray;
     font-size: 11px;
 
@@ -130,34 +143,37 @@
     flex-direction: row;
     align-items: center;
 }
-.nextActionContainer > svg{
+
+.nextActionContainer>svg {
     height: 12px;
 }
 
 
 
-.buttonList{
-display: flex;
-flex-direction: row;
-width: max-content;
-gap: 8px;
+.buttonList {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    gap: 8px;
+    border-radius: 8px;
 }
+
 .actionButton {
 
-  display: flex;
+    display: flex;
     flex-direction: row;
-  align-items: center;
-  padding: 10px 12px;
-  background-color: #f8f9fa;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 12px;
+    align-items: center;
+    padding: 10px 12px;
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 12px;
     width: max-content;
-  gap: 8px;
+    gap: 8px;
 }
 
 .actionButton:hover {
-  background-color: #e9ecef;
+    background-color: #e9ecef;
 }

@@ -290,13 +290,7 @@ function ClarifyModal ({taskID, onComplete, stepNumber = 1, totalSteps = 1}) {
                         <span>Lo aclaro despues</span>
                         <Clock/>
                     </div>
-                    <div
-                    className={optionButton}
-                    onClick={handleLater}
-                    >
-                        <span>Lo necesito luego</span>
-                        <Calendar/>
-                    </div>
+
                     <div
                     className={optionButton}
                     onClick={handleReference}

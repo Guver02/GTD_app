@@ -1,26 +1,52 @@
+
+/* Light Mode */
 :root {
-  --color-primary: rgba(0, 122, 255, 1);            /* Azul brillante de botones e íconos activos */
-  --color-primary-medium: rgba(56, 132, 255, 1);     /* Azul intermedio (hover o ítems activos) */
-  --color-primary-light: rgba(221, 235, 255, 1);     /* Azul claro de fondo seleccionado */
+    --color-primary: rgba(0, 122, 255, 1);
+    --color-primary-medium: rgba(56, 132, 255, 1);
+    --color-primary-light: rgba(221, 235, 255, 1);
 
-  --color-background-inverted: rgb(51, 51, 51);
-  --color-background: rgba(255, 255, 255, 1);  /* Fondo principal */
-  --color-background-cool:#f0f4f8; /*f5f7fa*/
-  --color-background-grayish:#eeeeee;
+    --color-background-inverted: rgb(51, 51, 51);
+    --color-background: rgba(255, 255, 255, 1);
+    --color-background-cool: #f0f4f8;
+    --color-background-grayish: #eeeeee;
 
+    --color-secondary: rgba(102, 108, 255, 1);
+    --color-secondary-medium: rgba(142, 147, 255, 1);
+    --color-secondary-light: rgba(142, 147, 255, 0.3);
 
-  --color-secondary: rgba(102, 108, 255, 1);         /* Morado azulado (botón Add Customer) */
-  --color-secondary-medium: rgba(142, 147, 255, 1);  /* Hover / estados intermedios */
-  --color-secondary-light: rgba(142, 147, 255, 0.3); /* Estados suaves */
-
-  --color-text-primary: #0f172a;                     /* Azul oscuro grisáceo: texto principal */
-  --color-text-secondary: #64748b;                   /* Gris medio: etiquetas, columnas */
-  --color-text-muted: #e2e8f0;                       /* Gris muy claro: bordes o desactivados */
-  --color-text-inverted: #ffffff;                    /* Blanco: íconos sobre fondo oscuro */
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #64748b;
+    --color-text-muted: #e2e8f0;
+    --color-text-inverted: #ffffff;
 
     --color-red: #ff0000;
+    --color-success: rgba(34, 197, 94, 1);
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+}
 
-  --color-success: rgba(34, 197, 94, 1);              /* Verde éxito */
-  --color-error: #ef4444;                            /* Rojo de error o eliminado */
-  --color-warning: #f59e0b;                          /* Amarillo de advertencia */
+/* Dark Mode */
+.dark {
+    --color-primary: rgba(0, 122, 255, 1);
+    --color-primary-medium: rgba(56, 132, 255, 1);
+    --color-primary-light: rgba(221, 235, 255, 1);
+
+    --color-secondary: rgba(102, 108, 255, 1);
+    --color-secondary-medium: rgba(142, 147, 255, 1);
+    --color-secondary-light: rgba(142, 147, 255, 0.3);
+    --color-red: #ff0000;
+
+    --color-success: rgba(34, 197, 94, 1);
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+
+    --color-background-inverted: rgb(245, 245, 245);
+    --color-background: rgb(24, 24, 24);
+    --color-background-cool: rgb(28, 28, 30);
+    --color-background-grayish: rgb(45, 45, 45);
+
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #475569;
+    --color-text-inverted: #000000;
 }

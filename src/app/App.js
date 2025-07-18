@@ -10,6 +10,7 @@ import { SpinnerLoading } from "./ui_components/SpinnerLoading"
 import { ModalProvider } from "./providers/ModalContext"
 import { GlobalTooltipProvider } from "./providers/GlobalTooltip"
 import { useAuthController } from "../controllers/authController"
+import { ThemeProvider } from "./providers/ThemeContext"
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
     return (
         <GlobalTooltipProvider>
         <ModalProvider>
+            <ThemeProvider>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/auth/*" element={
@@ -52,6 +54,7 @@ function App() {
                     ></Route>
                 </Route>
             </Routes>
+            </ThemeProvider>
         </ModalProvider>
         </GlobalTooltipProvider>
     )

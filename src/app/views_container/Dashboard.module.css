@@ -62,29 +62,6 @@
     align-items: center;
     gap: 15px;
 }
-.actionButtons{
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-}
-
-.scheduleButton,
-.createRequestButton {
-    background-color: var(--color-primary);
-    color: white;
-    border: 1px solid var(--color-text-inverted);
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    gap: 6px;
-
-    transition: background-color 0.5s ease;
-}
 .scheduleButton:hover,
 .createRequestButton:hover {
     cursor: pointer;
@@ -190,14 +167,17 @@
     .dashboardContainer{
     padding: 0;
     }
-    .boardContainer{
-        height: calc(100vh); /*62px = sidebar + padding*/
+    .nextActionContainer{
+        height: calc(100svh - 64px);/*64px = sidebarHeight - aplicationCOntainerPadding*2*/
     }
     .columnContainer{
         flex: 0 0 calc(100vw - 48px);/*36px = nextActionPadding*2 + aplicationCOntainerPadding*2*/
     }
     .header{
         flex-direction: column;
+    }
+    .columnTittle{
+        width: 100%;
     }
 
 }

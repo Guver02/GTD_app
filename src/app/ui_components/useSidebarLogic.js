@@ -17,8 +17,8 @@ function useSidebarLogic() {
         { icon: <Inbox />, label: 'Inbox', path: '/app/inbox', key: 'inbox' },
         { icon: <Grid />, label: 'Dashboard', path: '/app/dashboard', key: 'dashboard' },
         { icon: <Coffee />, label: 'Someday', path: '/app/someday', key: 'someday' },
-        { icon: <Archive />, label: 'Tracking File', path: '/app/traking-file', key: 'traking-file' },
-        { icon: <UserCheck />, label: 'Waiting', path: '/app/waiting', key: 'waiting' },
+        /**{ icon: <Archive />, label: 'Tracking File', path: '/app/traking-file', key: 'traking-file' },
+        { icon: <UserCheck />, label: 'Waiting', path: '/app/waiting', key: 'waiting' }, */
         { icon: <FileText />, label: 'Reference File', path: '/app/reference-file', key: 'reference-file' },
     ];
 

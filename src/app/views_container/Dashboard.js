@@ -89,10 +89,6 @@ function Dashboard() {
         });
     }, [filters, tasks, sections, projects]);
 
-
-    const handleCreateTask = () => openModal(<CreateTask />);
-    const handleCreateProject = () => openModal(<CreateProject />);
-
     return (
         <div className={dashboardContainer}>
             <header className={header}>
@@ -109,10 +105,7 @@ function Dashboard() {
                 </div>
 
                 <div className={headerRight}>
-                    <div className={actionButtons}>
-                        <button className={scheduleButton} onClick={handleCreateProject}>Create Project</button>
-                        <button className={createRequestButton} onClick={handleCreateTask}>Create Task</button>
-                    </div>
+
                 </div>
             </header>
 
