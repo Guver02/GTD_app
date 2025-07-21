@@ -7,16 +7,18 @@
   padding: 8 16px;
   box-sizing: border-box;
   gap: 0.5rem;
+  color: var(--color-text-primary);
 }
 
 .circle {
   width: 16px;
   height: 16px;
+  padding: 4px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #fff;
 }
 
 .icon {
@@ -51,5 +53,5 @@
 .text {
   font-size: 12px;
   font-weight: 500;
-  color: #334155;
+  color: var(--color-text-primary);
 }

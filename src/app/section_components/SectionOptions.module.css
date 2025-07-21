@@ -7,6 +7,8 @@
     border-radius: 2px;
     min-height: 200px;
     position: relative;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
 }
 .sectionOptionsList{
     display: flex;
@@ -30,6 +32,6 @@
 }
 .sectionOptionsList li:hover{
     cursor: pointer;
-    background-color: lightgray;
+    background-color: var(--color-background-cool);
 }
 

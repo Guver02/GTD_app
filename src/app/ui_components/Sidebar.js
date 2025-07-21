@@ -5,6 +5,7 @@ import { HoverModal } from './HoverModal';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
 import { useWidth } from '../custom_hooks/useWidth';
 import { useSidebarLogic } from './useSidebarLogic';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const {
     sidebar,
@@ -33,6 +34,7 @@ const Sidebar = () => {
     } = useSidebarLogic()
 
     const { width } = useWidth();
+    const {translation} = useLanguage()
 
     return (
 
@@ -57,7 +59,7 @@ const Sidebar = () => {
                 onClick={handleSearch}
             >
                 <Search />
-                {isExpanded && <div className={menuText}>Quick Search</div>}
+                {isExpanded && <div className={menuText}>{translation.search}</div>}
             </div>
 
             <div
@@ -65,7 +67,7 @@ const Sidebar = () => {
                 onClick={handleClarify}
             >
                 <ArrowDownCircle />
-                {isExpanded && <div className={menuText}>Clarify</div>}
+                {isExpanded && <div className={menuText}>{translation.clarify}</div>}
             </div>
 
             {isExpanded && <div className={menuText}>Menu</div>}
@@ -75,7 +77,7 @@ const Sidebar = () => {
                 onClick={showProjects}
             >
                 <Briefcase />
-                {isExpanded && <div className={menuText}>Projects</div>}
+                {isExpanded && <div className={menuText}>{translation.projects}</div>}
             </div>
 
             {menuItems.map(({ icon, label, path, key }) => (

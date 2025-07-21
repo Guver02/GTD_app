@@ -4,6 +4,7 @@ import { useTaskService } from "../../controllers/taskController";
 import * as styles from "./CreateTask.module.css"
 import { ProjectsModal } from "../projects_components/ProjectsModal";
 import { useDataStore } from "../../store/data_store";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     container,
@@ -28,9 +29,8 @@ function CreateTask({ projectId, sectionId }) {
     const [selectedColor, setSelectedColor] = useState(availableColors[0]);
     const { createTask } = useTaskService()
     const { closeModal } = useContext(ModalContext)
+    const {translation} = useLanguage()
 
-
-    console.log('colors',availableColors)
     const prevState = {
         projectId: projectId || inbox.id,
         sectionId: sectionId || unsections[inbox.id].id,
@@ -80,7 +80,7 @@ function CreateTask({ projectId, sectionId }) {
         onKeyDown={handleEnterKey}
     >
 
-        <h2 className={topTittle}>Crear Nueva Tarea</h2>
+        <h2 className={topTittle}>{translation.createNewTask}</h2>
 
         <div className={formEdit}>
 
@@ -95,21 +95,21 @@ function CreateTask({ projectId, sectionId }) {
             <input
                 className={tittle}
                 id="inputFocus"
-                placeholder="Contenido"
+                placeholder={translation.newTask}
                 autoComplete="off"
                 value={state.itemName}
                 onChange={(e) => setState((state) => ({ ...state, itemName: e.target.value }))}
             />
             <input
                 className={formDescription}
-                placeholder="Detalles"
+                placeholder={translation.details}
                 autoComplete="off"
                 value={state.description}
                 onChange={(e) => setState((state) => ({ ...state, description: e.target.value }))}
             />
 
             <div className={colorSelectorContainer}>
-                <label>Color:</label>
+                <label>{`${translation.color}:`}</label>
                 <div>
                     {availableColors &&
                         availableColors.map((elem) => (
@@ -136,12 +136,12 @@ function CreateTask({ projectId, sectionId }) {
                 className={cancelButton}
                 onClick={closeModal}
             >
-                <span className={buttonText}>Cancelar</span>
+                <span className={buttonText}>{translation.cancel}</span>
             </button>
             <button
                 className={confirmButton}
                 onClick={handleCreate}>
-                <span className={buttonText}>Guardar</span>
+                <span className={buttonText}>{translation.save}</span>
             </button>
             </div>
         </div>

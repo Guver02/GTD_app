@@ -38,7 +38,7 @@
     cursor: pointer;
 }
 .iconTittle:hover{
-    background-color: lightgray;
+    background-color: var(--color-background-cool);
 }
 
 .createInSection{
@@ -71,6 +71,8 @@
     gap: 8px;
 }
 .editModeInput{
+    background-color: var(--color-background-cool);
+    color: var(--color-text-primary);
     width: 100%;
     font-weight: bold;
     font-family: inherit;
@@ -81,6 +83,9 @@
     border: none;
     border-bottom: 1px solid var(--color-text-secondary);
 }
+.editModeInput::placeholder{
+    color: var(--color-background-grayish);
+}
 .editModeInput:focus{
     border: none !important;
 }
@@ -89,7 +94,7 @@
     border-radius: 4px;
     border: none;
     background-color: var(--color-primary);
-    color: var(--color-text-inverted);
+    color: var(--color-button-text);
 }
 .confirmButton:hover{
     cursor: pointer;
@@ -99,11 +104,12 @@
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
-    background-color: lightgray;
+    background-color: var(--color-other-button);
+    color: var(--color-other-button-text);
 }
 .cancelButton:hover{
     cursor: pointer;
-    background-color: rgba(211, 211, 211, 0.8);
+    background-color: var(--color-other-button-hover);
 }
 .editModeButtons{
     display: flex;

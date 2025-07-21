@@ -5,6 +5,7 @@ import { Project } from './Project';
 import { ModalContext } from '../providers/ModalContext';
 import { CreateProject } from './CreateProject';
 import { Plus } from 'lucide-react';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const {
     projectsListContainer,
@@ -17,6 +18,7 @@ function ProjectListModal({onClickProject}) {
     const projects = useDataStore((state) => state.projects)
     const arrFolders = Object.values(projects)
     .filter(project => project.special_type_id == null)
+    const {translation} = useLanguage()
     const {openModal} = useContext(ModalContext)
 
     const handleCreate = () => {
@@ -28,7 +30,7 @@ function ProjectListModal({onClickProject}) {
     className={projectsListContainer}>
 
         <span className={projectListTittle}>
-            {`${arrFolders.length} proyectos`}
+            {`${arrFolders.length} ${translation.projects}`}
         </span>
 
       <ul className={projectsList}>
@@ -45,7 +47,7 @@ function ProjectListModal({onClickProject}) {
         onClick={handleCreate}
         >
             <Plus/>
-            <span>Crear Proyecto</span>
+            <span>{translation.createProject}</span>
         </li>
 
       </ul>

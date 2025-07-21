@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Filter, Folder } from 'lucide-react';
 import { useDataStore } from "../../store/data_store";
 import * as styles from './FilterModal.module.css';
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     filterModalContainer,
@@ -21,6 +22,7 @@ function FilterModal({ addFilter, removeFilter, filters }) {
     const projects = useDataStore(state => state.projects)
     const arrProjectswithSpecial = Object.values(projects)
     const arrProjects = arrProjectswithSpecial.filter((elem) => elem.special_type_id == null)
+    const {translation} = useLanguage()
     const [isOpenModal, setIsOpenModal] = useState(false)
 
     return (
@@ -38,7 +40,7 @@ function FilterModal({ addFilter, removeFilter, filters }) {
                     className={iconFilter}
                 />
 
-                <span>Filter</span>
+                <span>{translation.filters}</span>
 
 
             </div>
@@ -47,7 +49,7 @@ function FilterModal({ addFilter, removeFilter, filters }) {
                 <div
                     className={filterList}
                 >
-                    <span className={listTittle}>Folders</span>
+                    <span className={listTittle}>{translation.projects}</span>
                     {
                         arrProjects.map((project) => (
                             <ProjectCheck

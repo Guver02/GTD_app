@@ -1,112 +1,110 @@
-  .formContainer {
-      background-color: var(--color-background);
-      /* Fondo claro */
-      color: #212529;
-      /* Texto oscuro */
-      padding: 20px;
-      border-radius: 8px;
-      width: 400px;
-      max-width: 100%;
-      box-sizing: border-box;
-  }
+.formContainer {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-  .formContainer h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      color: #343a40;
-  }
+.formContainer h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--color-text-primary);
+}
 
-  .inputTittle,
-  .inputDescription {
-      width: calc(100% - 20px);
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      background-color: #fff;
-      color: #495057;
-      box-sizing: border-box;
-  }
+.inputTittle,
+.inputDescription {
+    font-family: inherit;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-background-cool);
+    color: var(--color-text-primary);
+    box-sizing: border-box;
+}
 
-  .inputTittle::placeholder,
-  .inputDescription::placeholder {
-      color: #6c757d;
-  }
+.inputTittle::placeholder,
+.inputDescription::placeholder {
+    font-family: inherit;
+    color: var(--color-background-grayish);
+}
 
-  .colorSelectorContainer {
-      margin-bottom: 15px;
-  }
+.colorSelectorContainer {
+    margin-bottom: 15px;
+}
 
-  .colorSelectorContainer label {
-      display: block;
-      margin-bottom: 5px;
-      color: #343a40;
-  }
+.colorSelectorContainer label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-text-primary);
+}
 
-  .colorSelectorContainer div {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-  }
+.colorSelectorContainer div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
 
-  .colorCircle {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-  }
+.colorCircle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
 
-  .colorCircle:hover {
-      border-color: #007bff;
-      /* Resaltar al pasar el ratón */
-  }
+.colorCircle:hover {
+    border-color: var(--color-primary);
+}
 
-  .selectedColorCircle {
-      border-color: #007bff;
-      /* Indicador de selección */
-      box-shadow: 0 0 0 2px #007bff;
-      /* Añadir un resplandor sutil */
-  }
+.selectedColorCircle {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
 
-  .actionsContainer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-  }
+.actionsContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
-  .cancelButton,
-  .createButton {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: opacity 0.3s ease;
-  }
+.cancelButton,
+.createButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
 
-  .cancelButton {
-      background-color: #e9ecef;
-      color: #495057;
-      border: 1px solid #ced4da;
-  }
+.cancelButton {
+    background-color: var(--color-other-button);
+    color: var(--color-other-button-text);
+    font-family: inherit;
+}
 
-  .cancelButton:hover {
-      opacity: 0.8;
-  }
+.cancelButton:hover {
+    background-color: var(--color-other-button-hover);
+}
 
-  .createButton {
-      background-color: #007bff;
-      color: #fff;
-  }
+.createButton {
+    font-family: inherit;
+    background-color: var(--color-primary);
+    color: var(--color-button-text);
+}
 
-  .createButton:hover {
-      opacity: 0.8;
-  }
+.createButton:hover {
+    opacity: 0.8;
+}
 
-  .createButton:disabled {
-      background-color: #6c757d;
-      cursor: not-allowed;
-      opacity: 0.6;
-  }
+.createButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

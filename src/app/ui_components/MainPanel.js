@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as style from './MainPanel.module.css';
 import { CreateTask } from '../task_components/CreateTask';
 import { CreateProject } from '../projects_components/CreateProject';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const {
   container,
@@ -17,8 +18,14 @@ const tabComponents = {
 };
 
 function MainPanel() {
-  const [activeTab, setActiveTab] = useState('Task')
-  const ActiveComponent = tabComponents[activeTab]
+  const [activeTab, setActiveTab] = useState('Task');
+  const ActiveComponent = tabComponents[activeTab];
+  const { translation } = useLanguage();
+
+  const tabLabels = {
+    Task: translation.createTask || 'Task',
+    Project: translation.createProject || 'Project',
+  };
 
   return (
     <div className={container}>
@@ -29,7 +36,7 @@ function MainPanel() {
             onClick={() => setActiveTab(tabKey)}
             className={`${tabButton} ${activeTab === tabKey ? activeTabButton : ''}`}
           >
-            {tabKey}
+            {tabLabels[tabKey]}
           </button>
         ))}
       </div>

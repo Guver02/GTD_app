@@ -7,6 +7,7 @@ import { ArrowDown, ChevronDown, ChevronsDown, CornerDownRight, Folder, Hash, In
 import { ModalContext } from "../providers/ModalContext";
 //import { DataContext } from "../../providers/DataContext";
 import { CreateProject } from '../projects_components/CreateProject'
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const { sectionItem, itemInbox, folderDataItem, subModalContainer, button, positionContainer,
     iconContainer,
@@ -16,7 +17,7 @@ const { sectionItem, itemInbox, folderDataItem, subModalContainer, button, posit
 function ProjectsModal({ functions, values }) {
     const { changeFolderSection } = functions
     const { projectId, sectionId } = values
-
+    const {translation} = useLanguage()
     const projects = useDataStore((state) => state.projects, shallow)
     const sections = useDataStore((state) => state.sections)
 
@@ -144,7 +145,7 @@ function ProjectsModal({ functions, values }) {
                         onClick={handleCreate}
                     >
                         <Plus />
-                        <span>Crear Proyecto</span>
+                        <span>{translation.createProject}</span>
                     </div>
 
                 </div>

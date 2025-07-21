@@ -9,6 +9,7 @@ import { MoreHorizontal, Plus } from 'lucide-react';
 import { HoverModal } from "../ui_components/HoverModal";
 import { SectionOptions } from "./SectionOptions";
 import { useSectionService } from "../../controllers/sectionController";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {sectionContainer,
     sectionTittleContainer,
@@ -30,7 +31,7 @@ const Section = React.memo(({sectionID}) => {
     const unsectionsByProject = useDataStore(state => state.unsectionsByProject)
 
     const tasks = useDataStore((state) => state.tasks);
-
+    const {translation} = useLanguage()
     const [showEditMode, setShowEditMode] = useState(false)
     const [input, setInput] = useState(section.item_name)
 
@@ -70,7 +71,7 @@ const Section = React.memo(({sectionID}) => {
                     <div className={sectionEditMode}>
                         <input
                         className={editModeInput}
-                        placeholder="Tu Sección"
+                        placeholder={translation.nameSection}
                         value={input}
                         onChange={(e) => {setInput(e.target.value)}}
                         />
@@ -79,11 +80,11 @@ const Section = React.memo(({sectionID}) => {
                             <button
                             className={cancelButton}
                             onClick={() => setShowEditMode(false)}
-                            >Cancelar</button>
+                            >{translation.cancel}</button>
                             <button
                             className={confirmButton}
                             onClick={handleEditSection}
-                            >Guardar</button>
+                            >{translation.save}</button>
                         </div>
 
                     </div>
@@ -104,7 +105,8 @@ const Section = React.memo(({sectionID}) => {
                         closeOptions={closeModal}
                         editMode={setShowEditMode}
                         />)}
-                        position='botton'
+                        position='bottom'
+                        alignment="end"
                         gap={4}/>
                     </div>
 
@@ -123,24 +125,10 @@ const Section = React.memo(({sectionID}) => {
             onClick={openCreateForm}
             >
                 <Plus className={redIcon}/>
-                <span>Añadir tarea</span>
+                <span>{translation.addTask}</span>
             </div>
         </div>
     )
 });
 
 export {Section}
-
-//section.order !== 0
-
-/**
- *         <HoverModal
-        ParentComponent={<MoreVertical/>}
-        BubbleComponent={(({setShowOptions}) => (
-        <TaskOptions
-        id={taskId}
-        functions={{edit, closeOptions: () => {setShowOptions(false)}}} />))}
-        position='left'
-        gap={0}
-        />
- */

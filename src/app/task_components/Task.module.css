@@ -84,7 +84,7 @@
 }
 .description{
     font-size: 12px;
-    color: gray;
+    color: var(--color-background-grayish);
 }
 .moveIcon:hover .taskContainer{
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
@@ -108,7 +108,7 @@
     align-items: center;
 }
 .nextActionContainer{
-    color: gray;
+    color: var(--color-background-grayish);
     font-size: 11px;
 
     font-weight: 600;

@@ -5,9 +5,11 @@ import { MainPanel } from './MainPanel';
 import { Bell, Moon, Plus, User, UserPlus } from 'lucide-react';
 import { HoverModal } from './HoverModal';
 import { ProfileOptions } from './ProfileOptions';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const Navbar = () => {
     const {openModal} = useContext(ModalContext)
+    const {translation} = useLanguage()
 
     const {
         navbar,
@@ -28,7 +30,7 @@ const Navbar = () => {
                 <button
                 className={createButton}
                 onClick={handleCreate}>
-                    <span>Create</span>
+                    <span>{translation.create}</span>
                     <Plus/>
                 </button>
             </div>

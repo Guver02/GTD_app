@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     padding: 8px;
+    box-sizing: border-box;
 }
 
 .somedayContainer {
@@ -24,11 +25,7 @@
     color: var(--color-text-primary);
 }
 
-.scrollableContainer {
-    height: 100%;
-    width: 100%;
-    background-color: red;
-}
+
 
 .listContainer {
     display: flex;

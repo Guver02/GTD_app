@@ -20,6 +20,7 @@ import { StatusOptions } from "./StatusOptions";
 import { HoverModal } from "../ui_components/HoverModal";
 import { TimeStatusCircle } from "../utils_component/TimeStatusCircle";
 import { LifeCycleBadge } from "../utils_component/LifeCycleBadge,";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     taskContainer,
@@ -50,6 +51,7 @@ const SomedayTask = React.memo(({ taskId, isMove = true }) => {
     const { openModal } = useContext(ModalContext)
     const task = useDataStore((state) => state.tasks[taskId]);
     const { changeStatus } = useTaskService()
+    const {translation} = useLanguage()
 
     const dateCreated = formatShortDate(task.created_at);
 
@@ -135,7 +137,7 @@ const SomedayTask = React.memo(({ taskId, isMove = true }) => {
                             {task.item_name}
                         </span>
                         <span className={description}>
-                            {task.description || 'Esribe una descripción aquí...'}
+                            {task.description || translation.writeDescription}
                         </span>
                     </div>
 
@@ -166,55 +168,49 @@ const SomedayTask = React.memo(({ taskId, isMove = true }) => {
                     <button className={actionButton}>
                         <MoveVertical size={16} />
 
-                        <span>        Mover a
+                        <span>        {translation.moveTo}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <Sun size={16} />
 
-                        <span>        Aclarar
+                        <span>        {translation.clarify}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <Trash size={16} />
 
-                        <span>        Eliminar
+                        <span>        {translation.delete}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <Edit size={16} />
 
-                        Editar
+                        {translation.edit}
                         <span>
                         </span>      </button>
                     <button className={actionButton}>
                         <Copy size={16} />
 
-                        <span>        Duplicar
+                        <span>        {translation.duplicate}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <CheckSquare size={16} />
 
-                        <span>        Marcar como completada
+                        <span>        {translation.markAsDone}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <Flag size={16} />
 
-                        <span>        Prioridad
-                        </span>
-                    </button>
-                    <button className={actionButton}>
-                        <Clock size={16} />
-
-                        <span>        Agendar
+                        <span>        {translation.prioritize}
                         </span>
                     </button>
                     <button className={actionButton}>
                         <Archive size={16} />
 
-                        <span>        Archivar
+                        <span>        {translation.archive}
                         </span>
                     </button>
                 </div>

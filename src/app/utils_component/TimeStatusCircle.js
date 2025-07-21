@@ -8,8 +8,10 @@ import {
 } from "lucide-react";
 
 import * as styles from "./TimeStatusCircle.module.css";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 export function TimeStatusCircle({ createdAt }) {
+    const {translation} = useLanguage()
   const { circle, icon, green, blue, yellow, orange, red } = styles;
 
   const createdDate = new Date(createdAt);
@@ -38,7 +40,7 @@ export function TimeStatusCircle({ createdAt }) {
   }
 
   return (
-    <div className={`${circle} ${colorClass}`} title={`Creado el ${createdDate.toLocaleString()}`}>
+    <div className={`${circle} ${colorClass}`} title={`${translation.createdAt} ${createdDate.toLocaleString()}`}>
       <Icon className={icon} />
     </div>
   );

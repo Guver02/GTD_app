@@ -3,6 +3,7 @@ import * as style from './CreateProject.module.css'; // Importa los estilos dese
 import { useDataStore } from '../../store/data_store';
 import { ModalContext } from '../providers/ModalContext';
 import { useProjectService } from '../../controllers/projectController';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const {
   formContainer,
@@ -18,6 +19,7 @@ const {
 
 function CreateProject() {
     const { closeModal } = useContext(ModalContext)
+    const {translation} = useLanguage()
     const {createProject} = useProjectService()
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
@@ -44,22 +46,22 @@ function CreateProject() {
   return (
 
       <div className={formContainer}>
-        <h2>Crear Nuevo Proyecto</h2>
+        <h2>{translation.newProject}</h2>
         <input
           type="text"
           className={inputTittle}
-          placeholder="Nombre del Proyecto"
+          placeholder={translation.projectName}
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
         />
         <textarea
           className={inputDescription}
-          placeholder="Descripción"
+          placeholder={translation.description}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className={colorSelectorContainer}>
-          <label>Color:</label>
+          <label>{`${translation.color}:`}</label>
           <div>
             {availableColors &&
               availableColors.map((elem) => (
@@ -77,7 +79,7 @@ function CreateProject() {
         </div>
         <div className={actionsContainer}>
           <button type="button" className={cancelButton} onClick={closeModal}>
-            Cancelar
+            {translation.cancel}
           </button>
           <button
             type="button"
@@ -85,7 +87,7 @@ function CreateProject() {
             onClick={handleCreate}
             disabled={!projectName}
           >
-            Guardar
+            {translation.save}
           </button>
         </div>
       </div>

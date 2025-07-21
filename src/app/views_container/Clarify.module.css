@@ -4,32 +4,34 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    font-family: sans-serif; /* Establecer una fuente base */
-    color: #333; /* Color de texto base */
-    background-color: #fff;
+    font-family: inherit;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
     border-radius: 8px;
     width: 700px;
     max-width: 100%;
     max-height: calc(100dvh - 20%);
     overflow: auto;
     box-sizing: border-box;
-  }
+}
 
-.headerContainer{
+.headerContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+
 }
+
 .cancelButton {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px 12px;
     border: none;
-    background-color: #e0e0e0;
-    color: #757575;
+    background-color: var(--color-other-button);
+    color: var(--color-other-button-text);
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
@@ -37,206 +39,126 @@
 }
 
 .cancelButton:hover {
-    background-color: #bdbdbd;
+    background-color: var(--color-other-button-hover);
 }
 
-  .progressContainer {
+.progressContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
-  }
+}
 
-  .circleProgress {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #e0e0e0; /* Gris claro para el fondo del círculo */
-    border-left-color: #1976d2; /* Azul primario para el progreso */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #333;
-    margin-right: 15px;
-    position: relative;
-  }
 
-  .circleProgress::before {
-    content: "3 of 6";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 
-  /* Simular el arco de progreso */
-  .circleProgress::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: #1976d2;
-    transform: rotate(-90deg); /* Iniciar el arco desde la parte superior */
-    clip-path: polygon(50% 50%, 0 0, 0 100%, 50% 100%, 50% 0); /* Simular la parte completada */
-  }
 
-  .actData {
+.actData {
     display: flex;
     flex-direction: column;
-  }
+    color: inherit;
+    font-size: 14px;
+}
 
-  .actData span:first-child {
-    font-size: 0.9em;
-    color: #777;
-  }
 
-  .actData span:last-child {
+.actData span:last-child {
     font-size: 1.1em;
     font-weight: bold;
-    color: #1976d2; /* Azul primario para el texto destacado */
-  }
+    color: var(--color-primary);
+}
 
-  .formStyles {
+.formStyles {
     display: flex;
     flex-direction: column;
     padding: 15px;
-    border-top: 1px solid #e0e0e0; /* Línea divisora superior */
-  }
+    border-top: 1px solid var(--color-text-muted);
+}
 
-  .sectionStyle {
+.sectionStyle {
     font-size: 1em;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333;
-  }
+    color: var(--color-text-primary);
+}
 
-  .inputTittle,
-  .inputDescription,
-  .selectedStyle {
+.inputTittle,
+.inputDescription,
+.selectedStyle {
     padding: 10px;
-
-    border: 1px solid #ccc;
+    background-color: var(--color-background-cool);
+    border: none;
     border-radius: 4px;
     font-size: 1em;
-  }
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
 
-  .inputTittle::placeholder,
-  .inputDescription::placeholder {
-    color: #999;
-  }
+.inputTittle::placeholder,
+.inputDescription::placeholder {
+    color: var(--color-primary);
+}
 
-  .selectContainer {
+.selectContainer {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
 
-  }
+}
 
-  .labelStyle {
+.labelStyle {
     font-size: 0.9em;
-    color: #555;
+    color: var(--color-text-primary);
     margin-bottom: 5px;
-  }
+}
 
-  .selectedStyle {
-    appearance: none; /* Quitar estilos por defecto del navegador */
-    background-color: white;
-    padding-right: 25px; /* Espacio para la flecha */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px top 50%;
-    background-size: 16px;
-  }
-
-  .electionContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-
-  .electionItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  }
-
-  .electionItem svg {
-    color: #1976d2; /* Color de los iconos */
-  }
-
-  .electionItem input[type="date"],
-  .electionItem select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.9em;
-  }
-
-  .electionItem label {
-    font-size: 0.9em;
-    color: #555;
-  }
-
-  .horizontal {
+.horizontal {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 15px;
-  }
+}
 
-  .horizontal > span {
+.horizontal>span {
     font-weight: bold;
-    color: #333;
+    color: var(--color-text-primary);
     margin-bottom: 5px;
-  }
+}
 
-  .optionButton {
+.optionButton {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-background-cool);
     border-radius: 20px;
-    background-color: white;
-    color: #555;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .optionButton:hover {
-    background-color: #f0f0f0;
-  }
+.optionButton:hover {
+    background-color: var(--color-background-cool);
+}
 
-  .optionButton svg {
+.optionButton svg {
     color: #1976d2;
-  }
+}
 
-  /* Responsive adjustments if needed */
-  @media (min-width: 768px) {
+/* Responsive adjustments if needed */
+@media (min-width: 768px) {
     .horizontal {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
     }
 
-    .horizontal > span {
-      margin-right: 15px;
-      margin-bottom: 0;
+    .horizontal>span {
+        margin-right: 15px;
+        margin-bottom: 0;
     }
 
     .optionButton {
-      margin-right: 10px;
+        margin-right: 10px;
     }
-  }
+}

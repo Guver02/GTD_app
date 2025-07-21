@@ -1,0 +1,10 @@
+.text{
+    color: var(--color-text-primary);
+    fill: var(--color-text-primary);
+}
+.circular{
+    stroke: var(--color-primary);
+}
+.borderCircular{
+    stroke: var(--color-primary-light);
+}

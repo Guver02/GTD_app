@@ -13,6 +13,7 @@ import { NextTask } from "../task_components/NextTask";
 import { FilterModal } from "../ui_components/FilterModal";
 import { AppConfigManager } from "../../manager/AppConfigManager";
 import { useProjectByTaskID } from "../custom_hooks/useGetProject";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     dashboardContainer,
@@ -46,6 +47,7 @@ function Dashboard() {
     const { openModal } = useContext(ModalContext);
     const token = AppConfigManager.getToken();
     const decoded = jwtDecode(token);
+    const {translation} = useLanguage()
 
     const addFilter = (unsectionedId, projectId) => {
         setFilters(prev => [...prev, { unsectionedId, projectId }]);
@@ -100,7 +102,7 @@ function Dashboard() {
                     />
                     <div className={userWelcome}>
                         <h1>{decoded.username}</h1>
-                        <p>Bienvenido de nuevo</p>
+                        <p>{translation.welcomeBack}</p>
                     </div>
                 </div>
 
@@ -111,7 +113,7 @@ function Dashboard() {
 
             <div className={nextActionContainer}>
                 <div className={nextActionHeader}>
-                    <h3><FastForward size={16} className="inline-icon" />Next Actions</h3>
+                    <h3><FastForward size={16} className="inline-icon" />{`${translation.nextAction}`}</h3>
                     <FilterModal
                         addFilter={addFilter}
                         removeFilter={removeFilter}
@@ -122,15 +124,15 @@ function Dashboard() {
                 <div className={boardContainer}>
                     <div className={listsContainer}>
                         <div className={columnContainer}>
-                            <span className={columnTittle}>Pending</span>
+                            <span className={columnTittle}>{translation.pending}</span>
                             <TaskList taskIds={filteredTaskIds.pending} TaskComponent={NextTask} isMove={false} />
                         </div>
                         <div className={columnContainer}>
-                            <span className={columnTittle}>In Progress</span>
+                            <span className={columnTittle}>{translation.inProgress}</span>
                             <TaskList taskIds={filteredTaskIds.in_progress} TaskComponent={NextTask} isMove={false} />
                         </div>
                         <div className={columnContainer}>
-                            <span className={columnTittle}>Done</span>
+                            <span className={columnTittle}>{translation.completed}</span>
                             <TaskList taskIds={filteredTaskIds.completed} TaskComponent={NextTask} isMove={false} />
                         </div>
                     </div>

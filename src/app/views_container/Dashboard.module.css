@@ -3,7 +3,7 @@
     align-items: center;
     gap: 14px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
+    color: var(--color-text-primary);
     height: 100%;
     width: 100%;
     max-width: 1084px;
@@ -155,13 +155,13 @@
     color: var(--color-text-primary);
 }
 .columnContainer:nth-of-type(1) .columnTittle{
-    background-color: #acd6ea;
+    background-color: var(--color-pending-tittle);
 }
 .columnContainer:nth-of-type(2) .columnTittle{
-    background-color: #ffbf8d;
+    background-color: var(--color-in-progress-tittle);
 }
 .columnContainer:nth-of-type(3) .columnTittle{
-    background-color: #afe5b1;
+    background-color: var(--color-completed-tittle);
 }
 @media (max-width: 740px) {
     .dashboardContainer{

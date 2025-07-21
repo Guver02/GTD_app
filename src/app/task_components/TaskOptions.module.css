@@ -43,7 +43,7 @@ li{
 }
 .sectionOptionsList button:hover{
     cursor: pointer;
-    background-color: var(--color-background-grayish);
+    background-color: var(--color-background-cool);
 }
 .sectionOptionsList  button > svg{
     color: var(--color-text-primary);

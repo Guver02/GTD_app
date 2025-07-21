@@ -12,6 +12,7 @@
 
     bottom: -100%;
     transition: bottom 0.5s;
+    color: var(--color-text-primary);
 }
 .topTittle{
     color: var(--color-text-primary);
@@ -43,20 +44,19 @@
     box-sizing: border-box;
 }
 
-/* ✅ Primero: estado base de inputs */
 .tittle,
 .formDescription {
+    all: unset;
     width: 100%;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: var(--color-background-cool);
     border: none;
-    border-color: var(--global-sup);
     font-family: 'Quicksand', sans-serif;
     border-radius: 4px;
-    color: #757575;
+    color: var(--color-text-primary);
+    margin-top: 8px;
 }
 
-/* Título */
 .tittle {
     padding: 20px 8px;
     font-size: 24px;
@@ -65,7 +65,6 @@
     margin-top: 12px;
 }
 
-/* Descripción */
 .formDescription {
     padding: 8px 8px;
     height: auto;
@@ -74,13 +73,12 @@
     margin-bottom: 12px;
 }
 
-/* ✅ Después: cambiar color al escribir */
+
 .tittle:not(:placeholder-shown),
 .formDescription:not(:placeholder-shown) {
-    color: #000;
+    color: var(--color-text-primary);
 }
 
-/* Quitar outline */
 .tittle:focus,
 .formDescription:focus {
     outline: none;
@@ -88,7 +86,7 @@
 
 .tittle:not(:focus),
 .formDescription:not(:focus) {
-    color: #757575;
+    color: var(--color-background-grayish);
 }
 
 .confirmButton {
@@ -97,8 +95,8 @@
     justify-content: center;
     padding: 8px 12px;
     border: none;
-    background-color: #4a90e2;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-button-text);
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
@@ -106,7 +104,7 @@
 }
 
 .confirmButton:hover {
-    background-color: #2c54d8;
+    background-color: var(--color-primary-medium);
 }
 
 .cancelButton {
@@ -115,8 +113,8 @@
     justify-content: center;
     padding: 8px 12px;
     border: none;
-    background-color: #e0e0e0;
-    color: #757575;
+    background-color: var(--color-other-button);
+    color: var(--color-other-button-text);
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
@@ -124,7 +122,7 @@
 }
 
 .cancelButton:hover {
-    background-color: #bdbdbd;
+    background-color: var(--color-other-button-hover);
 }
 .rowFlex{
     display: flex;
@@ -141,20 +139,21 @@
     bottom: 10%;
 }
 .deleteButton{
-    color: #757575;
+    background-color: var(--color-other-button);
+    color: var(--color-other-button-text);
 }
 .lefthHeader{
     width: fit-content;
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    background-color: #e0e0e0;
+    background-color: var(--color-background-cool);
     border-radius: 4px;
     padding: 4px 8px;
 }
 .lefthHeader:hover{
     cursor: pointer;
-    background-color: lightgray;
+    background-color: var(--color-background-grayish);
 }
 .lefthHeader:hover .deleteButton{
     color: red;
@@ -174,7 +173,7 @@
   .colorSelectorContainer label {
     display: block;
     margin-bottom: 5px;
-    color: #343a40;
+    color: var(--color-text-primary);
     padding: 0 0 0 8px;
     font-weight: bold;
   }
@@ -197,10 +196,10 @@
 
   .colorCircle:hover {
     border: 1px solid transparent;
-    border-color: var(--color-text-secondary);
+    border-color: var(--color-primary);
   }
 
   .selectedColorCircle {
-    border-color: var(--color-text-secondary);
-    box-shadow: 0 0 0 2px var(--color-text-secondary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary);
   }

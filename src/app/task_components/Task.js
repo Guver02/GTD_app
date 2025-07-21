@@ -11,6 +11,7 @@ import { useTaskService } from "../../controllers/taskController";
 import { HoverModal } from "../ui_components/HoverModal";
 import { TaskOptions } from "./TaskOptions";
 import { StatusOptions } from "./StatusOptions";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     taskContainer,
@@ -219,13 +220,14 @@ const Task = React.memo(({ taskId, isMove = true }) => {
 
 function TaskPlaceholder({ sectionId }) {
     const { setNodeRef } = useSortable({ id: `placeholder-${sectionId}` })
+    const {translation} = useLanguage()
 
     return (
         <div
             ref={setNodeRef}
             className={placeholderContainer}
         >
-            <span>Sección vacía</span>
+            <span>{translation.emptySection}</span>
         </div>
     )
 }

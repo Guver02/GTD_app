@@ -8,7 +8,7 @@
     gap: 4px;
 }
 .filterButton{
-    background-color: var(--color-background-grayish);
+    background-color: var(--color-background);
     padding: 8px 20px;
     display: flex;
     flex-direction: row;
@@ -20,11 +20,11 @@
 }
 .filterButton:hover{
     cursor: pointer;
-    background-color: var(--color-text-muted);
+    background-color: var(--color-background-cool);
 }
 .filtersCount{
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-text-primary);
     border-radius: 50%;
     font-size: 16px;
     font-weight: bold;
@@ -42,9 +42,8 @@
     flex-direction: column;
     position: absolute;
     z-index: 100;
-    background-color: #fff;
+    background-color: var(--color-background-cool);
     border-radius: 8px;
-    border: 1px solid var(--color-text-muted);
     top: 120%;
     right: 0;
     height: auto;
@@ -59,7 +58,7 @@
 }
 .filterList::-webkit-scrollbar-thumb{
     border-radius: 40px;
-    background-color: lightgray;
+    background-color: var(--color-text-muted);
 }
 .filterListItem{
     width: 100%;
@@ -91,9 +90,7 @@
     transform: scale(1.5);
     cursor: pointer;
 }
-.checkBox::checkmark{
-    background-color: red;
-}
+
 .iconContainer {
     width: max-content;
     display: flex;

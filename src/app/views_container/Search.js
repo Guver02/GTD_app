@@ -5,6 +5,7 @@ import { useDataStore } from '../../store/data_store';
 import { Task } from '../task_components/Task';
 import { Project } from '../projects_components/Project';
 import { useNavigate } from 'react-router-dom';
+import {useLanguage} from '../custom_hooks/useLanguage';
 
 const {
   sidebarContainer,
@@ -29,6 +30,8 @@ function SearchModal () {
 
     const arrayTasks = Object.values(tasks)
     const arrayProjects = Object.values(projects)
+
+    const { translation } = useLanguage()
 
 
     const handleChangue = (e) => {
@@ -76,7 +79,7 @@ function SearchModal () {
       <div className={searchBar}>
         <input
         type="text"
-        placeholder="Busca o escribe un comando..."
+        placeholder={translation.searchExtends}
         value={search}
         onChange={(e) => handleChangue(e)}
         />
@@ -87,7 +90,7 @@ function SearchModal () {
 
         {(filterTasks.length > 0) &&
         <div className={tasksSection}>
-            <h2 className={sectionTitle}>Tareas</h2>
+            <h2 className={sectionTitle}>{translation.tasks}</h2>
             {
                 filterTasks.map((item) =><Task key={item.id} taskId={item.id} isMove={false}/> )
             }
@@ -96,7 +99,7 @@ function SearchModal () {
 
         {(filterProject.length > 0) &&
         <div className={tasksSection}>
-            <h2 className={sectionTitle}>Proyectos</h2>
+            <h2 className={sectionTitle}>{translation.projects}</h2>
             {
                 filterProject.map((item) =><Project key={item.id} project={item} onClickProject={redirectToProject}/> )
             }
@@ -104,38 +107,38 @@ function SearchModal () {
         }
 
         <div className={navigationSection}>
-          <h2 className={sectionTitle}>Navegación</h2>
+          <h2 className={sectionTitle}>{translation.navigation}</h2>
           <div
           className={menuItem}
           onClick={handleDashboard}
           >
             <Home className={icon} />
-            <span className={itemText}>Ir a Inicio</span>
-            <span className={shortcut}>G luego H</span>
+            <span className={itemText}>{translation.goHome}</span>
+            <span className={shortcut}>{`G ${translation.then} H`}</span>
           </div>
 
           <div className={menuItem}
           onClick={redirectToInbox}
           >
             <Inbox className={icon} />
-            <span className={itemText}>Ir a Bandeja de entrada</span>
-            <span className={shortcut}>G luego I</span>
+            <span className={itemText}>{translation.goInbox}</span>
+            <span className={shortcut}>{`G ${translation.then} I`}</span>
           </div>
 
           <div className={menuItem}
           onClick={handleSomeday}
           >
             <Coffee className={icon} />
-            <span className={itemText}>Ir a Algún día/ Quizás</span>
-            <span className={shortcut}>G luego T</span>
+            <span className={itemText}>{translation.goToSomeday}</span>
+            <span className={shortcut}>{`G ${translation.then} S`}</span>
           </div>
 
             <div className={menuItem}
             onClick={handleReferenceFile}
             >
             <FileText className={icon} />
-            <span className={itemText}>Ir al Archivo de Referencia</span>
-            <span className={shortcut}>G luego T</span>
+            <span className={itemText}>{translation.goToReference}</span>
+            <span className={shortcut}>{`G ${translation.then} R`}</span>
             </div>
 
         </div>

@@ -3,12 +3,12 @@ import { TaskList } from "../task_components/TaskList";
 import { useDataStore } from "../../store/data_store";
 import * as styles from './Someday.module.css'
 import { SomedayTask } from "../task_components/SomedayTask";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     somedayView,
     somedayContainer,
     tittle,
-    scrollableContainer,
     listContainer
 } = styles;
 
@@ -16,6 +16,7 @@ function Someday ({specialSomedayID}) {
     const unsectionsByProject = useDataStore((state) => state.unsectionsByProject);
     const somedayProject = useDataStore(state => state.specialProjectsBySpecialId[specialSomedayID])
     const tasks = useDataStore((state) => state.tasks);
+    const {translation} = useLanguage()
 
     const somedayTasks = () => {
         return Object.values(tasks)
@@ -28,9 +29,10 @@ function Someday ({specialSomedayID}) {
 
     return (
         <div className={somedayView}>
+
             <div className={somedayContainer}>
 
-            <span className={tittle}>Someday / Maybe</span>
+            <span className={tittle}>{translation.somedayMaybe}</span>
 
 
                 <div className={listContainer}>

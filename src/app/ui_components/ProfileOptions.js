@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import * as style from "./ProfileOptions.module.css";
-import { User, LogOut, Settings, Moon, Sun } from "lucide-react";
+import { User, LogOut, Settings, Moon, Sun, Languages } from "lucide-react";
 import { useAuthController } from "../../controllers/authController";
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../providers/ModalContext";
 import { ProfileView } from "./ProfileView";
 import { useTheme } from "../providers/ThemeContext";
+import { useLanguage } from "../custom_hooks/useLanguage";
+import { LanguageSelector } from "./LanguageSelector";
 
 
 const {
@@ -20,6 +22,7 @@ function ProfileOptions({ }) {
     const {logout} = useAuthController()
     const navigate = useNavigate()
     const {openModal, closeModal} = useContext(ModalContext)
+    const {translation} = useLanguage()
 
     const handleLogOut = async () => {
         navigate('/auth/login')
@@ -35,6 +38,10 @@ function ProfileOptions({ }) {
         setTheme(theme === 'dark' ? 'light' : 'dark')
     };
 
+    const handleLanguage = () => {
+        openModal(<LanguageSelector/>)
+    }
+
     return (
         <div className={container}>
             <ul className={list}>
@@ -43,7 +50,13 @@ function ProfileOptions({ }) {
                     <li>
                         <button onClick={handleProfile}>
                             <User />
-                            <span>Profile</span>
+                            <span>{translation.viewProfile}</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onClick={handleLanguage}>
+                            <Languages/>
+                            <span>{translation.language}</span>
                         </button>
                     </li>
                     <li>
@@ -52,13 +65,13 @@ function ProfileOptions({ }) {
                             ?
                             <>
                                 <Moon/>
-                            <span>Moon Mode</span>
+                            <span>{translation.darkMode}</span>
                             </>
                             :
                             <>
                             <Sun/>
 
-                            <span>Light Mode</span>
+                            <span>{translation.lightMode}</span>
                             </>
                             }
                         </button>
@@ -71,7 +84,7 @@ function ProfileOptions({ }) {
                         className={logoutButton}
                         onClick={handleLogOut}>
                             <LogOut />
-                            <span>Log Out</span>
+                            <span>{translation.logout}</span>
                         </button>
                     </li>
                 </li>

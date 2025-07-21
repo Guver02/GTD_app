@@ -1,6 +1,7 @@
 import React from "react";
 import { Folder, MoreHorizontal, MoreVertical } from 'lucide-react';
 import * as styles from './Project.module.css'
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     projectContainer,
@@ -12,6 +13,7 @@ const {
 } = styles
 
 function Project({ project, onClickProject }) {
+    const {translation} = useLanguage()
 
     const iconProjectStyle = {
         color: `rgb(${project.myColor.color})`

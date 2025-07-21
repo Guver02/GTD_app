@@ -5,6 +5,7 @@ import { ModalContext } from '../providers/ModalContext';
 import { SearchModal } from '../views_container/Search';
 import { Clarify } from '../views_container/Clarify';
 import { ProjectListModal } from '../projects_components/ProjectListModal';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 function useSidebarLogic() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -12,14 +13,15 @@ function useSidebarLogic() {
     const navigate = useNavigate();
     const location = useLocation();
     const { openModal, closeModal} = useContext(ModalContext);
+    const {translation} = useLanguage()
 
     const menuItems = [
-        { icon: <Inbox />, label: 'Inbox', path: '/app/inbox', key: 'inbox' },
-        { icon: <Grid />, label: 'Dashboard', path: '/app/dashboard', key: 'dashboard' },
-        { icon: <Coffee />, label: 'Someday', path: '/app/someday', key: 'someday' },
+        { icon: <Inbox />, label: translation.inbox, path: '/app/inbox', key: 'inbox' },
+        { icon: <Grid />, label: translation.dashboard, path: '/app/dashboard', key: 'dashboard' },
+        { icon: <Coffee />, label: translation.someday, path: '/app/someday', key: 'someday' },
         /**{ icon: <Archive />, label: 'Tracking File', path: '/app/traking-file', key: 'traking-file' },
         { icon: <UserCheck />, label: 'Waiting', path: '/app/waiting', key: 'waiting' }, */
-        { icon: <FileText />, label: 'Reference File', path: '/app/reference-file', key: 'reference-file' },
+        { icon: <FileText />, label: translation.referenceFile, path: '/app/reference-file', key: 'reference-file' },
     ];
 
     useEffect(() => {

@@ -2,6 +2,7 @@ import React from "react";
 import * as styles from "./ReferenceFile.module.css";
 import { TaskCard } from "../task_components/TaskCard";
 import { useDataStore } from "../../store/data_store";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
   masonryContainer,
@@ -14,6 +15,7 @@ function ReferenceFile ({specialReferenceFileID}) {
     const tasks = useDataStore((state) => state.tasks);
     const unsectionsByProject = useDataStore((state) => state.unsectionsByProject);
     const rFileProject = useDataStore(state => state.specialProjectsBySpecialId[specialReferenceFileID])
+    const {translation} = useLanguage()
 
     const filteredRFile = () => {
         return Object.values(tasks)
@@ -26,7 +28,7 @@ function ReferenceFile ({specialReferenceFileID}) {
 
   return (
     <div className={masonryContainer}>
-      <h2 className={masonryTitle}>Reference File</h2>
+      <h2 className={masonryTitle}>{translation.referenceFile}</h2>
       <div className={scrollContainer}>
         <div className={masonryGrid}>
         {tasksRFile.map(item => (

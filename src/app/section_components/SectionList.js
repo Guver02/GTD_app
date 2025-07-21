@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import * as style from './SectionList.module.css'
 import { Plus } from 'lucide-react';
 import { useSectionService } from '../../controllers/sectionController';
+import { useLanguage } from '../custom_hooks/useLanguage';
 
 const {
     sectionListContainer,
@@ -15,6 +16,7 @@ const {
 function SectionList({ sectionIds, SectionComponent, projectId }) {
     const { createSection } = useSectionService()
     const [input, setInput] = useState('')
+    const {translation} = useLanguage()
 
     const handleCreateSection = () => {
         createSection({
@@ -46,7 +48,7 @@ function SectionList({ sectionIds, SectionComponent, projectId }) {
                         }}>
                             <input
                                 className={text}
-                                placeholder='Añadir Secccion'
+                                placeholder={translation.addSection}
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 enterKeyHint="done"

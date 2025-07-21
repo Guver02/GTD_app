@@ -14,6 +14,7 @@ import { DeleteConfirmation } from "../ui_components/DeleteConfirmation";
 import { useProjectService } from "../../controllers/projectController";
 import { HoverModal } from "../ui_components/HoverModal";
 import { ProjectOptions } from "../projects_components/ProjectOptions";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const {
     projectsContainer,
@@ -38,6 +39,7 @@ function Projects() {
     const [input, setInput] = useState('')
     const navigate = useNavigate();
     const inputRef = useRef(null);
+    const {translation} = useLanguage()
 
     useEffect(() => {
         if (!project) navigate('/app')
@@ -158,7 +160,7 @@ function Projects() {
                         <input
                             ref={inputRef}
                             className={inputStyle}
-                            placeholder="El nombre de tu proyecto"
+                            placeholder={translation.projectName}
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             enterKeyHint="done"

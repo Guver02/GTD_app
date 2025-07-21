@@ -7,7 +7,7 @@
     max-height: 80%;
     border-radius: 8px;
     background-color: var(--color-background);
-    color: white;
+    color: var(--color-text-primary);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -22,7 +22,7 @@
     padding: 12px 32px;
     background: transparent;
     border: none;
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
     cursor: pointer;
     font-weight: bolder;
     font-size: 14px;
@@ -34,7 +34,7 @@
 }
 .tabButton:hover{
     border-radius: 4px;
-    background-color: var(--color-primary-light);
+    background-color: var(--color-background-cool);
 }
 
 .activeTabButton {

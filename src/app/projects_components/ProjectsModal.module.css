@@ -11,8 +11,7 @@
     align-items: center;
     font-size: 14px;
     position: relative;
-    /*background-color: rgba(0, 0, 0, 0.09);*/
-
+    color: var(--color-text-primary);
 }
 
 .button > span:first-child{
@@ -21,24 +20,24 @@
 
 }
 .button> span:nth-child(2){
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--color-text-primary);
 }
 .button> span:nth-child(3){
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--color-text-primary);
 }
 .button> span:nth-child(4){
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--color-text-primary);
 }
 .button:hover{
     cursor: pointer;
-    background-color: rgba(211, 211, 211, 0.5);
+    background-color: var(--color-background-cool);
 }
 .subModalContainer{
     position: absolute;
     top: 112%;
     border-radius: 4px;
-    border: 1px solid lightgray;
-    background-color: #fff;
+    border: 1px solid var(--color-background-cool);
+    background-color: var(--color-background);
     z-index: 100;
     width: 280px;
     display: flex;
@@ -78,7 +77,10 @@
 }
 .folderDataItem:hover{
     cursor: pointer;
-    background-color: var(--color-text-muted);
+    background-color: var(--color-background-cool);
+}
+.folderDataItem>svg{
+    color: var(--color-red)
 }
 .itemInbox{
     border-radius: 4px;
@@ -96,7 +98,7 @@
 }
 .itemInbox:hover{
     cursor: pointer;
-    background-color: var(--color-text-muted);
+    background-color: var(--color-background-cool);
 }
 .sectionItem{
     border-radius: 4px;
@@ -114,5 +116,5 @@
 }
 .sectionItem:hover{
     cursor: pointer;
-    background-color: var(--color-text-muted);
+    background-color: var(--color-background-cool);
 }

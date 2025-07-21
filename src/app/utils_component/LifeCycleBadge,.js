@@ -8,6 +8,7 @@ import {
     Ghost,
 } from "lucide-react";
 import * as styles from "./LifeCycleBadge.module.css";
+import { useLanguage } from "../custom_hooks/useLanguage";
 
 const { badge, circle, text, newborn, growing, active, mature, idle, forgotten, icon, tittleText } = styles;
 
@@ -21,6 +22,7 @@ function LifeCycleBadge({ item }) {
 
     } = item;
 
+    const {translation} = useLanguage()
 
 
     const createdDate = new Date(created_at);
@@ -64,7 +66,7 @@ function LifeCycleBadge({ item }) {
     }
 
     return (
-        <div className={badge} title={`Ciclo de vida: ${stage}`}>
+        <div className={badge} title={`${stage}`}>
 
             <span className={text}>{stage}</span>
             <div className={`${circle} ${colorClass}`}>

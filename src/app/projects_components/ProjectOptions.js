@@ -1,6 +1,7 @@
 import React from "react"
 import * as style from '../section_components/SectionOptions.module.css'
 import { useProjectService } from "../../controllers/projectController"
+import { useLanguage } from "../custom_hooks/useLanguage"
 
 const  {
     sectionOptionsContainer,
@@ -11,6 +12,7 @@ const  {
 function ProjectOptions ({id, closeOptions, deleteFunction, editFunction}) {
     const {deleteProject} = useProjectService()
 
+    const {translation} = useLanguage()
 
     const handleDelete = () => {
         deleteFunction()
@@ -30,12 +32,12 @@ function ProjectOptions ({id, closeOptions, deleteFunction, editFunction}) {
         className={sectionOptionsList}>
             <li
             onClick={handleDelete}>
-                Delete
+                {translation.delete}
             </li>
             <li
             onClick={handleEdit}
             >
-                Edit
+                {translation.edit}
             </li>
         </ul>
     </div>)

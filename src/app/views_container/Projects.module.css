@@ -54,12 +54,12 @@
     justify-content: end;
 }
 .iconsContainer > svg{
-    color: gray;
+    color: var(--color-background-grayish);
     border-radius: 4px;
     padding: 8px 4px;
 }
 .iconsContainer > svg:hover{
-    background-color: lightgray;
+    background-color: var(--color-background-cool);
     cursor: pointer;
 }
 .inputStyle{
