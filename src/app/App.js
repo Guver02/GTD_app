@@ -11,6 +11,7 @@ import { ModalProvider } from "./providers/ModalContext"
 import { GlobalTooltipProvider } from "./providers/GlobalTooltip"
 import { useAuthController } from "../controllers/authController"
 import { ThemeProvider } from "./providers/ThemeContext"
+import { LanguageProvider } from "./providers/LaguageContext"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     if (loading) return <SpinnerLoading />
 
     return (
+        <LanguageProvider>
         <GlobalTooltipProvider>
         <ModalProvider>
             <ThemeProvider>
@@ -57,6 +59,7 @@ function App() {
             </ThemeProvider>
         </ModalProvider>
         </GlobalTooltipProvider>
+        </LanguageProvider>
     )
 }
 

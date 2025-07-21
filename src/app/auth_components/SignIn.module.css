@@ -10,8 +10,8 @@
 
   .signinLeft {
     flex: 1;
-    background-color: #3f51b5;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-button-text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,7 +23,8 @@
     flex: 1;
     box-sizing: border-box;
     padding: 40px;
-    background-color: #f9f9f9;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
   }
   .inputError,
 .inputError:focus{
@@ -66,7 +67,7 @@
     box-sizing: border-box;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+
     border-radius: 5px;
   }
 
@@ -74,8 +75,8 @@
     width: 100%;
     box-sizing: border-box;
     padding: 12px;
-    background-color: #3f51b5;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-text-primary);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -86,7 +87,16 @@
     text-align: center;
   }
 @media (max-width: 768px) {
+    .signinContainer{
+        height: 100%;
+        width: 100%;
+        background-color: var(--color-primary);
+    }
     .signinLeft{
         display: none;
+    }
+    .signinRight{
+        width: 100%;
+        height: 100%;
     }
 }

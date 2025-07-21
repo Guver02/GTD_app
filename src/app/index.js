@@ -19,9 +19,7 @@ if ('serviceWorker' in navigator) {
 }
 
 root.render(
-    <LanguageProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </LanguageProvider>
 )
