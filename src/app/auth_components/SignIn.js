@@ -94,16 +94,16 @@ function SignIn() {
         if (error instanceof InfrastructureError) {
             openModal(
                 <ErrorBanner
-                principalMesssage={error.message}
-                onClose={closeModal} />
+                    principalMesssage={error.message}
+                    onClose={closeModal} />
             );
         }
 
-        if(error instanceof UnknowError)
+        if (error instanceof UnknowError)
             openModal(<ErrorBanner
-                        principalMesssage={error.message}
-                        secondaryMessage={'Error Desconcido'}
-                        onClose={closeModal}/>);
+                principalMesssage={error.message}
+                secondaryMessage={'Error Desconcido'}
+                onClose={closeModal} />);
     };
 
     const handleSubmit = async (event) => {
@@ -112,17 +112,17 @@ function SignIn() {
 
         if (!email || !userName || !password || !confirm) {
 
-            if(!userName) setErrors((prev) => ({
+            if (!userName) setErrors((prev) => ({
                 ...prev,
                 userName: { error: true, message: "" },
             }));
 
-            if(!email) setErrors((prev) => ({
+            if (!email) setErrors((prev) => ({
                 ...prev,
                 email: { error: true, message: "" },
             }));
 
-            if(!password || !confirm) setErrors((prev) => ({
+            if (!password || !confirm) setErrors((prev) => ({
                 ...prev,
                 password: { error: true, message: "" },
             }));
@@ -155,17 +155,17 @@ function SignIn() {
         clearError();
 
         if (!email || !userName || !password || !confirm) {
-            if(!userName) setErrors((prev) => ({
+            if (!userName) setErrors((prev) => ({
                 ...prev,
                 userName: { error: true, message: "" },
             }));
 
-            if(!email) setErrors((prev) => ({
+            if (!email) setErrors((prev) => ({
                 ...prev,
                 email: { error: true, message: "" },
             }));
 
-            if(!password || !confirm) setErrors((prev) => ({
+            if (!password || !confirm) setErrors((prev) => ({
                 ...prev,
                 password: { error: true, message: "" },
             }));

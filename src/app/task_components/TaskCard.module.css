@@ -10,13 +10,11 @@
   cursor: pointer;
 }
 
-/* Simula alturas variables */
 .cardContent {
   font-size: 0.9rem;
   height: auto;
 }
 
-/* O puedes añadir esta clase para simular alturas aleatorias */
 .cardContainer.randomHeightSmall {
   height: 120px;
 }

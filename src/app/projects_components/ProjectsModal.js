@@ -43,7 +43,9 @@ function ProjectsModal({ functions, values }) {
                 style={styleFolders}
                 onClick={() => setIsClosed(!isClosed)}>
 
-                <Folder />
+                <Folder
+                color={`rgba(${projects[projectId].myColor?.color},1)`}
+                fill={`rgba(${projects[projectId].myColor?.color},1)`}/>
                 <span>{projects[projectId].item_name}</span>
 
                 <span>{
@@ -96,7 +98,8 @@ function ProjectsModal({ functions, values }) {
                                         <div
                                         className={iconContainer}>
                                             <Folder
-                                                style={{ color: `rgba(${elem.myColor.color},1)` }}
+                                                color={`rgba(${elem.myColor.color},1)`}
+                                                fill={`rgba(${elem.myColor.color},1)`}
                                             />
                                         </div>
                                         <div

@@ -13,11 +13,6 @@ const {
 } = styles
 
 function Project({ project, onClickProject }) {
-    const {translation} = useLanguage()
-
-    const iconProjectStyle = {
-        color: `rgb(${project.myColor.color})`
-    }
 
     return (
         <li
@@ -27,7 +22,8 @@ function Project({ project, onClickProject }) {
             onClick={() => onClickProject(`/app/project/${project.id}`)}>
                 <div className={folderIconContainer}>
                     <Folder
-                    style={iconProjectStyle}/>
+                    color = {`rgb(${project.myColor.color})`}
+                    fill= {`rgb(${project.myColor.color})`}/>
                 </div>
 
                 <div className={contentContainer}>

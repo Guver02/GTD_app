@@ -32,7 +32,7 @@ const {
 const defaultErrors = {
     userName: { error: false, message: '' },
     password: { error: false, message: '' },
-    global: {error: false, message: ''},
+    global: { error: false, message: '' },
 };
 
 function Login() {
@@ -74,28 +74,28 @@ function Login() {
 
         if (error instanceof InvalidCredentialsError) {
             setFieldError('global', error.message);
-            setErrors(prev => ({...prev, userName: {error: true, message: ''}, password: {error: true, message: ''}}))
+            setErrors(prev => ({ ...prev, userName: { error: true, message: '' }, password: { error: true, message: '' } }))
             inputUserNameRef.current.focus();
         }
 
-        if(error instanceof InfrastructureError)
+        if (error instanceof InfrastructureError)
             openModal(<ErrorBanner
                 principalMesssage={error.message}
-                onClose={closeModal}/>);
+                onClose={closeModal} />);
 
-        if(error instanceof UnknowError)
+        if (error instanceof UnknowError)
             openModal(<ErrorBanner
                 principalMesssage={error.message}
                 secondaryMessage={'Error Desconcido'}
-                onClose={closeModal}/>);
+                onClose={closeModal} />);
     }
 
     const handleSubmit = async (event, isLocal = false) => {
         event.preventDefault();
         const auth = isLocal ? localAuth : onlineAuth;
 
-            const isLogin = await auth.logIn({ userName, password }, showErrors);
-            if (isLogin) navigate('/app/inbox');
+        const isLogin = await auth.logIn({ userName, password }, showErrors);
+        if (isLogin) navigate('/app/inbox');
     };
 
     const handleSignUpClick = (e) => {
@@ -142,7 +142,7 @@ function Login() {
 
                     <div className={rememberForgot}>
                         <label>
-                             Remember me
+                            Remember me
                         </label>
                         <a href="#">Forgot Password?</a>
                     </div>

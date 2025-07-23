@@ -26,8 +26,7 @@ function ProjectListModal({onClickProject}) {
     }
 
   return (
-    <div
-    className={projectsListContainer}>
+    <div className={projectsListContainer}>
 
         <span className={projectListTittle}>
             {`${arrFolders.length} ${translation.projects}`}
