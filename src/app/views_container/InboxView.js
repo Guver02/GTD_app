@@ -26,7 +26,7 @@ function InboxView() {
         return Object.values(tasks)
             .filter((task) =>
                 (task.parent_id === unsectionsByProject[inbox.id].id) &&
-                (task.status === 'pending'))
+                (task.is_next === false))
             .sort((a, b) => a.order - b.order)
             .map((task) => task.id)
     }
@@ -35,7 +35,7 @@ function InboxView() {
         return Object.values(tasks)
             .filter((task) =>
                 (task.parent_id === unsectionsByProject[inbox.id].id) &&
-                (task.status === 'in_progress'))
+                (task.is_next === true))
             .sort((a, b) => a.order - b.order)
             .map((task) => task.id)
     }

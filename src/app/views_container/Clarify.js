@@ -46,7 +46,7 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
     const project = useDataStore(state => state.projects[sections[task.parent_id].parent_id])
     const { closeModal } = useContext(ModalContext)
 
-    const { updateTask, deleteTask } = useTaskService()
+    const { updateTask, deleteTask, setNextActionState } = useTaskService()
 
     const prevState = useMemo(() => {
         return ({
@@ -71,19 +71,23 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
 
 
     const handleMe = () => {
+
         updateTask({
             id: task.id,
             parent_id: state.sectionId,
             item_name: state.item_name,
             description: state.description,
             order: state.order,
-            status: 'in_progress',
+            status: state.state,
             color_id: state.color_id,
             myColor: {
                 id: state.myColor.id,
                 color: state.myColor.color,
-            }
+            },
+            is_next: true
         }, prevState)
+
+
 
         console.log('handleMe ejecutado')
 
@@ -102,7 +106,8 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
             myColor: {
                 id: state.myColor.id,
                 color: state.myColor.color,
-            }
+            },
+            is_next: true
         }, prevState)
 
         onComplete()
@@ -120,7 +125,8 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
             myColor: {
                 id: state.myColor.id,
                 color: state.myColor.color,
-            }
+            },
+            is_next: false
         }, prevState)
 
         onComplete()
@@ -138,7 +144,8 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
             myColor: {
                 id: state.myColor.id,
                 color: state.myColor.color,
-            }
+            },
+            is_next: false
         }, prevState)
 
         onComplete()
@@ -162,7 +169,8 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
             myColor: {
                 id: state.myColor.id,
                 color: state.myColor.color,
-            }
+            },
+            is_next: false
         }, prevState)
         //Se necesita un delegador a x usuario o algo editable
         onComplete()
