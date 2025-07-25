@@ -232,7 +232,8 @@ async getColorById(colorId) {
                 parent_id: null,
                 order: 0,
                 color_id: 0,
-                special_type_id: specialTypesIDS.inbox
+                special_type_id: specialTypesIDS.inbox,
+                is_next: false
             },
             {
                 id: getUUID(),
@@ -242,7 +243,8 @@ async getColorById(colorId) {
                 parent_id: null,
                 order: 1,
                 color_id: 0,
-                special_type_id: specialTypesIDS.someday
+                special_type_id: specialTypesIDS.someday,
+                is_next: false
             },
             {
                 id: getUUID(),
@@ -252,7 +254,8 @@ async getColorById(colorId) {
                 parent_id: null,
                 order: 2,
                 color_id: 0,
-                special_type_id: specialTypesIDS.trackingFile
+                special_type_id: specialTypesIDS.trackingFile,
+                is_next: false
             },
             {
                 id: getUUID(),
@@ -262,7 +265,8 @@ async getColorById(colorId) {
                 parent_id: null,
                 order: 3,
                 color_id: 0,
-                special_type_id: specialTypesIDS.waiting
+                special_type_id: specialTypesIDS.waiting,
+                is_next: false
             },
             {
                 id: getUUID(),
@@ -272,7 +276,8 @@ async getColorById(colorId) {
                 parent_id: null,
                 order: 4,
                 color_id: 0,
-                special_type_id: specialTypesIDS.referenceFile
+                special_type_id: specialTypesIDS.referenceFile,
+                is_next: false
             }
         ];
 

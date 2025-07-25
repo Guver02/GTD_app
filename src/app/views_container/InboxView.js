@@ -22,6 +22,12 @@ function InboxView() {
     const tasks = useDataStore((state) => state.tasks);
     const {translation} = useLanguage()
 
+    const allTasks = () => {
+        return Object.values(tasks)
+        .sort((a, b) => a.order - b.order)
+        .map((task) => task.id)
+    }
+
     const tasksPending = () => {
         return Object.values(tasks)
             .filter((task) =>
@@ -52,6 +58,8 @@ function InboxView() {
     const tasksPendingIDs = tasksPending()
     const tasksInProgressIDs = tasksInProgress()
     const tasksCompletedIDs = tasksCompleted()
+    const allTasksIDs = allTasks()
+
 
     return (
         <div className={inboxView}>
@@ -74,6 +82,10 @@ function InboxView() {
                             <div className={sectionInbox}>
                                 <span className={sectionTittle}>{translation.completedTasks}</span>
                                 <TaskList taskIds={tasksCompletedIDs} TaskComponent={Task} isMove={false}></TaskList>
+                            </div>
+                            <div className={sectionInbox}>
+                                <span className={sectionTittle}>{translation.inbox}</span>
+                                <TaskList taskIds={allTasksIDs} TaskComponent={Task} isMove={false}></TaskList>
                             </div>
                         </div>
                     </div>

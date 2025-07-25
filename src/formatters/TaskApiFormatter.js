@@ -15,7 +15,8 @@ const TaskApiFormatter = {
             type_id: task.type_id,
             is_favorite: task.is_favorite,
             status: task.status,
-            color_id: task.color_id
+            color_id: task.color_id,
+            is_next: task.is_next
         };
     },
 
@@ -29,7 +30,8 @@ const TaskApiFormatter = {
             description: task.description,
             is_favorite: task.is_favorite,
             status: task.status,
-            color_id: task.color_id
+            color_id: task.color_id,
+            is_next: task.is_next
         };
     }
 };

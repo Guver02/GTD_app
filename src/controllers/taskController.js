@@ -25,7 +25,7 @@ const useTaskService = () => {
     const createTaskStateAndApi = useCallback(async (data) => {
         try {
             const task = createTaskUseCase(data, taskStorage, taskZustandRepository, storageError);
-
+            console.log('Tarea creada:',task)
             showTooltip({
                 tooltipText: `Tarea creada: ${task.item_name}`,
                 duration: 3000,

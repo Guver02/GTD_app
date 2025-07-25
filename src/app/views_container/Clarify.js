@@ -327,7 +327,9 @@ function Clarify({ sectionToClarifyID }) {
     useRenderLogger()
     const tasksRef = useRef(useDataStore.getState().tasks)
     const tasksList = Object.values(tasksRef.current).filter(
-        task => task.parent_id === sectionID && task.status === "pending"
+        task => task.parent_id === sectionID &&
+        task.status !== "completed" &&
+        task.is_next === false
     );
 
     const [currentIndex, setCurrentIndex] = useState(0);
