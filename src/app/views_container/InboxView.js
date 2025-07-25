@@ -24,6 +24,8 @@ function InboxView() {
 
     const allTasks = () => {
         return Object.values(tasks)
+        .filter((task) =>
+                (task.parent_id === unsectionsByProject[inbox.id].id))
         .sort((a, b) => a.order - b.order)
         .map((task) => task.id)
     }
