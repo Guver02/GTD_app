@@ -63,6 +63,7 @@ const SomedayTask = React.memo(({ taskId, isMove = true }) => {
             parent_id={task.parent_id}
             order={task.order}
             myColor={task.myColor}
+            is_next={task.is_next}
         />)
     };
 

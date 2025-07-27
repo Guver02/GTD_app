@@ -15,7 +15,7 @@ function ModalProvider ({ children }) {
 
   const closeModal = () => {
     setIsOpen(false);
-    setTimeout(() => setModalContent(null), 300); // Espera a la animación para limpiar contenido
+    setTimeout(() => setModalContent(null), 300);
   };
 
   return (

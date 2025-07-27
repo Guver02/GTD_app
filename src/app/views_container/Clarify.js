@@ -69,6 +69,13 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
         setState(prevState)
     }, [prevState])
 
+    const changeFolderSection = (projectId, sectionId) => {
+        setState((prev) => ({
+            ...prev,
+            projectId: projectId,
+            sectionId: sectionId
+        }))
+    }
 
     const handleMe = () => {
 
@@ -189,13 +196,7 @@ function ClarifyModal({ taskID, onComplete, stepNumber = 1, totalSteps = 1 }) {
         onComplete()
     }
 
-    const changeFolderSection = (projectId, sectionId) => {
-        setState((prev) => ({
-            ...prev,
-            projectId: projectId,
-            sectionId: sectionId
-        }))
-    }
+
 
     const handleCancel = () => {
         closeModal()
@@ -328,8 +329,8 @@ function Clarify({ sectionToClarifyID }) {
     const tasksRef = useRef(useDataStore.getState().tasks)
     const tasksList = Object.values(tasksRef.current).filter(
         task => task.parent_id === sectionID &&
-        task.status !== "completed" &&
-        task.is_next === false
+            task.status !== "completed" &&
+            task.is_next === false
     );
 
     const [currentIndex, setCurrentIndex] = useState(0);

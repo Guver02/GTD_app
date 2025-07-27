@@ -35,7 +35,8 @@ function ViewTask({
     description,
     parent_id,
     order,
-    myColor
+    myColor,
+    is_next
 }){
     const {updateTask} = useTaskService()
     const section = useDataStore((state) => state.sections[parent_id])
@@ -68,6 +69,7 @@ function ViewTask({
             order: state.order,
             color_id: selectedColor.id,
             myColor: selectedColor,
+            is_next: is_next
         }, prevState);
 
         closeModal()

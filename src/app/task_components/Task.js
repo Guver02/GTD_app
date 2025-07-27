@@ -64,6 +64,7 @@ const Task = React.memo(({ taskId, isMove = true }) => {
             parent_id={task.parent_id}
             order={task.order}
             myColor={task.myColor}
+            is_next={task.is_next}
         />)
     };
 
@@ -168,6 +169,9 @@ const Task = React.memo(({ taskId, isMove = true }) => {
                     >
                         <span className={content}>
                             {task.item_name}
+                        </span>
+                        <span className={description}>
+                            {task.description}
                         </span>
                         <span className={description}>
                             {task.order}

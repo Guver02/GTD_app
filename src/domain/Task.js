@@ -2,6 +2,8 @@ import { getUUID } from '../utils/generateUUID'
 
 class Task {
     constructor(data) {
+        console.log('datata',data)
+
         this.id = data.id ?? getUUID()
         this.item_name = data.item_name?.trim() ?? ''
         this.description = data.description?.trim() ?? ''

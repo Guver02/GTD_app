@@ -20,6 +20,6 @@ if ('serviceWorker' in navigator) {
 
 root.render(
         <BrowserRouter>
-            <App />
+            <App/>
         </BrowserRouter>
 )
